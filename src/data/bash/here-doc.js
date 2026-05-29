@@ -20,7 +20,7 @@ EOF`,
   details: [
     {
       title: 'Indented heredoc (<<-)',
-      explanation: '<code><<-</code> strips leading tabs (not spaces) from each line, so the heredoc can be indented with the surrounding code.',
+      explanation: '<code>&lt;&lt;-</code> strips leading tabs (not spaces) from each line, so the heredoc can be indented with the surrounding code.',
       code: `if true; then
 \tcat <<-EOF
 \t\tThis line has tabs stripped
