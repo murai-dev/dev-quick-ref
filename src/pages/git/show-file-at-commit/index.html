@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git show a file at a specific commit | errorfix.dev</title>
+    <meta name="description" content="View or restore a file from any past git commit using git show or git checkout. No need to switch branches." />
+    <link rel="canonical" href="https://errorfix.dev/git/show-file-at-commit/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / show-file-at-commit</p>
+
+      <h1>git show a file at a specific commit</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Print the file contents at a specific commit
+git show abc1234:src/app.ts
+
+# Restore a file from a past commit into your working directory
+git checkout abc1234 -- src/app.ts</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You want to inspect or recover a file as it looked at a past commit — without switching branches.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Save the old version to a different filename</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git show abc1234:src/app.ts &gt; src/app.old.ts</code></pre>
+        </div>
+
+        <h3>Show a file from a tag or branch</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git show v1.2.0:src/app.ts
+git show main:src/app.ts</code></pre>
+        </div>
+
+        <h3>See all files changed in a commit</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git show --name-only abc1234</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/bisect/">git bisect — find the commit that broke something</a></li>
+          <li><a href="/git/diff-branches/">git diff between two branches</a></li>
+          <li><a href="/git/recover-deleted-branch/">git recover deleted branch</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

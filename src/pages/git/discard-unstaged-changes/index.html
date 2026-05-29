@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git discard all unstaged changes | errorfix.dev</title>
+    <meta name="description" content="Discard all unstaged changes in your working directory with git restore . or git checkout -- . Covers discarding a single file and staged changes." />
+    <link rel="canonical" href="https://errorfix.dev/git/discard-unstaged-changes/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / discard-unstaged-changes</p>
+
+      <h1>git discard all unstaged changes</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Discard all unstaged changes (current directory and below)
+git restore .
+
+# Discard changes in a specific file only
+git restore src/app.ts</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You edited files but want to throw away the changes and revert to the last committed state.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Old syntax (git &lt; 2.23)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git checkout -- .           # same as git restore .
+git checkout -- src/app.ts  # specific file</code></pre>
+        </div>
+
+        <h3>Discard staged changes (unstage + discard)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git restore --staged .      # unstage all
+git restore .               # then discard unstaged</code></pre>
+        </div>
+
+        <h3>Preview what would be discarded first</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git diff                    # shows unstaged changes before discarding</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/stash-drop/">git stash — temporarily save changes</a></li>
+          <li><a href="/git/remove-untracked/">git remove untracked files</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

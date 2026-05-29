@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git tag a specific commit — create and push tags | errorfix.dev</title>
+    <meta name="description" content="Tag a specific git commit with git tag and push it to the remote. Covers annotated tags, listing tags, and deleting tags." />
+    <link rel="canonical" href="https://errorfix.dev/git/tag-commit/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / tag-commit</p>
+
+      <h1>git tag a specific commit — create and push tags</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Tag the current HEAD (most common)
+git tag v1.0.0
+
+# Tag a specific commit by hash
+git tag v1.0.0 abc1234
+
+# Push the tag to remote
+git push origin v1.0.0
+
+# Push all local tags at once
+git push origin --tags</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You want to mark a release point in history, so you can easily reference it later with <code>git checkout v1.0.0</code>.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Annotated tag (recommended for releases)</h3>
+        <p>Annotated tags store the tagger name, date, and message — unlike lightweight tags.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git tag -a v1.0.0 -m "Release 1.0.0"
+git push origin v1.0.0</code></pre>
+        </div>
+
+        <h3>List all tags</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git tag -l
+git tag -l "v1.*"    # filter by pattern</code></pre>
+        </div>
+
+        <h3>Delete a tag locally and on the remote</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git tag -d v1.0.0                        # delete local
+git push origin --delete v1.0.0          # delete remote</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/cherry-pick/">git cherry-pick a specific commit</a></li>
+          <li><a href="/git/show-file-at-commit/">git show file at a specific commit</a></li>
+          <li><a href="/git/push-rejected/">git push rejected — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

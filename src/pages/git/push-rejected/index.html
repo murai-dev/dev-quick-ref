@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git push rejected (non-fast-forward) — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix git push rejected non-fast-forward by running git pull --rebase before pushing. The remote has commits your local branch does not have." />
+    <link rel="canonical" href="https://errorfix.dev/git/push-rejected/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / push-rejected</p>
+
+      <h1>git push rejected (non-fast-forward) — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git pull --rebase origin main
+git push origin main</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>! [rejected]        main -&gt; main (non-fast-forward)
+error: failed to push some refs to 'github.com:user/repo.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.</code></pre>
+        </div>
+        <p>Someone else pushed new commits to the remote branch since your last pull. You must integrate their changes first.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Alternative: pull with merge commit instead of rebase</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git pull origin main        # creates a merge commit
+git push origin main</code></pre>
+        </div>
+
+        <h3>Force push — last resort, never on shared branches</h3>
+        <p><code>--force-with-lease</code> is safer than <code>--force</code>: it fails if someone pushed since your last fetch.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git push --force-with-lease origin main</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+          <li><a href="/git/permission-denied-publickey/">git permission denied (publickey) — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

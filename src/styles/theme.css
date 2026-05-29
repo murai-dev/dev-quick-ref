@@ -1,0 +1,33 @@
+:root {
+  --bg:              #ffffff;
+  --fg:              #1a1a1a;
+  --fg-muted:        #6b7280;
+  --border:          #e5e7eb;
+  --link:            #2563eb;
+
+  --code-bg:         #1e1e2e;
+  --code-fg:         #cdd6f4;
+  --code-comment:    #6c7086;
+
+  --answer-bg:       #f0fdf4;
+  --answer-border:   #4ade80;
+
+  --mono: 'SF Mono', 'Fira Code', ui-monospace, 'Cascadia Code', monospace;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --max-w: 960px;
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:            #0f0f0f;
+    --fg:            #e5e7eb;
+    --fg-muted:      #9ca3af;
+    --border:        #2a2a2a;
+    --link:          #60a5fa;
+
+    --answer-bg:     #052e16;
+    --answer-border: #166534;
+  }
+}

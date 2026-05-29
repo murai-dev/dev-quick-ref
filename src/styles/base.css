@@ -1,0 +1,203 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── body ── */
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* ── site header ── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  height: 52px;
+}
+
+.site-logo {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.site-nav a {
+  font-family: var(--mono);
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--fg-muted);
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  transition: color 0.15s, background 0.15s;
+}
+
+.site-nav a:hover { color: var(--fg); background: var(--border); }
+.site-nav a.active { color: var(--fg); font-weight: 600; }
+.site-nav .nav-about { margin-left: auto; }
+
+/* ── page layout ── */
+.content-wrapper {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 36px 24px 96px;
+}
+
+/* ── breadcrumb ── */
+.breadcrumb {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-bottom: 20px;
+}
+.breadcrumb a { color: var(--link); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* ── headings ── */
+h1 {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 32px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: 10px;
+}
+
+/* ── quick answer ── */
+.quick-answer {
+  border-left: 3px solid var(--answer-border);
+  background: var(--answer-bg);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 20px 20px 20px 24px;
+  margin-bottom: 44px;
+}
+
+/* ── generic section ── */
+.section {
+  margin-bottom: 40px;
+}
+
+.section p {
+  margin-bottom: 12px;
+}
+
+.section h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 20px 0 8px;
+}
+
+/* ── code block ── */
+.code-block {
+  position: relative;
+  margin: 8px 0;
+}
+
+.code-block pre {
+  background: var(--code-bg);
+  color: var(--code-fg);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 16px 48px 16px 18px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+/* ── copy button ── */
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.08);
+  color: #9399b2;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.copy-btn:hover { background: rgba(255,255,255,0.15); color: #cdd6f4; }
+.copy-btn.copied { color: #a6e3a1; border-color: #a6e3a1; }
+
+/* ── inline code ── */
+code:not(pre code) {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  background: var(--border);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* ── error block (show error messages distinctly) ── */
+.error-block pre {
+  background: #1e0a0a;
+  color: #f38ba8;
+  border-left: 3px solid #f38ba8;
+}
+
+/* ── related list ── */
+.related-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.related-list a {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.related-list a:hover { text-decoration: underline; }
+
+/* ── footer ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.site-footer a { color: var(--fg-muted); text-decoration: none; }
+.site-footer a:hover { color: var(--fg); }
+
+/* ── responsive ── */
+@media (max-width: 600px) {
+  .site-header { gap: 16px; }
+  .content-wrapper { padding: 24px 16px 80px; }
+}

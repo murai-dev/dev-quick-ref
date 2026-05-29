@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git merge conflict — how to resolve | errorfix.dev</title>
+    <meta name="description" content="Resolve a git merge conflict by editing the conflicted files, removing conflict markers, then running git add and git merge --continue." />
+    <link rel="canonical" href="https://errorfix.dev/git/merge-conflict/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / merge-conflict</p>
+
+      <h1>git merge conflict — how to resolve</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># 1. See which files have conflicts
+git status
+
+# 2. Open each conflicted file and edit it
+#    Remove &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers and keep what you want
+
+# 3. Mark as resolved and finish the merge
+git add .
+git merge --continue</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>CONFLICT (content): Merge conflict in src/app.ts
+Automatic merge failed; fix conflicts and then commit the result.</code></pre>
+        </div>
+        <p>Git stopped the merge because the same lines were changed on both branches. You must manually choose which version to keep.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>What the conflict markers mean</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+your changes on the current branch
+=======
+incoming changes from the branch being merged
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</code></pre>
+        </div>
+
+        <h3>Use a visual merge tool</h3>
+        <p>If you prefer a GUI, open the conflict in VS Code or run a diff tool.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git mergetool            # opens the configured merge tool
+# or open in VS Code:
+code .                   # then click "Resolve in Merge Editor"</code></pre>
+        </div>
+
+        <h3>Abort the merge and start over</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git merge --abort        # restores the state before git merge</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/rebase-abort/">git rebase --abort</a></li>
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge</a></li>
+          <li><a href="/git/squash-commits/">git squash commits before merging</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

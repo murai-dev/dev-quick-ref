@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git permission denied (publickey) — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
+    <link rel="canonical" href="https://errorfix.dev/git/permission-denied-publickey/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / permission-denied-publickey</p>
+
+      <h1>git permission denied (publickey) — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># 1. Start ssh-agent and load your key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# 2. Copy your public key — paste it into GitHub / GitLab
+cat ~/.ssh/id_ed25519.pub
+#    GitHub  → Settings → SSH and GPG keys → New SSH key
+#    GitLab  → Preferences → SSH Keys → Add new key
+
+# 3. Verify the connection
+ssh -T git@github.com
+# Expected: Hi &lt;username&gt;! You've successfully authenticated...</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <p>You run <code>git push</code>, <code>git pull</code>, or <code>git clone</code> over SSH and see:</p>
+        <div class="code-block error-block">
+          <pre><code>git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.</code></pre>
+        </div>
+        <p>Git cannot authenticate because it cannot find or use your SSH private key.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>No SSH key exists yet</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check if you already have a key
+ls ~/.ssh/id_*.pub
+
+# If nothing is listed, generate one
+ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
+        </div>
+
+        <h3>macOS: key lost after reboot</h3>
+        <p>On macOS the ssh-agent resets on restart. Add this to <code>~/.ssh/config</code> to load the key automatically via Keychain:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519</code></pre>
+        </div>
+
+        <h3>Remote URL is HTTPS, not SSH</h3>
+        <p>If the remote URL starts with <code>https://</code>, Git uses a password/token prompt instead of SSH keys.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check current URL
+git remote -v
+
+# Switch to SSH
+git remote set-url origin git@github.com:user/repo.git</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/ssl-certificate-error/">git SSL certificate problem — fix</a></li>
+          <li><a href="/git/remote-change-url/">git remote change URL</a></li>
+          <li><a href="/git/clone-specific-branch/">git clone a specific branch</a></li>
+          <li><a href="/git/push-rejected/">git push rejected (non-fast-forward) — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

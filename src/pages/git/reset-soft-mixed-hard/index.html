@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git reset --soft vs --mixed vs --hard — the difference | errorfix.dev</title>
+    <meta name="description" content="Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them." />
+    <link rel="canonical" href="https://errorfix.dev/git/reset-soft-mixed-hard/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / reset-soft-mixed-hard</p>
+
+      <h1>git reset --soft vs --mixed vs --hard — the difference</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># --soft   → undo commit, keep changes STAGED
+git reset --soft HEAD~1
+
+# --mixed  → undo commit, keep changes UNSTAGED  (default)
+git reset HEAD~1
+
+# --hard   → undo commit, DISCARD all changes  (destructive)
+git reset --hard HEAD~1</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Quick reference</p>
+        <p>All three move HEAD backward — they differ only in what happens to your working directory and staging area.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Mode comparison</p>
+        <h3>--soft: safest — keeps everything staged</h3>
+        <p>The commit is removed, but all changes from that commit are left in the staging area, ready to recommit.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git reset --soft HEAD~1
+git status          # changes show as "Changes to be committed"
+git commit -m "Better message"</code></pre>
+        </div>
+
+        <h3>--mixed (default): unstages but keeps files</h3>
+        <p>The commit is removed and changes are unstaged, but your actual files are not touched.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git reset HEAD~1
+git status          # changes show as "Changes not staged for commit"</code></pre>
+        </div>
+
+        <h3>--hard: discards everything (use with care)</h3>
+        <p><strong>Cannot be undone easily.</strong> All changes from the commit and any unstaged edits are permanently deleted.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git reset --hard HEAD~1
+# If you regret this, try:
+git reflog          # find the lost commit hash
+git checkout -b recovery abc1234</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a></li>
+          <li><a href="/git/recover-deleted-branch/">git recover a deleted branch via reflog</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

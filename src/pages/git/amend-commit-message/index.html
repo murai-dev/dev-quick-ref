@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git amend last commit message — rewrite without a new commit | errorfix.dev</title>
+    <meta name="description" content="Fix the last git commit message with git commit --amend -m &quot;New message&quot;. Works only if you have not pushed the commit yet." />
+    <link rel="canonical" href="https://errorfix.dev/git/amend-commit-message/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / amend-commit-message</p>
+
+      <h1>git amend last commit message — rewrite without a new commit</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Rewrite the last commit message
+git commit --amend -m "fix: correct the login redirect URL"
+
+# Open your editor to amend instead of inline
+git commit --amend</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You just committed and noticed a typo in the message, or want to add more detail before pushing.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Add a forgotten file to the last commit</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git add forgotten-file.ts
+git commit --amend --no-edit     # keeps the existing message</code></pre>
+        </div>
+
+        <h3>Amend a commit that was already pushed</h3>
+        <p><strong>Avoid amending pushed commits on shared branches.</strong> If you must, force-push — but only if you are the sole user of the branch.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git commit --amend -m "corrected message"
+git push --force-with-lease origin my-branch</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/squash-commits/">git squash commits — rewrite multiple commits</a></li>
+          <li><a href="/git/push-rejected/">git push rejected after amend — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

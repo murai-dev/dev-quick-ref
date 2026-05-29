@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git squash commits — combine commits before merging | errorfix.dev</title>
+    <meta name="description" content="Squash multiple git commits into one using interactive rebase (git rebase -i). Clean up your commit history before opening a pull request." />
+    <link rel="canonical" href="https://errorfix.dev/git/squash-commits/" />
+    <script type="module" src="../../../entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / squash-commits</p>
+
+      <h1>git squash commits — combine commits before merging</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Squash the last 3 commits into one
+git rebase -i HEAD~3
+
+# In the editor: change "pick" to "squash" (or "s") for all but the first commit
+# Save and close — git opens another editor for the combined commit message</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You have several "WIP" or "fix typo" commits on your feature branch and want to clean them up before merging.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>What the rebase editor looks like</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>pick abc1234 add login page
+squash def5678 fix typo
+squash ghi9012 remove console.log</code></pre>
+        </div>
+
+        <h3>Squash all commits on a feature branch at once</h3>
+        <p>Use the merge-base to find where your branch diverged from main:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rebase -i $(git merge-base HEAD main)</code></pre>
+        </div>
+
+        <h3>Push after squashing (force push required)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git push --force-with-lease origin feature-branch</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/rebase-abort/">git rebase --abort</a></li>
+          <li><a href="/git/amend-commit-message/">git amend last commit message</a></li>
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>
