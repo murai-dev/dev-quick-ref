@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git submodule update — initialize and update all submodules | errorfix.dev</title>
+    <meta name="description" content="Initialize and update all git submodules recursively with git submodule update --init --recursive. Fix missing submodule directories after cloning." />
+    <link rel="canonical" href="https://errorfix.dev/git/submodule-update/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / submodule-update</p>
+
+      <h1>git submodule update — initialize and update all submodules</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Initialize and update all submodules (run after git clone)
+git submodule update --init --recursive</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You cloned a repository that uses submodules and the submodule directories are empty, or a teammate added a new submodule and your local copy is out of date.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Clone a repo and initialize submodules in one command</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git clone --recurse-submodules https://github.com/user/repo.git</code></pre>
+        </div>
+
+        <h3>Pull latest changes in all submodules</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git submodule update --remote --recursive</code></pre>
+        </div>
+
+        <h3>Show submodule status</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git submodule status</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/shallow-to-full-clone/">git shallow clone to full history</a></li>
+          <li><a href="/git/clone-specific-branch/">git clone a specific branch</a></li>
+          <li><a href="/git/remote-change-url/">git remote change URL</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

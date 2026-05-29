@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git push rejected — file too large | errorfix.dev</title>
+    <meta name="description" content="Fix git push rejected because a file exceeds the size limit. Remove the large file from history with git rm --cached or migrate it to Git LFS." />
+    <link rel="canonical" href="https://errorfix.dev/git/large-file-rejected/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / large-file-rejected</p>
+
+      <h1>git push rejected — file too large</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Remove the large file from the last commit
+git rm --cached path/to/large-file.zip
+echo "path/to/large-file.zip" &gt;&gt; .gitignore
+git commit --amend --no-edit
+git push origin main</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+remote: error: Trace: abc123
+remote: error: See https://gh.io/lfs for more information.
+remote: error: File path/to/large-file.zip is 105.00 MB; this exceeds GitHub's file size limit of 100.00 MB.</code></pre>
+        </div>
+        <p>The file was committed to your local repository, but the remote (GitHub) refuses files over 100 MB.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>If the large file was committed several commits ago</h3>
+        <p>Use <code>git filter-repo</code> to remove it from the full history.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install: pip install git-filter-repo
+git filter-repo --path path/to/large-file.zip --invert-paths
+git push --force-with-lease origin main</code></pre>
+        </div>
+
+        <h3>Track large files with Git LFS instead</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git lfs install
+git lfs track "*.zip"
+git add .gitattributes
+git add path/to/large-file.zip
+git commit -m "track zip with LFS"
+git push origin main</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/untrack-file/">git stop tracking a committed file</a></li>
+          <li><a href="/git/push-rejected/">git push rejected (non-fast-forward) — fix</a></li>
+          <li><a href="/git/amend-commit-message/">git amend last commit</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

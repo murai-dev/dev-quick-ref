@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git bisect — find the commit that introduced a bug | errorfix.dev</title>
+    <meta name="description" content="Use git bisect to perform a binary search through your commit history and find the exact commit that introduced a bug." />
+    <link rel="canonical" href="https://errorfix.dev/git/bisect/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / bisect</p>
+
+      <h1>git bisect — find the commit that introduced a bug</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Start bisect, mark current state as bad
+git bisect start
+git bisect bad                  # current commit has the bug
+
+# Mark a known-good commit (a tag, hash, or relative ref)
+git bisect good v1.2.0
+
+# git checks out the midpoint — test it, then mark it:
+git bisect good                 # or: git bisect bad
+
+# Repeat until git prints: "abc1234 is the first bad commit"
+
+# When done, restore HEAD
+git bisect reset</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>A bug appeared somewhere between a known-good release and the current HEAD. Bisect finds the exact commit in O(log n) steps.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Automate the test with a script</h3>
+        <p>If you have a test command that exits 0 for good and non-zero for bad, bisect can run automatically:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git bisect start
+git bisect bad HEAD
+git bisect good v1.2.0
+git bisect run npm test -- --grep "failing test name"</code></pre>
+        </div>
+
+        <h3>Skip a commit you cannot test</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git bisect skip</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/recover-deleted-branch/">git recover deleted branch via reflog</a></li>
+          <li><a href="/git/show-file-at-commit/">git show a file at a specific commit</a></li>
+          <li><a href="/git/cherry-pick/">git cherry-pick — apply a specific commit</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

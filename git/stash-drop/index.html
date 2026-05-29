@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git stash drop — remove a specific stash | errorfix.dev</title>
+    <meta name="description" content="Drop a specific git stash entry with git stash drop stash@{n}, or clear all stashes at once with git stash clear." />
+    <link rel="canonical" href="https://errorfix.dev/git/stash-drop/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / stash-drop</p>
+
+      <h1>git stash drop — remove a specific stash</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># List your stashes first
+git stash list
+
+# Drop a specific stash by index
+git stash drop stash@{0}
+
+# Drop all stashes at once
+git stash clear</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>Your stash list has grown and you want to clean up entries you no longer need.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Apply a stash and remove it in one step</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git stash pop              # applies stash@{0} and drops it</code></pre>
+        </div>
+
+        <h3>Apply a stash without removing it</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git stash apply stash@{1}  # keeps the stash in the list</code></pre>
+        </div>
+
+        <h3>Show the contents of a stash before dropping</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git stash show -p stash@{1}   # full diff of what is in stash@{1}</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a></li>
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

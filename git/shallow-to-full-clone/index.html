@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git convert shallow clone to full history | errorfix.dev</title>
+    <meta name="description" content="Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow." />
+    <link rel="canonical" href="https://errorfix.dev/git/shallow-to-full-clone/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / shallow-to-full-clone</p>
+
+      <h1>git convert shallow clone to full history</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch --unshallow</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>fatal: --shallow-since is only allowed for fetch
+# or
+warning: Could not find remote branch ...</code></pre>
+        </div>
+        <p>Your repository was cloned with <code>--depth 1</code> (common in CI/CD), so git commands that need full history — like <code>git log</code>, <code>git blame</code>, or <code>git bisect</code> — do not work correctly.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Check if your clone is shallow</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rev-parse --is-shallow-repository    # prints "true" if shallow</code></pre>
+        </div>
+
+        <h3>Fetch only a limited depth (not full history)</h3>
+        <p>If you do not need the complete history but need more than 1 commit:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch --depth=100</code></pre>
+        </div>
+
+        <h3>Unshallow a specific remote</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch --unshallow origin</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/clone-specific-branch/">git clone a specific branch</a></li>
+          <li><a href="/git/bisect/">git bisect — needs full history</a></li>
+          <li><a href="/git/submodule-update/">git submodule update</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

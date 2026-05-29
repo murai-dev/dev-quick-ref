@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git delete remote branch — push delete | errorfix.dev</title>
+    <meta name="description" content="Delete a remote branch in git using git push origin --delete branch-name. Also covers deleting local branches and pruning stale remote refs." />
+    <link rel="canonical" href="https://errorfix.dev/git/delete-remote-branch/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / delete-remote-branch</p>
+
+      <h1>git delete remote branch — push delete</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Delete the remote branch
+git push origin --delete feature/my-branch
+
+# Delete the local branch (if you also want that gone)
+git branch -d feature/my-branch</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>A feature branch has been merged and you want to clean it up on the remote (GitHub / GitLab / Bitbucket).</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Force-delete a local branch that is not fully merged</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git branch -D feature/my-branch    # uppercase D skips the merge check</code></pre>
+        </div>
+
+        <h3>Prune remote tracking refs for deleted branches</h3>
+        <p>After others delete branches on the remote, your local repo still shows stale <code>origin/branch</code> entries. Prune them:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch --prune
+# or configure git to prune automatically:
+git config --global fetch.prune true</code></pre>
+        </div>
+
+        <h3>List all remote branches</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git branch -r</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/rename-branch/">git rename a branch (local and remote)</a></li>
+          <li><a href="/git/remote-change-url/">git remote change URL</a></li>
+          <li><a href="/git/push-rejected/">git push rejected — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

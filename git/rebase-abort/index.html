@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git rebase --abort — cancel a rebase in progress | errorfix.dev</title>
+    <meta name="description" content="Cancel an in-progress git rebase and restore your branch to its pre-rebase state with git rebase --abort." />
+    <link rel="canonical" href="https://errorfix.dev/git/rebase-abort/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / rebase-abort</p>
+
+      <h1>git rebase --abort — cancel a rebase in progress</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rebase --abort</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>CONFLICT (content): Merge conflict in src/app.ts
+error: could not apply abc1234... my commit
+hint: Resolve all conflicts manually, mark them as fixed with
+hint: "git add/rm &lt;conflicted_files&gt;", then run "git rebase --continue".</code></pre>
+        </div>
+        <p>The rebase hit a conflict you do not want to resolve right now. <code>--abort</code> restores your branch exactly as it was before you ran <code>git rebase</code>.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Continue the rebase after resolving conflicts</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Edit conflicted files, then:
+git add .
+git rebase --continue</code></pre>
+        </div>
+
+        <h3>Skip a single conflicting commit</h3>
+        <p>If a commit is no longer relevant (e.g., already applied upstream), you can skip it.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rebase --skip</code></pre>
+        </div>
+
+        <h3>Check whether a rebase is in progress</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>ls .git/rebase-merge 2&gt;/dev/null &amp;&amp; echo "rebase in progress" || echo "no rebase"</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge</a></li>
+          <li><a href="/git/squash-commits/">git squash commits with interactive rebase</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

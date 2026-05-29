@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const dataDir  = join(rootDir, 'src/data');
-const pagesDir = join(rootDir, 'src/pages');
+const pagesDir = rootDir;
 
 const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];
 
@@ -108,7 +108,7 @@ ${items}
     <title>${escAttr(data.title)} | errorfix.dev</title>
     <meta name="description" content="${escAttr(data.description)}" />
     <link rel="canonical" href="https://errorfix.dev/${category}/${slug}/" />
-    <script type="module" src="../../../entrypoints/page.ts"></script>
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
   </head>
   <body>
 

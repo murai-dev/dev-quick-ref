@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git stop tracking a file — remove from git without deleting | errorfix.dev</title>
+    <meta name="description" content="Stop tracking a file that is already committed in git using git rm --cached, then add it to .gitignore so it stays ignored going forward." />
+    <link rel="canonical" href="https://errorfix.dev/git/untrack-file/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / untrack-file</p>
+
+      <h1>git stop tracking a file — remove from git without deleting</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Remove the file from git tracking (keeps the file on disk)
+git rm --cached config/secrets.json
+
+# Add it to .gitignore so it won't be re-added
+echo "config/secrets.json" &gt;&gt; .gitignore
+
+git commit -m "stop tracking secrets.json"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You accidentally committed a file (like <code>.env</code> or a config with credentials) and need to remove it from the repository history without deleting the file locally.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Untrack an entire directory</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rm --cached -r node_modules/
+echo "node_modules/" &gt;&gt; .gitignore
+git commit -m "remove node_modules from tracking"</code></pre>
+        </div>
+
+        <h3>Remove a sensitive file from all past commits</h3>
+        <p>If credentials were committed, <code>git rm --cached</code> only stops future tracking — the file still exists in history. Use <code>git filter-repo</code> to scrub it completely.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install: pip install git-filter-repo
+git filter-repo --path config/secrets.json --invert-paths</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/remove-untracked/">git remove untracked files</a></li>
+          <li><a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a></li>
+          <li><a href="/git/large-file-rejected/">git push rejected — large file</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git SSL certificate problem — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification." />
+    <link rel="canonical" href="https://errorfix.dev/git/ssl-certificate-error/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / ssl-certificate-error</p>
+
+      <h1>git SSL certificate problem — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Point git to the correct CA certificate bundle
+git config --global http.sslCAInfo /path/to/ca-bundle.crt
+
+# On macOS with Homebrew — use the system keychain bundle
+git config --global http.sslCAInfo /etc/ssl/cert.pem</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>fatal: unable to access 'https://github.com/...':
+SSL certificate problem: unable to get local issuer certificate</code></pre>
+        </div>
+        <p>Git cannot verify the HTTPS server certificate because your system's CA bundle is missing or the server uses a private certificate authority (common on corporate networks).</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Corporate proxy / self-signed cert — add the CA cert</h3>
+        <p>Ask your IT team for the corporate CA certificate, then:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Append the cert to the system bundle (Linux)
+sudo cat corp-ca.crt &gt;&gt; /etc/ssl/certs/ca-certificates.crt
+git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt</code></pre>
+        </div>
+
+        <h3>Temporarily disable SSL verification (not recommended for production)</h3>
+        <p><strong>Only use this as a short-term workaround.</strong> Disabling SSL verification exposes you to man-in-the-middle attacks.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git config --global http.sslVerify false</code></pre>
+        </div>
+
+        <h3>Disable verification for one specific host only</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git config --global http.https://gitlab.corp.internal.sslVerify false</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/permission-denied-publickey/">git permission denied (publickey) — fix</a></li>
+          <li><a href="/git/remote-change-url/">git remote change URL (HTTPS ↔ SSH)</a></li>
+          <li><a href="/git/clone-specific-branch/">git clone a specific branch</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

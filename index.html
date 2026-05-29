@@ -3,9 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dev-quick-ref</title>
+    <title>errorfix.dev — developer error solutions</title>
+    <meta name="description" content="One error, one page, one answer. Copy-paste fixes for common developer errors in git, docker, bash, regex, and npm." />
+    <link rel="canonical" href="https://errorfix.dev/" />
+    <script type="module" src="./src/entrypoints/page.ts"></script>
   </head>
   <body>
-    <h1>dev-quick-ref</h1>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <!-- ── Hero ── -->
+      <section class="home-hero">
+        <h1>errorfix.dev</h1>
+        <p class="home-tagline">One error. One page. One answer.</p>
+        <p class="home-sub">
+          Developer error reference. Copy-paste fixes at the top,
+          explanation below — no filler, no ads above the fold.
+        </p>
+      </section>
+
+      <!-- ── Categories ── -->
+      <section class="section">
+        <p class="section-label">Categories</p>
+        <div class="category-grid">
+          <a href="/git/" class="category-card">
+            <span class="category-name">git</span>
+            <span class="category-count">30 pages</span>
+          </a>
+          <span class="category-card category-card--soon">
+            <span class="category-name">docker</span>
+            <span class="category-count">coming soon</span>
+          </span>
+          <span class="category-card category-card--soon">
+            <span class="category-name">bash</span>
+            <span class="category-count">coming soon</span>
+          </span>
+          <span class="category-card category-card--soon">
+            <span class="category-name">regex</span>
+            <span class="category-count">coming soon</span>
+          </span>
+          <span class="category-card category-card--soon">
+            <span class="category-name">npm</span>
+            <span class="category-count">coming soon</span>
+          </span>
+        </div>
+      </section>
+
+      <!-- ── git pages ── -->
+      <section class="section">
+        <p class="section-label">git — 30 pages</p>
+        <ul class="related-list">
+          <li><a href="/git/amend-commit-message/">git amend last commit message — rewrite without a new commit</a></li>
+          <li><a href="/git/bisect/">git bisect — find the commit that introduced a bug</a></li>
+          <li><a href="/git/cherry-pick/">git cherry-pick — apply a commit from another branch</a></li>
+          <li><a href="/git/clone-specific-branch/">git clone a specific branch</a></li>
+          <li><a href="/git/delete-remote-branch/">git delete remote branch — push delete</a></li>
+          <li><a href="/git/detached-head/">git detached HEAD — what it means and how to fix</a></li>
+          <li><a href="/git/diff-branches/">git diff between two branches</a></li>
+          <li><a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a></li>
+          <li><a href="/git/large-file-rejected/">git push rejected — file too large</a></li>
+          <li><a href="/git/line-ending-crlf/">git line ending warning (CRLF / LF) — how to fix</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+          <li><a href="/git/permission-denied-publickey/">git permission denied (publickey) — how to fix</a></li>
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge — which to use</a></li>
+          <li><a href="/git/push-rejected/">git push rejected (non-fast-forward) — how to fix</a></li>
+          <li><a href="/git/rebase-abort/">git rebase --abort — cancel a rebase in progress</a></li>
+          <li><a href="/git/recover-deleted-branch/">git recover deleted branch — using reflog</a></li>
+          <li><a href="/git/remote-change-url/">git remote change URL — switch origin or add new remote</a></li>
+          <li><a href="/git/remove-untracked/">git remove all untracked files and directories</a></li>
+          <li><a href="/git/rename-branch/">git rename a branch (local and remote)</a></li>
+          <li><a href="/git/reset-soft-mixed-hard/">git reset --soft vs --mixed vs --hard — the difference</a></li>
+          <li><a href="/git/shallow-to-full-clone/">git convert shallow clone to full history</a></li>
+          <li><a href="/git/show-file-at-commit/">git show a file at a specific commit</a></li>
+          <li><a href="/git/squash-commits/">git squash commits — combine commits before merging</a></li>
+          <li><a href="/git/ssl-certificate-error/">git SSL certificate problem — how to fix</a></li>
+          <li><a href="/git/stash-drop/">git stash drop — remove a specific stash</a></li>
+          <li><a href="/git/submodule-update/">git submodule update — initialize and update all submodules</a></li>
+          <li><a href="/git/tag-commit/">git tag a specific commit — create and push tags</a></li>
+          <li><a href="/git/undo-last-commit/">git undo last commit — keep or discard changes</a></li>
+          <li><a href="/git/untrack-file/">git stop tracking a file — remove from git without deleting</a></li>
+          <li><a href="/git/worktree/">git worktree — work on multiple branches simultaneously</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
   </body>
 </html>
+

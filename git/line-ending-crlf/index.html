@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git line ending warning (CRLF / LF) — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix git line ending warnings about CRLF and LF by configuring core.autocrlf correctly for your OS, or using a .gitattributes file." />
+    <link rel="canonical" href="https://errorfix.dev/git/line-ending-crlf/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / line-ending-crlf</p>
+
+      <h1>git line ending warning (CRLF / LF) — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Linux / macOS — convert CRLF to LF on commit, never on checkout
+git config --global core.autocrlf input
+
+# Windows — convert LF to CRLF on checkout, back to LF on commit
+git config --global core.autocrlf true</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>warning: LF will be replaced by CRLF in src/app.ts.
+The file will have its original line endings in your working directory.</code></pre>
+        </div>
+        <p>Git is converting line endings because <code>core.autocrlf</code> is set to <code>true</code> on a non-Windows machine, or vice versa.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Use .gitattributes for consistent cross-platform settings</h3>
+        <p>A <code>.gitattributes</code> file enforces line endings regardless of individual developer settings.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .gitattributes
+* text=auto eol=lf
+*.bat text eol=crlf</code></pre>
+        </div>
+
+        <h3>Normalize existing files in the repository</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git add --renormalize .
+git commit -m "normalize line endings"</code></pre>
+        </div>
+
+        <h3>Disable warnings (not recommended)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git config --global core.safecrlf false</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/untrack-file/">git stop tracking a file</a></li>
+          <li><a href="/git/diff-branches/">git diff — why are all lines showing as changed?</a></li>
+          <li><a href="/git/amend-commit-message/">git amend last commit</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git pull --rebase vs --merge — which to use | errorfix.dev</title>
+    <meta name="description" content="Understand the difference between git pull --rebase and git pull --merge. Use rebase for a linear history, merge for explicit merge commits." />
+    <link rel="canonical" href="https://errorfix.dev/git/pull-rebase-vs-merge/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / pull-rebase-vs-merge</p>
+
+      <h1>git pull --rebase vs --merge — which to use</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Rebase: linear history, no merge commits (recommended for most teams)
+git pull --rebase origin main
+
+# Merge: explicit merge commit showing branches converged (default behavior)
+git pull origin main</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Quick comparison</p>
+        <p><code>--rebase</code> rewrites your local commits on top of the remote ones. <code>--merge</code> creates a merge commit. Both end up with the same content.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Details</p>
+        <h3>Set rebase as the default for all pulls</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git config --global pull.rebase true</code></pre>
+        </div>
+
+        <h3>History shape: rebase vs merge</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Rebase result (linear):
+A - B - C - D'  (your commit rebased on top)
+
+# Merge result (graph):
+A - B - C - M   (M = merge commit)
+         \   /
+          D</code></pre>
+        </div>
+
+        <h3>When to prefer --merge</h3>
+        <p>Use merge when you want the history to explicitly show that two branches were combined — common on long-lived integration branches.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git pull --no-rebase origin main    # equivalent to --merge</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/rebase-abort/">git rebase --abort</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+          <li><a href="/git/push-rejected/">git push rejected — fix</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

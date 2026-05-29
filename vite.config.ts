@@ -6,23 +6,36 @@ import { join } from 'node:path';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
 
-/** Recursively find all index.html files under src/pages/ */
-function findPages(dir: string, prefix: string = ''): Record<string, string> {
+const SCAN_IGNORE = new Set(['src', 'node_modules', 'dist', 'scripts', 'documents', 'public', 'locales', 'tests', '.git']);
+
+/** Find all index.html files in root-level category dirs (depth 1 and 2) */
+function findPages(dir: string): Record<string, string> {
   const result: Record<string, string> = {};
-  if (!existsSync(dir)) return result;
-  for (const entry of readdirSync(dir)) {
-    const full = join(dir, entry);
-    const rel = prefix ? `${prefix}/${entry}` : entry;
-    if (statSync(full).isDirectory()) {
-      Object.assign(result, findPages(full, rel));
-    } else if (entry === 'index.html' && prefix) {
-      result[rel.replace(/\//g, '-')] = full;
+  for (const cat of readdirSync(dir)) {
+    if (SCAN_IGNORE.has(cat) || cat.startsWith('.')) continue;
+    const catPath = join(dir, cat);
+    if (!statSync(catPath).isDirectory()) continue;
+
+    // depth-1: e.g. about/index.html
+    const directIndex = join(catPath, 'index.html');
+    if (existsSync(directIndex)) {
+      result[cat] = directIndex;
+    }
+
+    // depth-2: e.g. git/push-rejected/index.html
+    for (const slug of readdirSync(catPath)) {
+      const slugPath = join(catPath, slug);
+      if (!statSync(slugPath).isDirectory()) continue;
+      const slugIndex = join(slugPath, 'index.html');
+      if (existsSync(slugIndex)) {
+        result[`${cat}-${slug}`] = slugIndex;
+      }
     }
   }
   return result;
 }
 
-const pagesInput = findPages(resolve(rootDir, 'src/pages'));
+const pagesInput = findPages(rootDir);
 
 export default defineConfig({
   base: '/',

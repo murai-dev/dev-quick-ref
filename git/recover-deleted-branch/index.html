@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git recover deleted branch — using reflog | errorfix.dev</title>
+    <meta name="description" content="Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b." />
+    <link rel="canonical" href="https://errorfix.dev/git/recover-deleted-branch/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / recover-deleted-branch</p>
+
+      <h1>git recover deleted branch — using reflog</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Find the commit the deleted branch was pointing to
+git reflog
+
+# Recreate the branch at that commit
+git checkout -b recovered-branch abc1234</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use this</p>
+        <p>You accidentally deleted a branch with <code>git branch -D</code> and want to get it back.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Reading the reflog output</h3>
+        <p>Look for a line like <code>abc1234 HEAD@{3}: checkout: moving from recovered-branch to main</code> — the hash before the checkout is your branch tip.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git reflog --oneline | head -20</code></pre>
+        </div>
+
+        <h3>Recover a branch deleted on the remote</h3>
+        <p>If the branch was deleted on GitHub/GitLab but still exists locally:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git push origin recovered-branch</code></pre>
+        </div>
+
+        <h3>Reflog only keeps entries for ~90 days</h3>
+        <p>If the branch was deleted a long time ago, the commit may have been garbage-collected. Act quickly.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git gc --prune=now   # do NOT run this if you are trying to recover</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/detached-head/">git detached HEAD — how to fix</a></li>
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/reset-soft-mixed-hard/">git reset --hard — how to undo</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>
