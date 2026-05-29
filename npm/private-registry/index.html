@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm private registry — configure .npmrc for authentication | errorfix.dev</title>
+    <meta name="description" content="Configure npm to use a private registry (Verdaccio, GitHub Packages, Artifactory, etc.) using .npmrc. Covers authentication and per-scope configuration." />
+    <link rel="canonical" href="https://errorfix.dev/npm/private-registry/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / private-registry</p>
+
+      <h1>npm private registry — configure .npmrc for authentication</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .npmrc in project root
+registry=https://registry.npmjs.org/
+
+# Scope-specific registry
+@myorg:registry=https://npm.pkg.github.com/
+
+# Auth token for private registry
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Your project uses packages from a private registry or GitHub Packages.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>GitHub Packages setup</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .npmrc
+@myorg:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+
+# Authenticate via npm login
+npm login --registry=https://npm.pkg.github.com/ --scope=@myorg</code></pre>
+        </div>
+
+        <h3>Set registry temporarily</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># One-time install from a specific registry
+npm install @myorg/lib --registry=https://npm.pkg.github.com/
+
+# Set globally
+npm config set registry https://registry.npmjs.org/</code></pre>
+        </div>
+
+        <h3>Store token securely</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># WRONG — do not commit the token
+//npm.pkg.github.com/:_authToken=ghp_actualtoken123
+
+# CORRECT — use environment variable
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
+
+# Set NPM_TOKEN in CI environment variables or .env (not committed)</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/scoped-packages/">@scope/package — install scoped packages</a></li>
+          <li><a href="/npm/missing-peer-dependency/">npm peer dependency warnings</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

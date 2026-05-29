@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker multi-stage build — reduce image size | errorfix.dev</title>
+    <meta name="description" content="Use Docker multi-stage builds to produce small production images by discarding build tools and dependencies in a separate builder stage." />
+    <link rel="canonical" href="https://errorfix.dev/docker/multi-stage-build/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / multi-stage-build</p>
+
+      <h1>docker multi-stage build — reduce image size</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Dockerfile — multi-stage example for a Node.js app
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage — only the built output
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["node", "dist/index.js"]</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When to use</p>
+        <p>Your production image is larger than necessary because it contains compilers, dev dependencies, or build tools.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Go — build a tiny static binary</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>FROM golang:1.22 AS builder
+WORKDIR /app
+COPY . .
+RUN CGO_ENABLED=0 go build -o server .
+
+FROM scratch
+COPY --from=builder /app/server /server
+EXPOSE 8080
+ENTRYPOINT ["/server"]</code></pre>
+        </div>
+
+        <h3>Copy only specific files from a stage</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Name your stages and reference them in COPY --from=
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/public /app/public</code></pre>
+        </div>
+
+        <h3>Build a specific stage (for debugging)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Stop at the builder stage
+docker build --target builder -t my-app:debug .</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/build-failed-no-such-file/">docker build COPY — no such file</a></li>
+          <li><a href="/docker/no-space-left/">docker no space left on device</a></li>
+          <li><a href="/docker/prune-images/">docker image prune</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

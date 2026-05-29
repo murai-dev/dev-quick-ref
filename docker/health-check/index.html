@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker HEALTHCHECK — add container health check | errorfix.dev</title>
+    <meta name="description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically." />
+    <link rel="canonical" href="https://errorfix.dev/docker/health-check/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / health-check</p>
+
+      <h1>docker HEALTHCHECK — add container health check</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Dockerfile
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You want Docker (or an orchestrator like Compose/Kubernetes) to detect when a container is no longer serving traffic correctly.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>HEALTHCHECK options explained</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>HEALTHCHECK \
+  --interval=30s   \ # how often to check (default 30s)
+  --timeout=5s     \ # time limit per check (default 30s)
+  --start-period=10s \ # grace period after start (default 0s)
+  --retries=3      \ # failures before "unhealthy" (default 3)
+  CMD curl -f http://localhost/health || exit 1</code></pre>
+        </div>
+
+        <h3>Check health status</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker inspect --format '{{.State.Health.Status}}' my-container
+# healthy | unhealthy | starting
+
+# Show last few health log entries
+docker inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}' my-container</code></pre>
+        </div>
+
+        <h3>Docker Compose healthcheck</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># docker-compose.yml
+services:
+  app:
+    image: my-app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s</code></pre>
+        </div>
+
+        <h3>Disable an inherited healthcheck</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># In a child image or Compose override
+HEALTHCHECK NONE</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/container-exits-immediately/">docker container exits immediately</a></li>
+          <li><a href="/docker/view-logs/">docker logs — view container output</a></li>
+          <li><a href="/docker/compose-env/">docker compose environment variables</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm Cannot find module — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;Cannot find module 'xyz'&quot; in Node.js by installing the missing package, checking paths, and verifying module resolution." />
+    <link rel="canonical" href="https://errorfix.dev/npm/module-not-found/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / module-not-found</p>
+
+      <h1>npm Cannot find module — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install the missing module
+npm install xyz
+
+# If it's a dev dependency
+npm install --save-dev xyz
+
+# Rebuild node_modules from scratch
+rm -rf node_modules package-lock.json
+npm install</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>Error: Cannot find module 'express'
+Require stack:
+- /home/user/project/src/index.js
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1039:15)</code></pre>
+        </div>
+        <p>Node.js cannot locate the module because it is not installed, the package name is misspelled, or node_modules is missing.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Check if it is installed</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># List installed packages
+npm ls express
+
+# Or check node_modules
+ls node_modules/express</code></pre>
+        </div>
+
+        <h3>Relative path import errors</h3>
+        <p>For local file imports, check the path is correct relative to the importing file.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// WRONG — missing ./ prefix
+const utils = require('utils');     // looks in node_modules
+
+// CORRECT — explicit relative path
+const utils = require('./utils');
+const utils = require('../lib/utils');</code></pre>
+        </div>
+
+        <h3>TypeScript — missing @types package</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install type definitions
+npm install --save-dev @types/express
+
+# Or check if types are bundled
+npm info express types</code></pre>
+        </div>
+
+        <h3>ESM vs CJS mismatch</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># package.json "type": "module" uses ESM — use import instead of require
+import express from 'express';
+
+# Or rename file to .cjs to use CommonJS
+// index.cjs
+const express = require('express');</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/enoent-no-such-file/">npm ENOENT no such file</a></li>
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE dependency conflict</a></li>
+          <li><a href="/npm/npm-cache-clean/">npm cache clean</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

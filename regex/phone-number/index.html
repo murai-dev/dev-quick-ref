@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex match phone number — international and US formats | errorfix.dev</title>
+    <meta name="description" content="Regex patterns to match phone numbers in US, international (+1-XXX), and flexible formats. Covers extraction and normalization." />
+    <link rel="canonical" href="https://errorfix.dev/regex/phone-number/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / phone-number</p>
+
+      <h1>regex match phone number — international and US formats</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># US phone: 123-456-7890, (123) 456-7890, 123.456.7890
+/(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/
+
+// JavaScript
+const text = 'Call (555) 123-4567 or 555.987.6543';
+text.match(/(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g)
+// ['(555) 123-4567', '555.987.6543']</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Validate or extract phone numbers from user input or documents.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>International phone numbers (E.164 format)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># E.164: +14155552671 or +44-7911-123456
+/\+?[1-9]\d{6,14}/
+
+// Flexible international
+/\+?[\d\s().\-]{7,20}/</code></pre>
+        </div>
+
+        <h3>Python — extract US phone numbers</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>import re
+
+PHONE_RE = re.compile(r'(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}')
+text = 'Contact us at 800-555-0199 or (800) 555-0100.'
+PHONE_RE.findall(text)
+# ['800-555-0199', '(800) 555-0100']</code></pre>
+        </div>
+
+        <h3>Normalize a matched phone number to digits only</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — strip non-digit characters
+function normalize(phone) {
+  return phone.replace(/\D/g, '');
+}
+normalize('(555) 123-4567');  // '5551234567'</code></pre>
+        </div>
+
+        <h3>Consider a library for production use</h3>
+        <p>libphonenumber-js validates numbers against real carrier data (supports 200+ countries).</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm install libphonenumber-js
+
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+const phone = parsePhoneNumberFromString('+1 650-253-0000', 'US');
+phone?.isValid();   // true</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/email-pattern/">regex match email address</a></li>
+          <li><a href="/regex/url-pattern/">regex match URL</a></li>
+          <li><a href="/regex/character-classes/">regex character classes \d</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

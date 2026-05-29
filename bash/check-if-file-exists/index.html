@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash check if file or directory exists | errorfix.dev</title>
+    <meta name="description" content="Test if a file, directory, or symlink exists in bash using [ -f ], [ -d ], [ -e ], and [ -L ] in an if statement or inline." />
+    <link rel="canonical" href="https://errorfix.dev/bash/check-if-file-exists/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / check-if-file-exists</p>
+
+      <h1>bash check if file or directory exists</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># File exists and is a regular file
+if [ -f "/path/to/file.txt" ]; then
+  echo "file exists"
+fi
+
+# Directory exists
+if [ -d "/path/to/dir" ]; then
+  echo "directory exists"
+fi
+
+# Any file/dir/symlink exists
+[ -e "/path/to/thing" ] &amp;&amp; echo "exists"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to check if a file or directory exists before reading, writing, or deleting it.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>All file test operators</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>[ -e file ]   # exists (file, dir, symlink)
+[ -f file ]   # exists and is a regular file
+[ -d file ]   # exists and is a directory
+[ -L file ]   # exists and is a symbolic link
+[ -r file ]   # exists and is readable
+[ -w file ]   # exists and is writable
+[ -x file ]   # exists and is executable
+[ -s file ]   # exists and has size &gt; 0
+[ -z file ]   # string is empty (different — for variables)</code></pre>
+        </div>
+
+        <h3>File does not exist</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>if [ ! -f "config.json" ]; then
+  echo "config.json missing — creating default"
+  cp config.example.json config.json
+fi</code></pre>
+        </div>
+
+        <h3>Combine conditions</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># File exists AND is readable
+if [ -f "$file" ] &amp;&amp; [ -r "$file" ]; then
+  cat "$file"
+fi</code></pre>
+        </div>
+
+        <h3>Use [[ ]] for safer tests</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># [[ ]] handles empty variables gracefully
+file=""
+if [[ -f "$file" ]]; then   # safe — no word splitting issue
+  echo "exists"
+fi
+# [ -f $file ] would fail if $file is empty</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/permission-denied/">bash permission denied — chmod +x</a></li>
+          <li><a href="/bash/no-such-file/">bash: no such file or directory</a></li>
+          <li><a href="/bash/string-comparison/">bash string comparison</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

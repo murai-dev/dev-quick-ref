@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker container exits immediately — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command." />
+    <link rel="canonical" href="https://errorfix.dev/docker/container-exits-immediately/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / container-exits-immediately</p>
+
+      <h1>docker container exits immediately — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Run interactively to see what fails
+docker run -it --rm your-image /bin/sh
+
+# Or check the exit log
+docker run --name debug your-image
+docker logs debug
+docker inspect debug --format '{{.State.ExitCode}}'</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <p>You run <code>docker run your-image</code> and the container stops instantly:</p>
+        <div class="code-block error-block">
+          <pre><code>$ docker run my-app
+$ docker ps
+CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS    PORTS   NAMES
+# (empty — container already exited)</code></pre>
+        </div>
+        <p>The container started, executed its command, then exited because nothing kept it running in the foreground.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Common causes</p>
+        <h3>No foreground process (daemon forked to background)</h3>
+        <p>If your CMD starts a service that daemonizes (e.g. nginx -g "daemon off;" is missing), the container exits.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Dockerfile — keep nginx in foreground
+CMD ["nginx", "-g", "daemon off;"]
+
+# For a shell-based entrypoint, end with exec "$@" or wait
+CMD ["/bin/sh", "-c", "start-server &amp;&amp; wait"]</code></pre>
+        </div>
+
+        <h3>Keep a container alive for debugging</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Override the command to get a shell
+docker run -it --entrypoint /bin/sh your-image
+
+# Or keep it running with tail
+docker run -d your-image tail -f /dev/null</code></pre>
+        </div>
+
+        <h3>Restart policy — auto-restart on failure</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker run -d --restart unless-stopped your-image</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/view-logs/">docker logs — view container output</a></li>
+          <li><a href="/docker/exec-container/">docker exec into a running container</a></li>
+          <li><a href="/docker/cannot-connect-daemon/">cannot connect to the Docker daemon</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

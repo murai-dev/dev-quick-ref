@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash: no such file or directory — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;bash: no such file or directory&quot; caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter." />
+    <link rel="canonical" href="https://errorfix.dev/bash/no-such-file/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / no-such-file</p>
+
+      <h1>bash: no such file or directory — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Verify the file exists and check the exact path
+ls -la script.sh
+
+# Check for Windows line endings (CRLF) in the shebang line
+file script.sh
+# If it says "CRLF line terminators", convert:
+sed -i 's///' script.sh
+# or
+dos2unix script.sh</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>-bash: ./script.sh: /bin/bash^M: bad interpreter: No such file or directory
+# or simply
+bash: ./script.sh: No such file or directory</code></pre>
+        </div>
+        <p>The <code>^M</code> (carriage return) means the file was created on Windows. The shebang interpreter path is <code>/bin/bash</code> which does not exist.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>File really does not exist</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Show exact path and check for typos
+pwd
+ls -la
+# Check hidden files
+ls -la | grep script</code></pre>
+        </div>
+
+        <h3>Shebang points to wrong interpreter</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check what interpreter is being used
+head -1 script.sh
+# #!/usr/bin/env bash   ← correct, portable
+# #!/bin/bash           ← works on most Linux systems
+
+# Find where bash actually is
+which bash
+# /usr/bin/bash   (not /bin/bash on some systems)</code></pre>
+        </div>
+
+        <h3>Wrong architecture binary</h3>
+        <p>If you run a binary compiled for a different CPU architecture (e.g. arm64 on x86), you get this error.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>file ./my-binary
+# ELF 64-bit LSB executable, ARM aarch64 ← wrong arch for x86-64</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/permission-denied/">bash permission denied — chmod +x</a></li>
+          <li><a href="/bash/command-not-found/">bash: command not found</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

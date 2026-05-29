@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex word boundary \b — match whole words only | errorfix.dev</title>
+    <meta name="description" content="Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages." />
+    <link rel="canonical" href="https://errorfix.dev/regex/word-boundary/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / word-boundary</p>
+
+      <h1>regex word boundary \b — match whole words only</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Match "cat" as a whole word — not "cats", "concatenate"
+/\bcat\b/
+
+// JavaScript
+'The cat concatenate scat'.match(/\bcat\b/g)
+// ['cat']
+
+# Python
+import re
+re.findall(r'\bcat\b', 'The cat concatenate scat')
+# ['cat']</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Without <code>\b</code>, a pattern like <code>/cat/</code> matches inside "concatenate" and "scat".</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>What counts as a word boundary</h3>
+        <p><code>\b</code> matches at a position between a word character (<code>\w</code>: <code>[a-zA-Z0-9_]</code>) and a non-word character.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Boundaries in "hello world":
+// |hello| |world|
+// ^ between start-of-string and 'h' → \b
+// ^ between 'o' and ' '            → \b
+// ^ between ' ' and 'w'            → \b
+// ^ between 'd' and end-of-string  → \b</code></pre>
+        </div>
+
+        <h3>\B — match NON-word boundary</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Match "cat" only inside a longer word
+/\Bcat\B/.test('concatenate')   // true
+/\Bcat\B/.test('cat')           // false</code></pre>
+        </div>
+
+        <h3>Replace whole words only</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript
+'foo foobar foo'.replace(/\bfoo\b/g, 'baz')
+// 'baz foobar baz'  — foobar is untouched
+
+# Python
+import re
+re.sub(r'\bfoo\b', 'baz', 'foo foobar foo')
+# 'baz foobar baz'</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/anchors/">anchors ^ and $</a></li>
+          <li><a href="/regex/character-classes/">character classes \w \d \s</a></li>
+          <li><a href="/regex/global-replace/">global replace with regex</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

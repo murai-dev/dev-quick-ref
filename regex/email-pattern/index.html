@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex email pattern — validate and extract email addresses | errorfix.dev</title>
+    <meta name="description" content="Regex pattern to validate or extract email addresses. Covers basic validation, RFC 5322, and practical patterns for JavaScript and Python." />
+    <link rel="canonical" href="https://errorfix.dev/regex/email-pattern/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / email-pattern</p>
+
+      <h1>regex email pattern — validate and extract email addresses</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Practical email validation pattern
+/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/
+
+// JavaScript
+function isValidEmail(email) {
+  return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+# Python
+import re
+def is_valid_email(email):
+    return bool(re.match(r'^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$', email))</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Validate user-entered email addresses or extract emails from text.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Extract all emails from text</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript
+const text = 'Contact alice@example.com or bob@test.org for help';
+text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g)
+// ['alice@example.com', 'bob@test.org']
+
+# Python
+import re
+re.findall(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}', text)</code></pre>
+        </div>
+
+        <h3>Pattern breakdown</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>^                   start of string
+[a-zA-Z0-9._%+\-]+  local part (before @)
+@                   literal @
+[a-zA-Z0-9.\-]+     domain name
+\.                  literal dot
+[a-zA-Z]{2,}        TLD (2+ letters)
+$                   end of string</code></pre>
+        </div>
+
+        <h3>Note: perfect email validation is impossible with regex</h3>
+        <p>For production use, send a verification email rather than relying solely on regex. The full RFC 5322 spec allows characters that most simple patterns reject.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// HTML5 built-in validation (recommended for forms)
+&lt;input type="email" required /&gt;</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/anchors/">anchors ^ and $</a></li>
+          <li><a href="/regex/character-classes/">character classes [...]</a></li>
+          <li><a href="/regex/alternation/">alternation with |</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

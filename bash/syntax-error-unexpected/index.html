@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash syntax error: unexpected end of file — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;syntax error: unexpected end of file&quot; in bash scripts caused by unclosed if/for/while, missing fi/done/esac, or CRLF line endings." />
+    <link rel="canonical" href="https://errorfix.dev/bash/syntax-error-unexpected/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / syntax-error-unexpected</p>
+
+      <h1>bash syntax error: unexpected end of file — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check line endings (CRLF is the usual culprit)
+file script.sh
+# If: "CRLF line terminators"
+dos2unix script.sh
+# or
+sed -i 's///' script.sh
+
+# Check for unclosed blocks — count openers vs closers
+grep -c 'if' script.sh   # should match fi count
+grep -c 'fi' script.sh</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>script.sh: line 42: syntax error: unexpected end of file
+# or
+script.sh: line 1: syntax error: unexpected end of file</code></pre>
+        </div>
+        <p>Bash reached the end of the script without finding a closing keyword for an open block (<code>fi</code>, <code>done</code>, <code>esac</code>, <code>}</code>, or <code>"</code>).</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Missing fi — if without fi</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># WRONG
+if [ "$var" = "yes" ]; then
+  echo "yes"
+# Missing: fi
+
+# CORRECT
+if [ "$var" = "yes" ]; then
+  echo "yes"
+fi</code></pre>
+        </div>
+
+        <h3>Missing done — for/while without done</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># WRONG
+for file in *.txt; do
+  echo "$file"
+# Missing: done
+
+# CORRECT
+for file in *.txt; do
+  echo "$file"
+done</code></pre>
+        </div>
+
+        <h3>Unclosed string or heredoc</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># WRONG — unclosed double quote
+echo "Hello world
+
+# CORRECT
+echo "Hello world"
+
+# Check heredoc delimiter matches exactly
+cat &lt;&lt;EOF
+content here
+EOF</code></pre>
+        </div>
+
+        <h3>Use bash -n to syntax-check without running</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>bash -n script.sh
+# Prints errors without executing anything</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/no-such-file/">bash: no such file or directory</a></li>
+          <li><a href="/bash/set-e-exit-on-error/">bash set -e — exit on error</a></li>
+          <li><a href="/bash/here-doc/">bash heredoc — multiline strings</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

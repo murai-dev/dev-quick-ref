@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm outdated — check for package updates | errorfix.dev</title>
+    <meta name="description" content="Use npm outdated to see which packages have newer versions, and npm update or manual version bumps to upgrade them." />
+    <link rel="canonical" href="https://errorfix.dev/npm/outdated-packages/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / outdated-packages</p>
+
+      <h1>npm outdated — check for package updates</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># List outdated packages
+npm outdated
+
+# Update all packages to latest compatible version (respects semver)
+npm update
+
+# Update a specific package
+npm update lodash</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You want to check if your dependencies have newer versions available.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Reading npm outdated output</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm outdated
+# Package    Current   Wanted   Latest   Location
+# lodash     4.17.20  4.17.21  4.17.21  node_modules/lodash
+# react      17.0.2   17.0.2   18.3.0   node_modules/react
+#
+# Current: installed version
+# Wanted:  latest that satisfies your package.json range
+# Latest:  latest published on npm</code></pre>
+        </div>
+
+        <h3>Upgrade to latest (beyond semver range)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install latest explicitly
+npm install lodash@latest
+
+# Or use npm-check-updates to bump package.json
+npx npm-check-updates -u
+npm install</code></pre>
+        </div>
+
+        <h3>Check global packages</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm outdated -g</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/audit-fix/">npm audit fix — security vulnerabilities</a></li>
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE dependency conflict</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

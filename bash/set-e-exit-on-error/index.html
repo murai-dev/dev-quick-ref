@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash set -e — exit script on error | errorfix.dev</title>
+    <meta name="description" content="Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail." />
+    <link rel="canonical" href="https://errorfix.dev/bash/set-e-exit-on-error/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / set-e-exit-on-error</p>
+
+      <h1>bash set -e — exit script on error</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# -e  exit on any non-zero exit code
+# -u  treat unset variables as errors
+# -o pipefail  pipelines fail on the first error, not just the last</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Without <code>set -e</code>, bash scripts continue running after errors, which can cause silent data corruption or partial deploys.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Allow a command to fail intentionally</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>set -e
+
+# These patterns suppress the exit:
+grep "pattern" file.txt || true
+command_that_may_fail || echo "failed, continuing"
+
+# Or temporarily disable
+set +e
+risky_command
+set -e</code></pre>
+        </div>
+
+        <h3>set -u — catch undefined variables</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>set -u
+
+echo "$UNDEFINED_VAR"
+# bash: UNDEFINED_VAR: unbound variable → script exits
+
+# Provide a default value to allow optional vars
+echo "${OPTIONAL_VAR:-default}"</code></pre>
+        </div>
+
+        <h3>Trap errors for cleanup or logging</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>set -e
+
+cleanup() {
+  echo "Error on line $1" &gt;&amp;2
+}
+trap 'cleanup $LINENO' ERR
+
+# Or always run cleanup on exit
+trap 'cleanup' EXIT</code></pre>
+        </div>
+
+        <h3>set -e does not catch all failures</h3>
+        <p><code>set -e</code> is ignored in some contexts: <code>if</code> conditions, <code>while</code>/<code>until</code> tests, <code>||</code> and <code>&&</code> lists.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># This will NOT exit even with set -e
+if failing_command; then
+  echo "success"
+fi</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/pipe-fail/">bash set -o pipefail — fail pipelines on error</a></li>
+          <li><a href="/bash/check-exit-code/">check exit code of last command ($?)</a></li>
+          <li><a href="/bash/syntax-error-unexpected/">bash syntax error: unexpected end of file</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

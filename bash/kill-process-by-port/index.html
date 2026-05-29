@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash kill process by port number | errorfix.dev</title>
+    <meta name="description" content="Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS." />
+    <link rel="canonical" href="https://errorfix.dev/bash/kill-process-by-port/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / kill-process-by-port</p>
+
+      <h1>bash kill process by port number</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># macOS / Linux — find and kill by port
+kill -9 $(lsof -t -i:8080)
+
+# Linux alternative using fuser
+fuser -k 8080/tcp
+
+# Check what is on the port first
+lsof -i :8080
+# or
+ss -tlnp | grep 8080</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>A development server is still running from a previous session and blocking the port.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Find PID without killing</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Get PID(s) listening on port 3000
+lsof -t -i:3000
+
+# More detail: PID, process name, user
+lsof -i :3000
+
+# Linux: netstat alternative
+ss -tlnp | grep :3000</code></pre>
+        </div>
+
+        <h3>Kill gracefully first, then force</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>pid=$(lsof -t -i:8080)
+kill $pid           # SIGTERM — graceful shutdown
+sleep 2
+kill -9 $pid 2&gt;/dev/null || true  # SIGKILL if still running</code></pre>
+        </div>
+
+        <h3>Multiple processes on the same port</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># lsof -t returns multiple PIDs
+lsof -t -i:8080 | xargs kill -9</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/check-exit-code/">check exit code ($?)</a></li>
+          <li><a href="/bash/find-files/">find files by name or extension</a></li>
+          <li><a href="/docker/port-already-in-use/">docker port already allocated</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

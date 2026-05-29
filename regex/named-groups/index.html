@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex named capture groups — (?P&lt;name&gt;) and (?&lt;name&gt;) | errorfix.dev</title>
+    <meta name="description" content="Use named capture groups in regex to extract named parts of a match. Covers Python (?P&lt;name&gt;), JavaScript (?&lt;name&gt;), and backreferences." />
+    <link rel="canonical" href="https://errorfix.dev/regex/named-groups/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / named-groups</p>
+
+      <h1>regex named capture groups — (?P<name>) and (?<name>)</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Python — (?P&lt;name&gt;...)
+import re
+m = re.match(r'(?P&lt;year&gt;\d{4})-(?P&lt;month&gt;\d{2})-(?P&lt;day&gt;\d{2})', '2024-01-15')
+print(m.group('year'))   # 2024
+print(m.groupdict())     # {'year': '2024', 'month': '01', 'day': '15'}
+
+// JavaScript — (?&lt;name&gt;...)
+const m = '2024-01-15'.match(/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/);
+console.log(m.groups.year);   // 2024</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Named groups make regex matches self-documenting and let you access groups by name instead of index.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Named backreference in pattern</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Python — \g&lt;name&gt; or (?P=name)
+import re
+# Match a word that appears twice
+re.search(r'(?P&lt;word&gt;\w+) (?P=word)', 'the the fox')
+
+# JavaScript — \k&lt;name&gt;
+/(?&lt;word&gt;\w+) \k&lt;word&gt;/.test('the the fox')   // true</code></pre>
+        </div>
+
+        <h3>Named group in replacement</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Python — use \g&lt;name&gt; in sub()
+import re
+result = re.sub(
+  r'(?P&lt;year&gt;\d{4})-(?P&lt;month&gt;\d{2})-(?P&lt;day&gt;\d{2})',
+  r'\g&lt;day&gt;/\g&lt;month&gt;/\g&lt;year&gt;',
+  '2024-01-15'
+)
+# result: '15/01/2024'
+
+// JavaScript
+'2024-01-15'.replace(
+  /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/,
+  '$&lt;day&gt;/$&lt;month&gt;/$&lt;year&gt;'
+)
+// '15/01/2024'</code></pre>
+        </div>
+
+        <h3>PHP named groups</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>preg_match('/(?P&lt;year&gt;\d{4})-(?P&lt;month&gt;\d{2})/', '2024-01', $m);
+echo $m['year'];   // 2024</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/lookahead-lookbehind/">lookahead and lookbehind assertions</a></li>
+          <li><a href="/regex/replace-capture-group/">replace with capture group backreference</a></li>
+          <li><a href="/regex/non-greedy/">non-greedy matching (.*?)</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

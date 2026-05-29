@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker permission denied /var/run/docker.sock — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock&quot; by adding your user to the docker group." />
+    <link rel="canonical" href="https://errorfix.dev/docker/permission-denied-docker-socket/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / permission-denied-docker-socket</p>
+
+      <h1>docker permission denied /var/run/docker.sock — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Add your user to the docker group
+sudo usermod -aG docker $USER
+
+# Apply the new group (or log out and back in)
+newgrp docker
+
+# Verify
+docker run --rm hello-world</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>Got permission denied while trying to connect to the Docker daemon socket at
+unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create":
+dial unix /var/run/docker.sock: connect: permission denied</code></pre>
+        </div>
+        <p>Your user does not have permission to access the Docker socket. Adding yourself to the <code>docker</code> group grants access without sudo.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other approaches</p>
+        <h3>Run with sudo (quick but not recommended)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>sudo docker run --rm hello-world</code></pre>
+        </div>
+
+        <h3>Check the docker group exists</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>grep docker /etc/group
+# If missing, create it:
+sudo groupadd docker</code></pre>
+        </div>
+
+        <h3>Rootless Docker — run Docker without root</h3>
+        <p>Rootless mode runs the Docker daemon as a non-root user, improving security.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install rootless Docker (Ubuntu/Debian)
+dockerd-rootless-setuptool.sh install
+
+# Add to your shell profile
+export PATH=/usr/bin:$PATH
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/cannot-connect-daemon/">cannot connect to the Docker daemon</a></li>
+          <li><a href="/docker/container-exits-immediately/">docker container exits immediately</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

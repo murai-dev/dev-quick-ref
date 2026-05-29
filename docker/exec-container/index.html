@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker exec — run a command inside a running container | errorfix.dev</title>
+    <meta name="description" content="Use docker exec to open a shell or run a command inside a running Docker container. Covers interactive shell, one-off commands, and running as a specific user." />
+    <link rel="canonical" href="https://errorfix.dev/docker/exec-container/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / exec-container</p>
+
+      <h1>docker exec — run a command inside a running container</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Open an interactive shell
+docker exec -it &lt;container-name-or-id&gt; /bin/bash
+
+# If bash is not available (Alpine-based images)
+docker exec -it &lt;container&gt; /bin/sh
+
+# Run a one-off command
+docker exec my-container ls /app</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to inspect files, run a migration, or debug a running container.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Find the container name or ID</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker ps
+# CONTAINER ID   IMAGE    STATUS    NAMES
+# d3f9a1b2c3d4   nginx    Up 5m     web</code></pre>
+        </div>
+
+        <h3>Run as a specific user</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker exec -it --user root my-container /bin/bash
+docker exec -it --user 1000:1000 my-container /bin/sh</code></pre>
+        </div>
+
+        <h3>Set environment variables</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker exec -it -e DEBUG=true my-container /bin/bash</code></pre>
+        </div>
+
+        <h3>Exec into a container by partial ID</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># You only need enough characters to be unique
+docker exec -it d3f9 /bin/bash</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/view-logs/">docker logs — view container output</a></li>
+          <li><a href="/docker/copy-files/">docker cp — copy files to/from container</a></li>
+          <li><a href="/docker/container-exits-immediately/">docker container exits immediately</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

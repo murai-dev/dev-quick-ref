@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker get container IP address | errorfix.dev</title>
+    <meta name="description" content="Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network." />
+    <link rel="canonical" href="https://errorfix.dev/docker/container-ip/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / container-ip</p>
+
+      <h1>docker get container IP address</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Get a container's IP on the default bridge
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container
+
+# Shorter alias
+docker inspect my-container | grep -i ipaddress</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to know the IP address of a container for debugging or direct connection.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>IP on a specific named network</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Replace "my-net" with your network name
+docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-container</code></pre>
+        </div>
+
+        <h3>List all IPs for all running containers</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker inspect $(docker ps -q) --format '{{.Name}}: {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'</code></pre>
+        </div>
+
+        <h3>Get IP from inside the container</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker exec my-container hostname -i
+# or
+docker exec my-container ip addr show eth0</code></pre>
+        </div>
+
+        <h3>Prefer container names over IPs</h3>
+        <p>On user-defined networks, containers resolve each other by name — more reliable than IP.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Use the service/container name in connection strings
+DATABASE_URL=postgres://db:5432/mydb   # "db" is the container name</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/network-connect/">docker network — connect containers</a></li>
+          <li><a href="/docker/exec-container/">docker exec into a running container</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

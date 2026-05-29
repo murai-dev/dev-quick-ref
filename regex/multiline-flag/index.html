@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex multiline flag — ^ and $ match line start/end | errorfix.dev</title>
+    <meta name="description" content="Use the multiline flag (m) so ^ and $ match the start and end of each line, not just the entire string. Covers JavaScript, Python, and the DOTALL flag." />
+    <link rel="canonical" href="https://errorfix.dev/regex/multiline-flag/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / multiline-flag</p>
+
+      <h1>regex multiline flag — ^ and $ match line start/end</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — use /m flag
+const text = "first line\nsecond line\nthird line";
+
+text.match(/^\w+/m)    // ["first"]  — only first line without /m
+text.match(/^\w+/gm)   // ["first", "second", "third"]  — all lines
+
+# Python
+import re
+re.findall(r'^\w+', text, re.MULTILINE)
+# ['first', 'second', 'third']</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Without the multiline flag, <code>^</code> matches only the start of the whole string, and <code>$</code> matches only the end.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>DOTALL / single-line flag — . matches newlines</h3>
+        <p>By default <code>.</code> does NOT match newline characters. The DOTALL flag changes this.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — use /s flag (ES2018+)
+'first\nsecond'.match(/first.second/s)   // matches
+
+# Python
+re.search(r'first.second', 'first\nsecond', re.DOTALL)</code></pre>
+        </div>
+
+        <h3>Combining flags</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — multiline + global + case insensitive
+text.match(/^pattern/gmi)
+
+# Python — combine with |
+re.findall(r'^pattern', text, re.MULTILINE | re.IGNORECASE)</code></pre>
+        </div>
+
+        <h3>Match end of each line with $</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Find lines ending with a semicolon
+code.match(/^.*;$/gm)</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/anchors/">anchors ^ and $ — match start and end</a></li>
+          <li><a href="/regex/non-greedy/">non-greedy matching (.*?)</a></li>
+          <li><a href="/regex/global-replace/">global replace with regex</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

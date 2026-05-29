@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm engines field — require specific Node.js version | errorfix.dev</title>
+    <meta name="description" content="Use the engines field in package.json to declare required Node.js and npm versions. Covers npm engine-strict and .nvmrc." />
+    <link rel="canonical" href="https://errorfix.dev/npm/engines-field/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / engines-field</p>
+
+      <h1>npm engines field — require specific Node.js version</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// package.json
+{
+  "engines": {
+    "node": "&gt;=20.0.0",
+    "npm":  "&gt;=9.0.0"
+  }
+}
+
+# By default this is advisory. To enforce it:
+# .npmrc
+engine-strict=true</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>npm warn EBADENGINE Unsupported engine {
+  package: 'my-app@1.0.0',
+  required: { node: '&gt;=20.0.0' },
+  current: { node: 'v18.12.0', npm: '8.19.2' }
+}</code></pre>
+        </div>
+        <p>The installed Node.js version does not satisfy the engines requirement in package.json.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Enforce engines (blocks install on wrong version)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .npmrc
+engine-strict=true
+
+# Now npm install will fail if Node.js version is incompatible</code></pre>
+        </div>
+
+        <h3>Use .nvmrc to pin the Node.js version</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .nvmrc
+20.15.0
+
+# Switch to the project version automatically
+nvm use        # reads .nvmrc
+nvm install    # installs if not present</code></pre>
+        </div>
+
+        <h3>Use Volta to manage Node.js per project</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Pin Node.js version with Volta (auto-switches)
+volta pin node@20
+volta pin npm@10
+
+# This adds to package.json:
+# "volta": { "node": "20.x.x", "npm": "10.x.x" }</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/run-scripts/">npm scripts — custom commands</a></li>
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE dependency conflict</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

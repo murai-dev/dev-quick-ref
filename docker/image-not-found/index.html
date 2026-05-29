@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker image not found / repository does not exist — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;Unable to find image&quot; or &quot;repository does not exist&quot; in Docker by checking image name, tag, and registry login." />
+    <link rel="canonical" href="https://errorfix.dev/docker/image-not-found/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / image-not-found</p>
+
+      <h1>docker image not found / repository does not exist — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Pull explicitly before running
+docker pull nginx:latest
+
+# Check available tags on Docker Hub
+# https://hub.docker.com/_/nginx/tags
+
+# Log in to a private registry
+docker login registry.example.com
+
+# Verify local images
+docker images | grep nginx</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>Unable to find image 'myapp:latest' locally
+docker: Error response from daemon: pull access denied for myapp,
+repository does not exist or may require 'docker login':
+denied: requested access to the resource is denied.</code></pre>
+        </div>
+        <p>Docker could not find the image locally or on the registry. This is usually a typo in the image name/tag or a missing registry login.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Build the image locally first</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Build from Dockerfile in current directory
+docker build -t myapp:latest .
+
+# Then run it
+docker run myapp:latest</code></pre>
+        </div>
+
+        <h3>Specify the full registry path</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Docker Hub (implicit)
+docker pull nginx:1.27-alpine
+
+# GitHub Container Registry
+docker pull ghcr.io/owner/repo:tag
+
+# AWS ECR
+aws ecr get-login-password | docker login --username AWS --password-stdin 123456789.dkr.ecr.us-east-1.amazonaws.com
+docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest</code></pre>
+        </div>
+
+        <h3>List all locally available images</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker images
+# or filter by name
+docker images nginx</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/build-failed-no-such-file/">docker build COPY — no such file or directory</a></li>
+          <li><a href="/docker/prune-images/">docker image prune — remove unused images</a></li>
+          <li><a href="/docker/no-space-left/">docker no space left on device</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

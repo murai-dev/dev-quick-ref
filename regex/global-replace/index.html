@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex global replace — replace all matches in JavaScript, Python, sed | errorfix.dev</title>
+    <meta name="description" content="Replace all regex matches in a string using the global flag in JavaScript, re.sub() in Python, or sed s///g. Covers case-insensitive and multiline replacements." />
+    <link rel="canonical" href="https://errorfix.dev/regex/global-replace/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / global-replace</p>
+
+      <h1>regex global replace — replace all matches in JavaScript, Python, sed</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — /g flag
+'foo foo foo'.replace(/foo/g, 'bar')
+// 'bar bar bar'
+
+# Python — re.sub replaces all by default
+import re
+re.sub(r'foo', 'bar', 'foo foo foo')
+# 'bar bar bar'
+
+# sed — s/old/new/g
+echo "foo foo foo" | sed 's/foo/bar/g'</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Without the global flag, most regex replace functions only replace the first match.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>JavaScript — String.replaceAll() (ES2021)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// replaceAll with a string pattern (no regex needed)
+'foo foo foo'.replaceAll('foo', 'bar')
+// 'bar bar bar'
+
+// replaceAll requires /g when using regex
+'foo foo foo'.replaceAll(/foo/g, 'bar')</code></pre>
+        </div>
+
+        <h3>Python — limit number of replacements</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>import re
+# Only replace first 2 occurrences
+re.sub(r'foo', 'bar', 'foo foo foo', count=2)
+# 'bar bar foo'</code></pre>
+        </div>
+
+        <h3>Case-insensitive global replace</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript
+'Foo FOO foo'.replace(/foo/gi, 'bar')
+// 'bar bar bar'
+
+# Python
+re.sub(r'foo', 'bar', 'Foo FOO foo', flags=re.IGNORECASE)
+# 'bar bar bar'
+
+# sed (case-insensitive + global)
+echo "Foo FOO foo" | sed 's/foo/bar/gI'</code></pre>
+        </div>
+
+        <h3>Dynamic replacement with a function (JavaScript)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>'hello world'.replace(/(\w+)/g, (match) =&gt; match.toUpperCase())
+// 'HELLO WORLD'</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/replace-capture-group/">replace with capture group</a></li>
+          <li><a href="/regex/multiline-flag/">multiline flag</a></li>
+          <li><a href="/regex/word-boundary/">word boundary \b</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

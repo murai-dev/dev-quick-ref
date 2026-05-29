@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm cache clean and verify — fix corrupted installs | errorfix.dev</title>
+    <meta name="description" content="Fix corrupted npm installs by cleaning the npm cache with npm cache clean --force or npm cache verify." />
+    <link rel="canonical" href="https://errorfix.dev/npm/npm-cache-clean/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / npm-cache-clean</p>
+
+      <h1>npm cache clean and verify — fix corrupted installs</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Verify cache integrity (safer — reports issues)
+npm cache verify
+
+# Clean the cache (clears all cached data)
+npm cache clean --force
+
+# After cleaning, reinstall
+rm -rf node_modules package-lock.json
+npm install</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>A package install fails with a checksum mismatch or corrupted files, even after retrying.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Cache location</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Find where npm stores cache
+npm config get cache
+# Usually: ~/.npm (Linux/macOS) or %AppData%/npm-cache (Windows)</code></pre>
+        </div>
+
+        <h3>Offline installs using cache</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Use cached packages without a network request
+npm install --prefer-offline
+
+# Force a fresh download (ignore cache)
+npm install --prefer-online</code></pre>
+        </div>
+
+        <h3>Check npm and Node.js versions</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>node --version
+npm --version
+
+# Update npm
+npm install -g npm@latest</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/enoent-no-such-file/">npm ENOENT no such file</a></li>
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE conflict</a></li>
+          <li><a href="/npm/node-gyp-failed/">node-gyp build failed</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

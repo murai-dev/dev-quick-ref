@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker container name already in use — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;container name is already in use&quot; by removing the existing container or using --rm / a different name." />
+    <link rel="canonical" href="https://errorfix.dev/docker/container-name-in-use/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / container-name-in-use</p>
+
+      <h1>docker container name already in use — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Remove the existing container
+docker rm my-container
+
+# Or stop it first, then remove
+docker stop my-container &amp;&amp; docker rm my-container
+
+# Auto-remove when the container exits (for one-off runs)
+docker run --rm --name my-container my-image</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>docker: Error response from daemon: Conflict. The container name "/my-container"
+is already in use by container "abc123". You have to remove (or rename) that
+container to be able to reuse that name.</code></pre>
+        </div>
+        <p>A stopped (but not removed) container is holding the name. Stopped containers persist until explicitly removed.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>List all containers including stopped ones</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker ps -a
+# CONTAINER ID   IMAGE    STATUS   NAMES
+# abc123         my-image Exited   my-container  ← this one</code></pre>
+        </div>
+
+        <h3>Rename instead of remove</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker rename my-container my-container-old
+docker run --name my-container my-image</code></pre>
+        </div>
+
+        <h3>Remove all stopped containers</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker container prune</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/container-exits-immediately/">docker container exits immediately</a></li>
+          <li><a href="/docker/view-logs/">docker logs — view container output</a></li>
+          <li><a href="/docker/remove-all-stopped/">remove all stopped containers</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

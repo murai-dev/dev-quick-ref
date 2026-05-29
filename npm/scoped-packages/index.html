@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@scope/package-name — install and use scoped npm packages | errorfix.dev</title>
+    <meta name="description" content="Install and configure scoped npm packages (@scope/package-name). Covers public scoped packages, private scopes, and registry configuration." />
+    <link rel="canonical" href="https://errorfix.dev/npm/scoped-packages/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / scoped-packages</p>
+
+      <h1>@scope/package-name — install and use scoped npm packages</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install a scoped package
+npm install @scope/package-name
+
+# Examples
+npm install @types/node
+npm install @vitejs/plugin-react
+npm install @company/internal-lib</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Scoped packages group related packages under an organization or user namespace.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Publishing a scoped package</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Publish publicly (scoped packages are private by default!)
+npm publish --access public
+
+# Publish privately (requires paid npm account or private registry)
+npm publish</code></pre>
+        </div>
+
+        <h3>Configure a scope to use a private registry</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .npmrc — map @myorg scope to a private registry
+@myorg:registry=https://npm.mycompany.com/
+
+# Then install as normal
+npm install @myorg/internal-lib</code></pre>
+        </div>
+
+        <h3>Import in code</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Both CommonJS and ESM work the same
+import { helper } from '@scope/package-name';
+const { helper } = require('@scope/package-name');</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/private-registry/">npm private registry — .npmrc configuration</a></li>
+          <li><a href="/npm/link-local-package/">npm link — local package development</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

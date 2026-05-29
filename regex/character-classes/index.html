@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex character classes — [...], \d, \w, \s | errorfix.dev</title>
+    <meta name="description" content="Use regex character classes to match sets of characters. Covers [...], negated [^...], shorthand classes \d \w \s and their inverses." />
+    <link rel="canonical" href="https://errorfix.dev/regex/character-classes/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / character-classes</p>
+
+      <h1>regex character classes — [...], \d, \w, \s</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>[abc]     match a, b, or c
+[a-z]     match any lowercase letter
+[A-Za-z0-9]  alphanumeric
+[^abc]    match anything except a, b, c
+
+\d    digit       [0-9]
+\D    non-digit   [^0-9]
+\w    word char   [a-zA-Z0-9_]
+\W    non-word
+\s    whitespace  [ \t\r\n\f\v]
+\S    non-whitespace</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Character classes let you match any one character from a defined set.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Common patterns using character classes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Match hex color
+/#[0-9a-fA-F]{6}/
+
+# Match identifier (starts with letter/underscore)
+/[a-zA-Z_]\w*/
+
+# Match one whitespace character
+/\s/
+
+# Match a digit sequence
+/\d+/
+
+# Strip non-alphanumeric
+str.replace(/[^\w\s]/g, '')</code></pre>
+        </div>
+
+        <h3>Special characters inside [...]</h3>
+        <p>Most metacharacters lose their meaning inside <code>[...]</code>. Only <code>]</code>, <code>\</code>, <code>^</code>, and <code>-</code> need escaping.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>[.?+*]   # matches literal . ? + * (no escaping needed)
+[\^]     # matches literal ^
+[\-]     # matches literal - (or put it first/last: [-az])
+[a\]b]   # matches a ] or b</code></pre>
+        </div>
+
+        <h3>Unicode property classes (\p{}) — JS and Python</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript (ES2018+) — /u flag required
+/\p{Letter}/u     // any Unicode letter
+/\p{Number}/u     // any Unicode number
+
+# Python
+import re
+re.findall(r'\p{L}+', text)   # requires 'regex' package, not 're'</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/anchors/">anchors ^ and $</a></li>
+          <li><a href="/regex/non-greedy/">non-greedy matching</a></li>
+          <li><a href="/regex/alternation/">alternation with |</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>
