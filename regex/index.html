@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex — errorfix.dev</title>
+    <meta name="description" content="Quick reference for regular expression patterns and syntax." />
+    <link rel="canonical" href="https://errorfix.dev/regex/" />
+    <script type="module" src="../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/">/</a> / regex</p>
+
+      <h1>regex</h1>
+
+      <section class="section">
+        <p class="section-label">15 pages</p>
+        <ul class="category-page-list">
+          <li>
+            <a href="/regex/alternation/">regex alternation — | operator and grouping</a>
+            <p>Use | in regex to match one of several alternatives. Covers grouping with (), non-capturing groups (?:...), and alternation precedence.</p>
+          </li>
+          <li>
+            <a href="/regex/anchors/">regex anchors — ^ and $ match start and end</a>
+            <p>Use ^ to match the start and $ to match the end of a string or line in regex. Covers \A, \Z in Python and the multiline flag.</p>
+          </li>
+          <li>
+            <a href="/regex/character-classes/">regex character classes — [...], \d, \w, \s</a>
+            <p>Use regex character classes to match sets of characters. Covers [...], negated [^...], shorthand classes \d \w \s and their inverses.</p>
+          </li>
+          <li>
+            <a href="/regex/date-pattern/">regex match date — YYYY-MM-DD and common formats</a>
+            <p>Regex patterns to match ISO 8601 dates (YYYY-MM-DD) and other common date formats. Covers validation and extraction in JavaScript and Python.</p>
+          </li>
+          <li>
+            <a href="/regex/email-pattern/">regex email pattern — validate and extract email addresses</a>
+            <p>Regex pattern to validate or extract email addresses. Covers basic validation, RFC 5322, and practical patterns for JavaScript and Python.</p>
+          </li>
+          <li>
+            <a href="/regex/global-replace/">regex global replace — replace all matches in JavaScript, Python, sed</a>
+            <p>Replace all regex matches in a string using the global flag in JavaScript, re.sub() in Python, or sed s///g. Covers case-insensitive and multiline replacements.</p>
+          </li>
+          <li>
+            <a href="/regex/ip-address/">regex match IPv4 address</a>
+            <p>Regex pattern to match and validate IPv4 addresses (0-255 per octet). Covers simple and strict patterns in JavaScript and Python.</p>
+          </li>
+          <li>
+            <a href="/regex/lookahead-lookbehind/">regex lookahead and lookbehind — (?=...) (?&lt;=...) (?!...) (?&lt;!...)</a>
+            <p>Use regex lookahead (?=...) and lookbehind (?&lt;=...) assertions to match patterns without including them in the result.</p>
+          </li>
+          <li>
+            <a href="/regex/multiline-flag/">regex multiline flag — ^ and $ match line start/end</a>
+            <p>Use the multiline flag (m) so ^ and $ match the start and end of each line, not just the entire string. Covers JavaScript, Python, and the DOTALL flag.</p>
+          </li>
+          <li>
+            <a href="/regex/named-groups/">regex named capture groups — (?P&lt;name&gt;) and (?&lt;name&gt;)</a>
+            <p>Use named capture groups in regex to extract named parts of a match. Covers Python (?P&lt;name&gt;), JavaScript (?&lt;name&gt;), and backreferences.</p>
+          </li>
+          <li>
+            <a href="/regex/non-greedy/">regex non-greedy matching — .*? vs .*</a>
+            <p>Use non-greedy (lazy) quantifiers like .*? to match as little as possible. Explains the difference between greedy and lazy matching with examples.</p>
+          </li>
+          <li>
+            <a href="/regex/phone-number/">regex match phone number — international and US formats</a>
+            <p>Regex patterns to match phone numbers in US, international (+1-XXX), and flexible formats. Covers extraction and normalization.</p>
+          </li>
+          <li>
+            <a href="/regex/replace-capture-group/">regex replace with capture group backreference</a>
+            <p>Use capture group backreferences ($1, \1, \g&lt;1&gt;) in regex replacements to reuse matched text. Covers JavaScript, Python, sed, and named groups.</p>
+          </li>
+          <li>
+            <a href="/regex/url-pattern/">regex match URL — http, https, and optional path</a>
+            <p>Regex patterns to match and extract URLs (http/https) from text in JavaScript and Python. Covers optional paths, query strings, and fragments.</p>
+          </li>
+          <li>
+            <a href="/regex/word-boundary/">regex word boundary \b — match whole words only</a>
+            <p>Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages.</p>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

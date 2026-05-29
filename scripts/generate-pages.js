@@ -26,6 +26,8 @@ const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];
 /** Escape for use inside <pre><code> blocks */
 function esc(str) {
   return String(str)
+    // Strip HTML-invalid control characters (keep tab, LF, CR)
+    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
@@ -125,7 +127,7 @@ ${renderNav(category)}
 
       <p class="breadcrumb"><a href="/${category}/">${category}</a> / ${slug}</p>
 
-      <h1>${data.title}</h1>
+      <h1>${esc(data.title)}</h1>
 
       <section class="quick-answer">
         <p class="section-label">Quick Answer</p>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash — errorfix.dev</title>
+    <meta name="description" content="Copy-paste fixes for common bash scripting errors and patterns." />
+    <link rel="canonical" href="https://errorfix.dev/bash/" />
+    <script type="module" src="../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/">/</a> / bash</p>
+
+      <h1>bash</h1>
+
+      <section class="section">
+        <p class="section-label">20 pages</p>
+        <ul class="category-page-list">
+          <li>
+            <a href="/bash/argument-parsing/">bash parse arguments with getopts and $@</a>
+            <p>Parse command-line arguments in bash scripts using getopts for flags, positional parameters ($1, $2), and shift for more control.</p>
+          </li>
+          <li>
+            <a href="/bash/array-usage/">bash arrays — create, iterate, append, slice</a>
+            <p>Create and use bash arrays: declare, iterate with for, append elements, get length, slice, and use associative arrays.</p>
+          </li>
+          <li>
+            <a href="/bash/check-exit-code/">bash check exit code of last command — $?</a>
+            <p>Check the exit code of the last bash command with $?. Exit code 0 means success; anything else means failure.</p>
+          </li>
+          <li>
+            <a href="/bash/check-if-file-exists/">bash check if file or directory exists</a>
+            <p>Test if a file, directory, or symlink exists in bash using [ -f ], [ -d ], [ -e ], and [ -L ] in an if statement or inline.</p>
+          </li>
+          <li>
+            <a href="/bash/command-not-found/">bash: command not found — how to fix</a>
+            <p>Fix "bash: command not found" by checking PATH, installing the missing program, or using the full path to the binary.</p>
+          </li>
+          <li>
+            <a href="/bash/cron-job/">crontab syntax and common schedules</a>
+            <p>Crontab syntax reference with common schedule examples. Covers the five time fields, special strings (@daily, @reboot), and editing cron jobs.</p>
+          </li>
+          <li>
+            <a href="/bash/date-format/">bash date — format date and timestamp</a>
+            <p>Format dates and timestamps in bash using the date command. Covers ISO 8601, Unix epoch, arithmetic, and macOS vs Linux differences.</p>
+          </li>
+          <li>
+            <a href="/bash/find-files/">bash find files by name, extension, or age</a>
+            <p>Use the find command to locate files by name, extension, size, modification date, or content. Includes -exec, -mtime, and -type options.</p>
+          </li>
+          <li>
+            <a href="/bash/for-loop/">bash for loop — iterate over files, list, range</a>
+            <p>Use bash for loops to iterate over files, lists, arrays, ranges, and command output. Covers glob patterns, C-style loops, and while loops.</p>
+          </li>
+          <li>
+            <a href="/bash/here-doc/">bash heredoc — write multiline strings</a>
+            <p>Use heredoc (&lt;&lt;EOF) to embed multiline text in bash scripts. Covers indented heredocs (&lt;&lt;-), variable expansion, and writing to files.</p>
+          </li>
+          <li>
+            <a href="/bash/kill-process-by-port/">bash kill process by port number</a>
+            <p>Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS.</p>
+          </li>
+          <li>
+            <a href="/bash/no-such-file/">bash: no such file or directory — how to fix</a>
+            <p>Fix "bash: no such file or directory" caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter.</p>
+          </li>
+          <li>
+            <a href="/bash/permission-denied/">bash permission denied — how to fix (chmod +x)</a>
+            <p>Fix "bash: ./script.sh: Permission denied" by adding execute permission with chmod +x. Covers common permission issues and setuid.</p>
+          </li>
+          <li>
+            <a href="/bash/pipe-fail/">bash set -o pipefail — catch errors in pipelines</a>
+            <p>Use set -o pipefail to make bash pipelines fail when any command in the pipeline fails, not just the last one.</p>
+          </li>
+          <li>
+            <a href="/bash/read-file-line-by-line/">bash read a file line by line</a>
+            <p>Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly.</p>
+          </li>
+          <li>
+            <a href="/bash/redirect-stderr/">bash redirect stderr to stdout — 2&gt;&amp;1 and &amp;&gt;</a>
+            <p>Redirect stderr (2) to stdout (1) in bash using 2&gt;&amp;1. Includes capturing both streams, redirecting to a file, and suppressing output.</p>
+          </li>
+          <li>
+            <a href="/bash/set-e-exit-on-error/">bash set -e — exit script on error</a>
+            <p>Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail.</p>
+          </li>
+          <li>
+            <a href="/bash/string-comparison/">bash string comparison — equality, contains, starts with</a>
+            <p>Compare strings in bash using [[ ]] with =, !=, =~, and parameter expansion. Covers equality, contains, starts with, ends with, and empty checks.</p>
+          </li>
+          <li>
+            <a href="/bash/syntax-error-unexpected/">bash syntax error: unexpected end of file — how to fix</a>
+            <p>Fix "syntax error: unexpected end of file" in bash scripts caused by unclosed if/for/while, missing fi/done/esac, or CRLF line endings.</p>
+          </li>
+          <li>
+            <a href="/bash/xargs/">bash xargs — run a command for each input line</a>
+            <p>Use xargs to pass stdin lines as arguments to a command. Covers -I, -P for parallel execution, null-delimited input, and safe filenames with spaces.</p>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>
