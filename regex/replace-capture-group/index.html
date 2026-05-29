@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex replace with capture group backreference | errorfix.dev</title>
+    <meta name="description" content="Use capture group backreferences ($1, \1, \g&lt;1&gt;) in regex replacements to reuse matched text. Covers JavaScript, Python, sed, and named groups." />
+    <link rel="canonical" href="https://errorfix.dev/regex/replace-capture-group/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / replace-capture-group</p>
+
+      <h1>regex replace with capture group backreference</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — $1, $2... or $&lt;name&gt;
+'John Smith'.replace(/(\w+) (\w+)/, '$2, $1')
+// 'Smith, John'
+
+# Python — \1, \2... or \g&lt;name&gt;
+import re
+re.sub(r'(\w+) (\w+)', r'\2, \1', 'John Smith')
+# 'Smith, John'
+
+# sed
+echo "John Smith" | sed 's/\(\w\+\) \(\w\+\)/\2, \1/'</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Backreferences let you reuse captured text in the replacement string without re-specifying it.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Named group backreference in replacement</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Python — \g&lt;name&gt;
+import re
+re.sub(
+  r'(?P&lt;first&gt;\w+) (?P&lt;last&gt;\w+)',
+  r'\g&lt;last&gt;, \g&lt;first&gt;',
+  'John Smith'
+)
+# 'Smith, John'
+
+// JavaScript — $&lt;name&gt;
+'John Smith'.replace(/(?&lt;first&gt;\w+) (?&lt;last&gt;\w+)/, '$&lt;last&gt;, $&lt;first&gt;')</code></pre>
+        </div>
+
+        <h3>Wrap matched text with backreference</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Wrap all numbers in &lt;strong&gt;
+'Price: 42 dollars'.replace(/(\d+)/g, '&lt;strong&gt;$1&lt;/strong&gt;')
+// 'Price: &lt;strong&gt;42&lt;/strong&gt; dollars'</code></pre>
+        </div>
+
+        <h3>sed extended regex</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Use -E for extended regex (no backslash for groups)
+echo "2024-01-15" | sed -E 's/([0-9]{4})-([0-9]{2})-([0-9]{2})/\3\/\2\/\1/'
+# 15/01/2024</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/named-groups/">regex named capture groups</a></li>
+          <li><a href="/regex/global-replace/">global replace with regex</a></li>
+          <li><a href="/regex/lookahead-lookbehind/">lookahead and lookbehind</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

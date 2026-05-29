@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash redirect stderr to stdout — 2&gt;&amp;1 and &amp;&gt; | errorfix.dev</title>
+    <meta name="description" content="Redirect stderr (2) to stdout (1) in bash using 2&gt;&amp;1. Includes capturing both streams, redirecting to a file, and suppressing output." />
+    <link rel="canonical" href="https://errorfix.dev/bash/redirect-stderr/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / redirect-stderr</p>
+
+      <h1>bash redirect stderr to stdout — 2>&1 and &></h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Redirect stderr to stdout (combine both streams)
+command 2&gt;&amp;1
+
+# Redirect both stdout and stderr to a file
+command &gt; output.log 2&gt;&amp;1
+# Short form (bash 4+)
+command &amp;&gt; output.log
+
+# Suppress all output (stdout + stderr)
+command &amp;&gt; /dev/null</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Stderr is separate from stdout. If you pipe a command, error messages are not captured unless you redirect stderr.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Order matters — 2&gt;&amp;1 must come after &gt;</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># CORRECT — redirect stdout to file, then stderr to wherever stdout goes
+command &gt; file.log 2&gt;&amp;1
+
+# WRONG — redirects stderr to the terminal (original stdout), then stdout to file
+command 2&gt;&amp;1 &gt; file.log</code></pre>
+        </div>
+
+        <h3>Capture only stderr (discard stdout)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Redirect stdout to /dev/null, keep stderr visible
+command 2&gt;&amp;1 1&gt;/dev/null
+# Short: redirect stdout to /dev/null, stderr to stdout
+command 1&gt;/dev/null</code></pre>
+        </div>
+
+        <h3>Append both streams to a log file</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>command &gt;&gt; output.log 2&gt;&amp;1</code></pre>
+        </div>
+
+        <h3>Capture command output into a variable</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>output=$(command 2&gt;&amp;1)
+echo "Got: $output"</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/pipe-fail/">bash set -o pipefail</a></li>
+          <li><a href="/bash/check-exit-code/">check exit code ($?)</a></li>
+          <li><a href="/bash/read-file-line-by-line/">read a file line by line</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

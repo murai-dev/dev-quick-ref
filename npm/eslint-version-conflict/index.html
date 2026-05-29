@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eslint version conflict with TypeScript — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages." />
+    <link rel="canonical" href="https://errorfix.dev/npm/eslint-version-conflict/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / eslint-version-conflict</p>
+
+      <h1>eslint version conflict with TypeScript — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># ESLint 9 (flat config) — use latest @typescript-eslint
+npm install --save-dev eslint@^9 @typescript-eslint/parser@^8 @typescript-eslint/eslint-plugin@^8
+
+# ESLint 8 (legacy config) — use v6
+npm install --save-dev eslint@^8 @typescript-eslint/parser@^6 @typescript-eslint/eslint-plugin@^6</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>npm ERR! peer eslint@"^8.56.0" from @typescript-eslint/eslint-plugin@6.21.0
+npm ERR! node_modules/@typescript-eslint/eslint-plugin
+npm ERR!   Conflicting peer dependency: eslint@8.57.1</code></pre>
+        </div>
+        <p>ESLint and @typescript-eslint must be at compatible major versions.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Check current installed versions</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm ls eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin</code></pre>
+        </div>
+
+        <h3>ESLint 9 flat config — eslint.config.js</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// eslint.config.js (ESLint 9)
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  ...tseslint.configs.recommended
+);</code></pre>
+        </div>
+
+        <h3>ESLint 8 legacy config — .eslintrc.json</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// .eslintrc.json (ESLint 8)
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended"]
+}</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE dependency conflict</a></li>
+          <li><a href="/npm/missing-peer-dependency/">npm peer dependency warnings</a></li>
+          <li><a href="/npm/outdated-packages/">npm outdated — check for updates</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash xargs — run a command for each input line | errorfix.dev</title>
+    <meta name="description" content="Use xargs to pass stdin lines as arguments to a command. Covers -I, -P for parallel execution, null-delimited input, and safe filenames with spaces." />
+    <link rel="canonical" href="https://errorfix.dev/bash/xargs/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / xargs</p>
+
+      <h1>bash xargs — run a command for each input line</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Pass multiple arguments at once (default)
+find . -name "*.log" | xargs rm
+
+# Pass one argument per call with -I
+find . -name "*.txt" | xargs -I{} cp {} /backup/
+
+# Null-delimited (safe with filenames containing spaces)
+find . -name "*.txt" -print0 | xargs -0 rm</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to run a command for each item from a list or command output, and the command does not accept stdin.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Parallel execution with -P</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Run up to 4 processes in parallel
+find . -name "*.png" | xargs -P 4 -I{} convert {} {}.webp</code></pre>
+        </div>
+
+        <h3>Limit arguments per call with -n</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Run rm with at most 10 files at a time
+find . -name "*.tmp" | xargs -n 10 rm</code></pre>
+        </div>
+
+        <h3>Preview the command before running</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>find . -name "*.log" | xargs -p rm
+# xargs -p asks for confirmation before each call</code></pre>
+        </div>
+
+        <h3>Handle empty input safely</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Without -r, xargs runs the command even with empty input
+find . -name "*.tmp" | xargs -r rm
+# -r (--no-run-if-empty) skips execution when stdin is empty</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/find-files/">find files by name or extension</a></li>
+          <li><a href="/bash/for-loop/">bash for loop over files</a></li>
+          <li><a href="/bash/read-file-line-by-line/">read a file line by line</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

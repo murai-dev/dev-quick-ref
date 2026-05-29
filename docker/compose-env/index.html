@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker compose environment variables — how to set | errorfix.dev</title>
+    <meta name="description" content="Set environment variables in docker compose using env_file, environment key, .env file substitution, and override files." />
+    <link rel="canonical" href="https://errorfix.dev/docker/compose-env/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / compose-env</p>
+
+      <h1>docker compose environment variables — how to set</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># docker-compose.yml — inline values
+services:
+  app:
+    image: my-app
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+
+# Or load from a file
+    env_file:
+      - .env</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to configure services differently per environment (dev / staging / prod) without hardcoding values in the Compose file.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Variable substitution from .env</h3>
+        <p>Compose automatically reads <code>.env</code> in the project directory for variable substitution in the YAML:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .env
+POSTGRES_VERSION=16
+DB_NAME=myapp
+
+# docker-compose.yml
+services:
+  db:
+    image: postgres:{POSTGRES_VERSION}
+    environment:
+      POSTGRES_DB: {DB_NAME}</code></pre>
+        </div>
+
+        <h3>Override with -e at runtime</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker compose run -e NODE_ENV=test app npm test</code></pre>
+        </div>
+
+        <h3>Per-environment override files</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Base: docker-compose.yml
+# Override for prod: docker-compose.prod.yml
+
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d</code></pre>
+        </div>
+
+        <h3>Pass host variables into compose</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># In docker-compose.yml — no value = read from host shell
+environment:
+  - SECRET_KEY   # value comes from: export SECRET_KEY=... on the host</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/env-file/">docker --env-file and -e flags</a></li>
+          <li><a href="/docker/volume-mount/">docker volume mount</a></li>
+          <li><a href="/docker/network-connect/">docker network — connect containers</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

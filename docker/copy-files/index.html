@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker cp — copy files between container and host | errorfix.dev</title>
+    <meta name="description" content="Use docker cp to copy files or directories between a Docker container and the host. Works with running or stopped containers." />
+    <link rel="canonical" href="https://errorfix.dev/docker/copy-files/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / copy-files</p>
+
+      <h1>docker cp — copy files between container and host</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Host → container
+docker cp ./local-file.txt my-container:/app/file.txt
+
+# Container → host
+docker cp my-container:/app/logs/error.log ./error.log
+
+# Copy a whole directory
+docker cp my-container:/app/dist ./dist</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to copy config files, logs, or build artifacts between your host and a container.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Copy works on stopped containers too</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Even if the container is not running
+docker ps -a | grep my-container   # Exited
+docker cp my-container:/app/config.json ./config.json</code></pre>
+        </div>
+
+        <h3>Directory trailing slash behavior</h3>
+        <p>Adding a trailing <code>/</code> to the source copies the directory contents (not the directory itself).</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Copies the dist/ directory itself
+docker cp my-container:/app/dist ./
+
+# Copies the contents of dist/ into ./dist-output/
+docker cp my-container:/app/dist/. ./dist-output/</code></pre>
+        </div>
+
+        <h3>Use volumes for persistent sharing instead</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Bind mount — changes are reflected instantly in both directions
+docker run -v $(pwd)/data:/app/data my-image</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/exec-container/">docker exec into a running container</a></li>
+          <li><a href="/docker/volume-mount/">docker volume mount / bind mount</a></li>
+          <li><a href="/docker/view-logs/">docker logs — view container output</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

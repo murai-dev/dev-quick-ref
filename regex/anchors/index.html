@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex anchors — ^ and $ match start and end | errorfix.dev</title>
+    <meta name="description" content="Use ^ to match the start and $ to match the end of a string or line in regex. Covers \A, \Z in Python and the multiline flag." />
+    <link rel="canonical" href="https://errorfix.dev/regex/anchors/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / anchors</p>
+
+      <h1>regex anchors — ^ and $ match start and end</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Match entire string
+/^hello$/.test('hello')        // true
+/^hello$/.test('say hello')    // false
+/^hello$/.test('hello world')  // false
+
+# Python
+import re
+re.fullmatch(r'hello', 'hello')          # matches
+re.match(r'^hello$', 'hello')            # matches
+re.match(r'^hello$', 'hello world')      # None</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Without anchors, a pattern can match anywhere in the string. Use <code>^</code> and <code>$</code> to constrain where the match occurs.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Validate entire input</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// JavaScript — validate hex color
+/^#[0-9a-fA-F]{6}$/.test('#ff5733')   // true
+/^#[0-9a-fA-F]{6}$/.test('#ff5733xx') // false
+
+# Python — validate US zip code
+bool(re.fullmatch(r'\d{5}(-\d{4})?', '12345'))       # True
+bool(re.fullmatch(r'\d{5}(-\d{4})?', '12345-6789'))   # True</code></pre>
+        </div>
+
+        <h3>\A and \Z — always match string boundaries (Python)</h3>
+        <p><code>\A</code> and <code>\Z</code> always match the start and end of the whole string, even with re.MULTILINE.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>import re
+text = "line1\nline2"
+re.findall(r'^\w+', text, re.MULTILINE)   # ['line1', 'line2'] — ^ per line
+re.findall(r'\A\w+', text, re.MULTILINE) # ['line1'] — always string start</code></pre>
+        </div>
+
+        <h3>Multiline mode changes ^ and $ behavior</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// In multiline mode, ^ and $ match per line
+const lines = "first\nsecond\nthird";
+lines.match(/^\w+$/gm)   // ['first', 'second', 'third']</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/multiline-flag/">multiline flag</a></li>
+          <li><a href="/regex/word-boundary/">word boundary \b</a></li>
+          <li><a href="/regex/character-classes/">character classes \d \w \s</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm node-gyp build failed — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;node-gyp build failed&quot; by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows." />
+    <link rel="canonical" href="https://errorfix.dev/npm/node-gyp-failed/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / node-gyp-failed</p>
+
+      <h1>npm node-gyp build failed — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># macOS — install Xcode Command Line Tools
+xcode-select --install
+
+# Ubuntu/Debian — install build tools
+sudo apt install -y build-essential python3
+
+# Windows — install Windows Build Tools
+npm install -g windows-build-tools
+# or in PowerShell (admin):
+npm install --global --production windows-build-tools</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>gyp ERR! build error
+gyp ERR! stack Error: `make` failed with exit code: 2
+gyp ERR! System    Darwin 23.0.0
+gyp ERR! command   "node" "/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "build" "--fallback-to-build"</code></pre>
+        </div>
+        <p>node-gyp compiles native Node.js addons. It requires Python (2.7 or 3.x), <code>make</code>, and a C++ compiler.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Specify Python version</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm install --python=/usr/bin/python3
+
+# Or set globally
+npm config set python python3</code></pre>
+        </div>
+
+        <h3>Use a pre-built binary if available</h3>
+        <p>Some packages offer pre-built binaries via <code>node-pre-gyp</code> that skip compilation.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm install --ignore-scripts   # skip build step (may break native addons)
+
+# Or try the @next or community fork that dropped native deps
+# e.g. bcryptjs instead of bcrypt (pure JS)</code></pre>
+        </div>
+
+        <h3>Verify environment</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>node -e "require('node-gyp').find()" 2&gt;&amp;1 || true
+python3 --version
+which make
+which gcc</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/enoent-no-such-file/">npm ENOENT error</a></li>
+          <li><a href="/npm/npm-cache-clean/">npm cache clean</a></li>
+          <li><a href="/npm/module-not-found/">npm Cannot find module</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

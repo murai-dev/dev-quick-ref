@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash read a file line by line | errorfix.dev</title>
+    <meta name="description" content="Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly." />
+    <link rel="canonical" href="https://errorfix.dev/bash/read-file-line-by-line/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / read-file-line-by-line</p>
+
+      <h1>bash read a file line by line</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>while IFS= read -r line; do
+  echo "$line"
+done &lt; input.txt</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to process a file line by line in a bash script.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Why IFS= and -r matter</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># IFS=  preserves leading/trailing whitespace on each line
+# -r    prevents backslash interpretation (\n stays as \n)
+
+# Without them, lines with spaces or backslashes are mangled:
+while read line; do   # BAD — leading spaces stripped, \ consumed
+  echo "$line"
+done &lt; file.txt</code></pre>
+        </div>
+
+        <h3>Process the last line even without trailing newline</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>while IFS= read -r line || [ -n "$line" ]; do
+  echo "$line"
+done &lt; input.txt
+# The || [ -n "$line" ] handles files missing a final newline</code></pre>
+        </div>
+
+        <h3>Read from a command output</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>while IFS= read -r line; do
+  echo "Processing: $line"
+done &lt; &lt;(find . -name "*.txt")</code></pre>
+        </div>
+
+        <h3>Read two fields per line (CSV-like)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>while IFS=',' read -r name value; do
+  echo "Name=$name  Value=$value"
+done &lt; data.csv</code></pre>
+        </div>
+
+        <h3>Use mapfile to read all lines into an array</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>mapfile -t lines &lt; input.txt
+echo "${lines[0]}"   # first line
+echo "${#lines[@]}"  # line count</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/for-loop/">bash for loop over files or list</a></li>
+          <li><a href="/bash/xargs/">xargs — run command for each input line</a></li>
+          <li><a href="/bash/redirect-stderr/">redirect stderr to stdout (2>&1)</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

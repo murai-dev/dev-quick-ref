@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm scripts — define and run custom commands | errorfix.dev</title>
+    <meta name="description" content="Define and run npm scripts in package.json. Covers common patterns: chaining commands, passing arguments, lifecycle hooks, and cross-env." />
+    <link rel="canonical" href="https://errorfix.dev/npm/run-scripts/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / run-scripts</p>
+
+      <h1>npm scripts — define and run custom commands</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Run a script
+npm run build
+npm run dev
+npm run test
+
+# Shorthand for built-in scripts (no "run" needed)
+npm start
+npm test</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Automate project tasks (build, test, lint, deploy) using npm scripts defined in package.json.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Defining scripts in package.json</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>{
+  "scripts": {
+    "dev":   "vite",
+    "build": "tsc &amp;&amp; vite build",
+    "test":  "vitest run",
+    "lint":  "eslint src --ext ts,tsx"
+  }
+}</code></pre>
+        </div>
+
+        <h3>Chaining commands</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>{
+  "scripts": {
+    // Run sequentially (stop on failure)
+    "build": "tsc &amp;&amp; vite build",
+
+    // Run in parallel
+    "dev":   "tsc -w &amp; vite",
+
+    // Cross-platform parallel (use npm-run-all)
+    "dev2":  "run-p tsc:watch vite:serve"
+  }
+}</code></pre>
+        </div>
+
+        <h3>Passing arguments to a script</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm run test -- --watch
+# Everything after -- is forwarded to the script</code></pre>
+        </div>
+
+        <h3>Pre and post hooks</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>{
+  "scripts": {
+    "prebuild":  "rm -rf dist",
+    "build":     "vite build",
+    "postbuild": "gzip dist/assets/*.js"
+  }
+}
+# prebuild runs before build, postbuild runs after</code></pre>
+        </div>
+
+        <h3>Set environment variables cross-platform</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install cross-env
+npm install --save-dev cross-env
+
+{
+  "scripts": {
+    "build:prod": "cross-env NODE_ENV=production vite build"
+  }
+}</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/link-local-package/">npm link — local package development</a></li>
+          <li><a href="/npm/engines-field/">npm engines — require Node.js version</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

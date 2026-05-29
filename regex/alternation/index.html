@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex alternation — | operator and grouping | errorfix.dev</title>
+    <meta name="description" content="Use | in regex to match one of several alternatives. Covers grouping with (), non-capturing groups (?:...), and alternation precedence." />
+    <link rel="canonical" href="https://errorfix.dev/regex/alternation/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / alternation</p>
+
+      <h1>regex alternation — | operator and grouping</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Match "cat" or "dog"
+/cat|dog/
+
+# Anchored alternatives (group with parentheses)
+/^(cat|dog)$/   # matches exactly "cat" or "dog"
+
+# Non-capturing group
+/(?:cat|dog)s/  # matches "cats" or "dogs", group not captured</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Alternation matches one of several patterns at the same position. Without grouping, <code>|</code> applies to the whole expression on each side.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Alternation has lowest precedence</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># "cat or dog" — ^ and $ apply to each alternative
+/^cat$|^dog$/   # matches "cat" or "dog" at start/end
+
+# WITHOUT outer group: ^ only applies to "cat"
+/^cat|dog$/     # matches "cat" at start OR "dog" at end — NOT what you want
+
+# CORRECT: group the alternatives
+/^(cat|dog)$/</code></pre>
+        </div>
+
+        <h3>Capture vs non-capture groups</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Capturing group — result stored in match[1]
+'catfish'.match(/(cat|dog)fish/)
+// match[0] = 'catfish', match[1] = 'cat'
+
+// Non-capturing group — no match[1]
+'catfish'.match(/(?:cat|dog)fish/)
+// match[0] = 'catfish'</code></pre>
+        </div>
+
+        <h3>Match multiple file extensions</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Match .jpg, .jpeg, .png, .gif
+/\.(jpg|jpeg|png|gif)$/i
+
+# In Python
+import re
+re.search(r'\.(jpg|jpeg|png|gif)$', 'image.PNG', re.IGNORECASE)</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/character-classes/">character classes [...]</a></li>
+          <li><a href="/regex/non-greedy/">non-greedy matching</a></li>
+          <li><a href="/regex/anchors/">anchors ^ and $</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

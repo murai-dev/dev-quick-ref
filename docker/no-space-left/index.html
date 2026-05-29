@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker no space left on device — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;no space left on device&quot; in Docker by pruning unused images, containers, volumes, and build cache with docker system prune." />
+    <link rel="canonical" href="https://errorfix.dev/docker/no-space-left/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / no-space-left</p>
+
+      <h1>docker no space left on device — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># See how much Docker is using
+docker system df
+
+# Remove all stopped containers, unused images, networks, build cache
+docker system prune -a
+
+# Also remove unused volumes (data loss risk — check first)
+docker system prune -a --volumes</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>ERROR: failed to solve: failed to prepare ...:
+write /var/lib/docker/tmp/...: no space left on device</code></pre>
+        </div>
+        <p>Docker has exhausted disk space. Unused images, stopped containers, and build cache accumulate over time.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Prune selectively (safer)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Only dangling (untagged) images
+docker image prune
+
+# Only stopped containers
+docker container prune
+
+# Only build cache
+docker builder prune
+
+# Only unused volumes
+docker volume prune</code></pre>
+        </div>
+
+        <h3>Find large images</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker images --format "{{.Repository}}:{{.Tag}}\t{{.Size}}" | sort -k2 -h -r | head -20</code></pre>
+        </div>
+
+        <h3>Move Docker data directory (Linux)</h3>
+        <p>If the root partition is small, move Docker data to a larger disk.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># /etc/docker/daemon.json
+{
+  "data-root": "/mnt/docker-data"
+}
+# Then: sudo systemctl restart docker</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/prune-images/">docker image prune — remove unused images</a></li>
+          <li><a href="/docker/build-failed-no-such-file/">docker build failed — COPY no such file</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

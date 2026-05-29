@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker remove all stopped containers | errorfix.dev</title>
+    <meta name="description" content="Remove all stopped Docker containers with docker container prune or docker rm. Includes filtering by status and bulk removal." />
+    <link rel="canonical" href="https://errorfix.dev/docker/remove-all-stopped/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / remove-all-stopped</p>
+
+      <h1>docker remove all stopped containers</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Remove all stopped containers (with confirmation prompt)
+docker container prune
+
+# Remove all stopped containers without confirmation
+docker container prune -f
+
+# Or remove specific containers
+docker rm container1 container2</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Stopped containers accumulate and waste disk space. Clean them up regularly.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>List stopped containers first</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Show only stopped containers
+docker ps -a --filter "status=exited"
+
+# Show container IDs only (for piping)
+docker ps -a -q --filter "status=exited"</code></pre>
+        </div>
+
+        <h3>Remove all stopped containers with xargs</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker ps -a -q --filter "status=exited" | xargs docker rm</code></pre>
+        </div>
+
+        <h3>Remove containers AND their volumes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker rm -v my-container
+# -v also removes anonymous volumes attached to the container</code></pre>
+        </div>
+
+        <h3>Remove everything unused (containers, images, networks, cache)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker system prune -a</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/prune-images/">docker image prune — remove unused images</a></li>
+          <li><a href="/docker/no-space-left/">docker no space left on device</a></li>
+          <li><a href="/docker/container-name-in-use/">container name already in use</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

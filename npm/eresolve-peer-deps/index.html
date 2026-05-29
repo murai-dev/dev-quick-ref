@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm ERESOLVE unable to resolve dependency tree — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; by using --legacy-peer-deps, overrides, or resolving the conflicting version manually." />
+    <link rel="canonical" href="https://errorfix.dev/npm/eresolve-peer-deps/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / eresolve-peer-deps</p>
+
+      <h1>npm ERESOLVE unable to resolve dependency tree — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Quick fix — use legacy peer deps resolution
+npm install --legacy-peer-deps
+
+# Or force install (riskier — may have broken packages)
+npm install --force
+
+# Inspect what is conflicting
+npm install 2&gt;&amp;1 | head -30</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! 
+npm ERR! While resolving: my-app@1.0.0
+npm ERR! Found: react@18.3.0
+npm ERR! node_modules/react
+npm ERR!   react@"^18.3.0" from the root project
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer react@"^17.0.0" from some-library@2.1.0</code></pre>
+        </div>
+        <p>A dependency requires a specific peer dependency version that conflicts with another installed version.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Use overrides to force a version (npm 8.3+)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// package.json
+{
+  "overrides": {
+    "some-library": {
+      "react": "^18.0.0"
+    }
+  }
+}</code></pre>
+        </div>
+
+        <h3>Upgrade the conflicting package first</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check if a newer version supports your peer dep version
+npm info some-library peerDependencies
+
+# Install specific version
+npm install some-library@3.0.0</code></pre>
+        </div>
+
+        <h3>Difference between --legacy-peer-deps and --force</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># --legacy-peer-deps: ignores peer dep conflicts (npm 6 behavior)
+# --force: installs even with version mismatches (can break things)
+# Prefer --legacy-peer-deps as it is less destructive</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/missing-peer-dependency/">npm peer dependency warnings</a></li>
+          <li><a href="/npm/npm-cache-clean/">npm cache clean</a></li>
+          <li><a href="/npm/lock-file-conflict/">package-lock.json conflict</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

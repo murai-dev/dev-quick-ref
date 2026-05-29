@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>npm peer dependency warning — how to handle | errorfix.dev</title>
+    <meta name="description" content="Understand and fix npm peer dependency warnings. Covers why they appear, when it is safe to ignore them, and how to install missing peer deps." />
+    <link rel="canonical" href="https://errorfix.dev/npm/missing-peer-dependency/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / missing-peer-dependency</p>
+
+      <h1>npm peer dependency warning — how to handle</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install missing peer dependency explicitly
+npm install react@18 react-dom@18
+
+# Suppress warnings by installing with --legacy-peer-deps
+npm install --legacy-peer-deps
+
+# See all peer dependency issues
+npm ls 2&gt;&amp;1 | grep "peer dep"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>npm warn peer dep missing: react@&gt;=16.8.0, required by some-component@1.0.0
+npm warn deprecated some-component@1.0.0: Use new-component instead</code></pre>
+        </div>
+        <p>A package lists another package as a peer dependency, meaning you are expected to install that dependency separately at the right version.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>What is a peer dependency?</h3>
+        <p>Peer dependencies are packages that a library needs you to provide, rather than bundling itself. Common pattern: a plugin that requires the host library (e.g. a React component requiring React).</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// A package.json might say:
+{
+  "peerDependencies": {
+    "react": "&gt;=17.0.0 &lt;19.0.0"
+  }
+}
+// You must have react installed at a compatible version</code></pre>
+        </div>
+
+        <h3>Auto-install peer deps (npm 7+)</h3>
+        <p>npm 7+ installs peer deps automatically. This can cause ERESOLVE errors when versions conflict. npm 6 only warned.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Revert to npm 6 behavior (warn, do not block)
+npm install --legacy-peer-deps</code></pre>
+        </div>
+
+        <h3>Check which peers are missing</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm ls
+# Packages with "peer dep unmet" or missing entries need attention</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE — dependency tree conflict</a></li>
+          <li><a href="/npm/outdated-packages/">npm outdated — check for updates</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

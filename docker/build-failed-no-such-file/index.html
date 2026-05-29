@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker build COPY failed — no such file or directory | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;COPY failed: no such file or directory&quot; in docker build by checking .dockerignore, build context path, and COPY source paths." />
+    <link rel="canonical" href="https://errorfix.dev/docker/build-failed-no-such-file/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / build-failed-no-such-file</p>
+
+      <h1>docker build COPY failed — no such file or directory</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># The build context is the directory you pass to docker build
+# Files must exist within the build context
+
+# Run build from the directory containing your files
+docker build -t my-image .
+
+# Check what is in the build context (before Docker sees it)
+# List files that would be included
+cat .dockerignore</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>COPY failed: file not found in build context or excluded by .dockerignore:
+stat app/package.json: file does not exist</code></pre>
+        </div>
+        <p>Docker's COPY instruction can only reference files inside the build context. If the file is outside the context path, or listed in .dockerignore, it will not be visible.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Check .dockerignore is not too aggressive</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .dockerignore
+node_modules
+dist
+.git
+# Make sure you are not ignoring files you need to COPY</code></pre>
+        </div>
+
+        <h3>Widen the build context</h3>
+        <p>Pass a parent directory as the context and specify the Dockerfile location with <code>-f</code>:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Build context is parent dir; Dockerfile is in ./app/
+docker build -f app/Dockerfile -t my-image ..</code></pre>
+        </div>
+
+        <h3>Correct COPY paths</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Copies ./src from the host build context to /app/src in the image
+COPY src/ /app/src/
+
+# NOT this — path must be relative to build context, not your machine
+# COPY /home/user/project/src/ /app/src/   ← WRONG</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/image-not-found/">docker image not found</a></li>
+          <li><a href="/docker/no-space-left/">docker no space left on device</a></li>
+          <li><a href="/docker/multi-stage-build/">docker multi-stage build — reduce image size</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex non-greedy matching — .*? vs .* | errorfix.dev</title>
+    <meta name="description" content="Use non-greedy (lazy) quantifiers like .*? to match as little as possible. Explains the difference between greedy and lazy matching with examples." />
+    <link rel="canonical" href="https://errorfix.dev/regex/non-greedy/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / non-greedy</p>
+
+      <h1>regex non-greedy matching — .*? vs .*</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Greedy — matches as much as possible
+/&lt;.+&gt;/    on "&lt;b&gt;bold&lt;/b&gt;" matches "&lt;b&gt;bold&lt;/b&gt;" (the whole thing)
+
+# Non-greedy (lazy) — matches as little as possible
+/&lt;.+?&gt;/   on "&lt;b&gt;bold&lt;/b&gt;" matches "&lt;b&gt;" then "&lt;/b&gt;" separately</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Greedy quantifiers (<code>*</code>, <code>+</code>, <code>?</code>) match as much as possible. Add <code>?</code> after them to make them lazy.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Lazy quantifier syntax</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>*?    zero or more (lazy)
++?    one or more (lazy)
+??    zero or one (lazy)
+{n,m}? n to m times (lazy)</code></pre>
+        </div>
+
+        <h3>JavaScript example</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>const html = '&lt;b&gt;bold&lt;/b&gt; and &lt;i&gt;italic&lt;/i&gt;';
+
+// Greedy — matches from first &lt; to last &gt;
+html.match(/&lt;.+&gt;/)[0]
+// '&lt;b&gt;bold&lt;/b&gt; and &lt;i&gt;italic&lt;/i&gt;'
+
+// Non-greedy — matches each tag separately
+html.match(/&lt;.+?&gt;/g)
+// ['&lt;b&gt;', '&lt;/b&gt;', '&lt;i&gt;', '&lt;/i&gt;']</code></pre>
+        </div>
+
+        <h3>Python example</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>import re
+
+text = '"first" and "second"'
+
+# Greedy — one big match from first " to last "
+re.findall(r'".*"', text)
+# ['"first" and "second"']
+
+# Non-greedy — each quoted string separately
+re.findall(r'".*?"', text)
+# ['"first"', '"second"']</code></pre>
+        </div>
+
+        <h3>Prefer [^...] over .*? when possible</h3>
+        <p>A negated character class is clearer and faster than a lazy quantifier.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Instead of: "&lt;.*?&gt;"
+# Use:         "&lt;[^&gt;]*&gt;"  — everything that is not a &gt;
+/&lt;[^&gt;]*&gt;/g</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/lookahead-lookbehind/">lookahead and lookbehind</a></li>
+          <li><a href="/regex/character-classes/">character classes [...]</a></li>
+          <li><a href="/regex/multiline-flag/">multiline flag — ^ and $ per line</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

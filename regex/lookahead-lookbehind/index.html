@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regex lookahead and lookbehind — (?=...) (?&lt;=...) (?!...) (?&lt;!...) | errorfix.dev</title>
+    <meta name="description" content="Use regex lookahead (?=...) and lookbehind (?&lt;=...) assertions to match patterns without including them in the result." />
+    <link rel="canonical" href="https://errorfix.dev/regex/lookahead-lookbehind/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/" class="active">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/regex/">regex</a> / lookahead-lookbehind</p>
+
+      <h1>regex lookahead and lookbehind — (?=...) (?<=...) (?!...) (?<!...)</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Positive lookahead — match "foo" only when followed by "bar"
+/foo(?=bar)/    matches "foobar" → "foo"
+
+# Negative lookahead — match "foo" NOT followed by "bar"
+/foo(?!bar)/    matches "fooX"  → "foo"
+
+# Positive lookbehind — match "bar" only when preceded by "foo"
+/(?&lt;=foo)bar/   matches "foobar" → "bar"
+
+# Negative lookbehind — match "bar" NOT preceded by "foo"
+/(?&lt;!foo)bar/   matches "Xbar"  → "bar"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to assert context around a match without including that context in the captured text.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>JavaScript examples</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>// Extract price number (not the $ sign)
+const prices = '$10 $20 $30';
+const matches = prices.match(/(?&lt;=\$)\d+/g);
+// ['10', '20', '30']
+
+// Match word NOT followed by "px"
+'10px 20em 30px'.match(/\d+(?!px)/g)
+// ['20'] — only the em value</code></pre>
+        </div>
+
+        <h3>Python examples</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>import re
+
+# Positive lookahead — match digits before 'px'
+re.findall(r'\d+(?=px)', '10px 20em 30px')
+# ['10', '30']
+
+# Lookbehind — match value after 'color: '
+re.search(r'(?&lt;=color: )\w+', 'color: red').group()
+# 'red'</code></pre>
+        </div>
+
+        <h3>Variable-length lookbehind (Python 3.9+, PCRE)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Python &lt;3.9 requires fixed-length lookbehind
+# (?&lt;=ab|abc) → error in older Python
+# (?&lt;=(?:a|ab)) → also not allowed
+
+# Workaround with a group
+re.sub(r'(prefix_?)(\w+)', r'\g&lt;2&gt;', 'prefix_value')</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/regex/named-groups/">regex named capture groups</a></li>
+          <li><a href="/regex/non-greedy/">non-greedy matching (.*?)</a></li>
+          <li><a href="/regex/word-boundary/">word boundary \b</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

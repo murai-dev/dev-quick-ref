@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash string comparison — equality, contains, starts with | errorfix.dev</title>
+    <meta name="description" content="Compare strings in bash using [[ ]] with =, !=, =~, and parameter expansion. Covers equality, contains, starts with, ends with, and empty checks." />
+    <link rel="canonical" href="https://errorfix.dev/bash/string-comparison/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / string-comparison</p>
+
+      <h1>bash string comparison — equality, contains, starts with</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Equal
+[[ "$a" == "$b" ]] &amp;&amp; echo "equal"
+
+# Not equal
+[[ "$a" != "$b" ]] &amp;&amp; echo "different"
+
+# Empty / not empty
+[[ -z "$var" ]] &amp;&amp; echo "empty"
+[[ -n "$var" ]] &amp;&amp; echo "not empty"
+
+# Contains (glob pattern)
+[[ "$str" == *"substr"* ]] &amp;&amp; echo "contains"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>String comparison in bash has many pitfalls. Use <code>[[ ]]</code> (not <code>[ ]</code>) for most cases.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Regex match with =~</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check if string matches a regex
+if [[ "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+  echo "valid email"
+fi
+
+# Access capture groups via BASH_REMATCH
+if [[ "2024-01-15" =~ ^([0-9]{4})-([0-9]{2})-([0-9]{2})$ ]]; then
+  echo "year=${BASH_REMATCH[1]}"
+fi</code></pre>
+        </div>
+
+        <h3>Starts with / ends with</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Starts with "prefix"
+[[ "$str" == prefix* ]] &amp;&amp; echo "starts with prefix"
+
+# Ends with ".log"
+[[ "$str" == *.log ]] &amp;&amp; echo "ends with .log"</code></pre>
+        </div>
+
+        <h3>Case-insensitive comparison</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>shopt -s nocasematch
+[[ "Hello" == "hello" ]] &amp;&amp; echo "match"
+shopt -u nocasematch  # restore</code></pre>
+        </div>
+
+        <h3>String length</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>str="hello"
+echo ${#str}   # 5</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/check-exit-code/">check exit code ($?)</a></li>
+          <li><a href="/bash/array-usage/">bash arrays — create, iterate, append</a></li>
+          <li><a href="/bash/for-loop/">bash for loop</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

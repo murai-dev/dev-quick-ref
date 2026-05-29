@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash parse arguments with getopts and $@ | errorfix.dev</title>
+    <meta name="description" content="Parse command-line arguments in bash scripts using getopts for flags, positional parameters ($1, $2), and shift for more control." />
+    <link rel="canonical" href="https://errorfix.dev/bash/argument-parsing/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / argument-parsing</p>
+
+      <h1>bash parse arguments with getopts and $@</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/usr/bin/env bash
+# Positional args: $1, $2, $3...
+echo "First arg: $1"
+echo "All args:  $@"
+echo "Arg count: $#"</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to handle flags (-v, -o filename) or positional arguments in a bash script.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Parse flags with getopts</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/usr/bin/env bash
+while getopts "vo:h" opt; do
+  case $opt in
+    v) verbose=1 ;;
+    o) output="$OPTARG" ;;
+    h) echo "Usage: $0 [-v] [-o output] args"; exit 0 ;;
+    *) echo "Unknown option: $opt"; exit 1 ;;
+  esac
+done
+shift $((OPTIND - 1))   # remove parsed flags, $@ now has remaining args
+echo "Remaining args: $@"</code></pre>
+        </div>
+
+        <h3>Parse long options with --</h3>
+        <p>getopts does not support long options (--flag). Use a case statement with shift instead.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/usr/bin/env bash
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --verbose|-v) verbose=1; shift ;;
+    --output|-o)  output="$2"; shift 2 ;;
+    --help|-h)    echo "Usage: ..."; exit 0 ;;
+    --)           shift; break ;;
+    *)            positional+=("$1"); shift ;;
+  esac
+done</code></pre>
+        </div>
+
+        <h3>Default values for arguments</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>name="${1:-world}"     # default to "world" if $1 is empty
+echo "Hello, $name!"</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/check-exit-code/">bash check exit code $?</a></li>
+          <li><a href="/bash/string-comparison/">bash string comparison</a></li>
+          <li><a href="/bash/set-e-exit-on-error/">bash set -e — exit on error</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

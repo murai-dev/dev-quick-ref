@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker network — connect containers to each other | errorfix.dev</title>
+    <meta name="description" content="Connect Docker containers on the same user-defined network so they can communicate by container name. Covers bridge networks and docker compose networking." />
+    <link rel="canonical" href="https://errorfix.dev/docker/network-connect/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / network-connect</p>
+
+      <h1>docker network — connect containers to each other</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Create a network
+docker network create my-net
+
+# Run containers on the same network
+docker run -d --name db --network my-net postgres:16
+docker run -d --name app --network my-net -p 3000:3000 my-app
+
+# Containers can now reach each other by name
+# app → postgres://db:5432/mydb</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Containers on the default bridge network cannot resolve each other by name. User-defined networks add automatic DNS.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Inspect a network</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker network ls
+docker network inspect my-net</code></pre>
+        </div>
+
+        <h3>Connect a running container to a network</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker network connect my-net existing-container</code></pre>
+        </div>
+
+        <h3>Docker Compose — automatic networking</h3>
+        <p>Compose creates a default network for each project. Services can reach each other by service name.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># docker-compose.yml
+services:
+  db:
+    image: postgres:16
+  app:
+    image: my-app
+    environment:
+      DATABASE_URL: postgres://db:5432/mydb
+# No explicit network needed — Compose handles it</code></pre>
+        </div>
+
+        <h3>Expose a port to the host</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># -p HOST_PORT:CONTAINER_PORT
+docker run -p 8080:3000 my-app
+# Access at http://localhost:8080</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/port-already-in-use/">docker port already allocated</a></li>
+          <li><a href="/docker/compose-env/">docker compose environment variables</a></li>
+          <li><a href="/docker/container-ip/">get container IP address</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

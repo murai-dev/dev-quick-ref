@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker port already allocated — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;Bind for 0.0.0.0:PORT failed: port is already allocated&quot; in Docker by finding and stopping the process using that port." />
+    <link rel="canonical" href="https://errorfix.dev/docker/port-already-in-use/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / port-already-in-use</p>
+
+      <h1>docker port already allocated — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Find what is using the port (e.g. 8080)
+sudo lsof -i :8080
+# or
+ss -tlnp | grep 8080
+
+# Stop the conflicting container
+docker ps | grep 8080
+docker stop &lt;container-id&gt;
+
+# Or kill the non-Docker process
+sudo kill -9 &lt;PID&gt;</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>Error response from daemon: driver failed programming external connectivity on endpoint my-app:
+Bind for 0.0.0.0:8080 failed: port is already allocated</code></pre>
+        </div>
+        <p>Another process or Docker container is already listening on the same host port.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Use a different host port</h3>
+        <p>Map a different host port to the same container port:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Map host port 8081 → container port 8080
+docker run -p 8081:8080 my-image</code></pre>
+        </div>
+
+        <h3>Stop all containers on a given port</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker ps --filter "publish=8080" -q | xargs docker stop</code></pre>
+        </div>
+
+        <h3>On macOS: AirPlay Receiver uses port 5000 / 7000</h3>
+        <p>Disable AirPlay Receiver in System Settings → General → AirDrop & Handoff.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Verify
+sudo lsof -iTCP:5000 -sTCP:LISTEN</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/cannot-connect-daemon/">cannot connect to the Docker daemon</a></li>
+          <li><a href="/docker/container-name-in-use/">container name is already in use</a></li>
+          <li><a href="/docker/network-connect/">connect containers on the same network</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

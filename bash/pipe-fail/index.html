@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash set -o pipefail — catch errors in pipelines | errorfix.dev</title>
+    <meta name="description" content="Use set -o pipefail to make bash pipelines fail when any command in the pipeline fails, not just the last one." />
+    <link rel="canonical" href="https://errorfix.dev/bash/pipe-fail/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / pipe-fail</p>
+
+      <h1>bash set -o pipefail — catch errors in pipelines</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>set -o pipefail
+
+# Now this will fail (grep fails because the file is missing)
+cat missing-file.txt | grep "pattern" | wc -l
+# Without pipefail: exit code 0 (wc succeeded)
+# With pipefail:    exit code 1 (cat failed)</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Problem without pipefail</p>
+        <p>Without <code>pipefail</code>, only the exit code of the last command in a pipeline matters:</p>
+        <div class="code-block error-block">
+          <pre><code>false | true
+echo $?   # prints 0 — the "false" failure is silently swallowed</code></pre>
+        </div>
+        <p>Silent failures in pipelines are a common source of subtle bugs in shell scripts.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Combine with set -e and set -u</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# Script now exits on:
+# - any command failure (-e)
+# - unset variable reference (-u)
+# - pipeline failure (-o pipefail)</code></pre>
+        </div>
+
+        <h3>Get individual pipeline exit codes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>cat file.txt | grep pattern | sort
+echo "${PIPESTATUS[@]}"   # e.g. "0 1 0" — grep failed, others ok</code></pre>
+        </div>
+
+        <h3>Allow specific pipeline failures</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Use || true to ignore expected failures
+grep "pattern" file.txt | head -5 || true</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/set-e-exit-on-error/">bash set -e — exit on error</a></li>
+          <li><a href="/bash/check-exit-code/">check exit code of last command ($?)</a></li>
+          <li><a href="/bash/redirect-stderr/">redirect stderr to stdout (2>&1)</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crontab syntax and common schedules | errorfix.dev</title>
+    <meta name="description" content="Crontab syntax reference with common schedule examples. Covers the five time fields, special strings (@daily, @reboot), and editing cron jobs." />
+    <link rel="canonical" href="https://errorfix.dev/bash/cron-job/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / cron-job</p>
+
+      <h1>crontab syntax and common schedules</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Edit your crontab
+crontab -e
+
+# Format: minute hour day-of-month month day-of-week command
+# *       *    *            *       *
+# 0-59  0-23  1-31        1-12    0-7 (0 and 7 = Sunday)
+
+# Examples:
+# Run every day at 2:30 AM
+30 2 * * * /home/user/backup.sh
+
+# Run every 5 minutes
+*/5 * * * * /usr/local/bin/check-health.sh</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>Schedule recurring tasks to run automatically on Linux/macOS servers.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Common schedule examples</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Every minute
+* * * * * command
+
+# Every hour at :00
+0 * * * * command
+
+# Daily at midnight
+0 0 * * * command
+
+# Monday to Friday at 9 AM
+0 9 * * 1-5 command
+
+# First day of every month
+0 0 1 * * command
+
+# Every 15 minutes
+*/15 * * * * command</code></pre>
+        </div>
+
+        <h3>Special strings</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>@reboot   command   # run once at startup
+@daily    command   # same as 0 0 * * *
+@weekly   command   # same as 0 0 * * 0
+@monthly  command   # same as 0 0 1 * *
+@hourly   command   # same as 0 * * * *</code></pre>
+        </div>
+
+        <h3>Capture cron output / errors</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Redirect output to a log file
+0 2 * * * /home/user/backup.sh &gt;&gt; /var/log/backup.log 2&gt;&amp;1
+
+# Or use MAILTO to send errors by email
+MAILTO="admin@example.com"
+0 2 * * * /home/user/backup.sh</code></pre>
+        </div>
+
+        <h3>Manage crontab</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>crontab -l   # list your cron jobs
+crontab -e   # edit
+crontab -r   # remove all (careful!)
+crontab -l &gt; crontab.bak  # backup first</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/redirect-stderr/">redirect stderr to stdout (2>&1)</a></li>
+          <li><a href="/bash/date-format/">bash date format and timestamp</a></li>
+          <li><a href="/bash/here-doc/">bash heredoc</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

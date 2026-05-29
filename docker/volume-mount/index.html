@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker volume mount and bind mount — how to use | errorfix.dev</title>
+    <meta name="description" content="Mount volumes or bind directories into Docker containers using -v and --mount. Covers named volumes, bind mounts, and read-only mounts." />
+    <link rel="canonical" href="https://errorfix.dev/docker/volume-mount/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / volume-mount</p>
+
+      <h1>docker volume mount and bind mount — how to use</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Bind mount — map a host directory into the container
+docker run -v $(pwd)/data:/app/data my-image
+
+# Named volume — Docker manages the storage
+docker run -v my-volume:/app/data my-image
+
+# Read-only mount
+docker run -v $(pwd)/config:/app/config:ro my-image</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need persistent data storage, or to share files between the host and a container.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Create and inspect named volumes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Create
+docker volume create my-volume
+
+# List
+docker volume ls
+
+# Inspect (shows mount path on host)
+docker volume inspect my-volume</code></pre>
+        </div>
+
+        <h3>--mount syntax (more explicit)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Bind mount
+docker run --mount type=bind,source=$(pwd)/data,target=/app/data my-image
+
+# Named volume
+docker run --mount type=volume,source=my-volume,target=/app/data my-image</code></pre>
+        </div>
+
+        <h3>Docker Compose volumes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># docker-compose.yml
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pg-data:</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/copy-files/">docker cp — copy files to/from container</a></li>
+          <li><a href="/docker/compose-env/">docker compose environment variables</a></li>
+          <li><a href="/docker/no-space-left/">docker no space left on device</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

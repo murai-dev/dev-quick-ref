@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>package-lock.json conflict — how to resolve | errorfix.dev</title>
+    <meta name="description" content="Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution." />
+    <link rel="canonical" href="https://errorfix.dev/npm/lock-file-conflict/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / lock-file-conflict</p>
+
+      <h1>package-lock.json conflict — how to resolve</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Simplest fix — delete and regenerate
+rm package-lock.json
+npm install
+
+# This regenerates package-lock.json from package.json</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  "lockfileVersion": 3,
+=======
+  "lockfileVersion": 2,
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch
+# (inside package-lock.json after git merge/rebase)</code></pre>
+        </div>
+        <p>Two branches modified package-lock.json. It is auto-generated, so manual merging is error-prone. Deleting and regenerating is the safest approach.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Prevent future conflicts with npm-merge-driver</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Install the merge driver
+npx npm-merge-driver install --global
+
+# It automatically handles package-lock.json conflicts</code></pre>
+        </div>
+
+        <h3>Keep one side of the conflict</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Accept your version (HEAD)
+git checkout --ours package-lock.json
+npm install   # regenerate to ensure consistency
+
+# Accept the incoming version
+git checkout --theirs package-lock.json
+npm install</code></pre>
+        </div>
+
+        <h3>Add package-lock.json to .gitattributes</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># .gitattributes — use a custom merge strategy
+package-lock.json merge=npm-merge-driver</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE dependency conflict</a></li>
+          <li><a href="/npm/npm-cache-clean/">npm cache clean</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

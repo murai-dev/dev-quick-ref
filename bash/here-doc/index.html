@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash heredoc — write multiline strings | errorfix.dev</title>
+    <meta name="description" content="Use heredoc (&lt;&lt;EOF) to embed multiline text in bash scripts. Covers indented heredocs (&lt;&lt;-), variable expansion, and writing to files." />
+    <link rel="canonical" href="https://errorfix.dev/bash/here-doc/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / here-doc</p>
+
+      <h1>bash heredoc — write multiline strings</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Basic heredoc
+cat &lt;&lt;EOF
+Line one
+Line two with variable: $USER
+EOF
+
+# Write to a file
+cat &lt;&lt;EOF &gt; config.yml
+database:
+  host: localhost
+  port: 5432
+EOF</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to write a multiline string in a script without a separate template file.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Indented heredoc (&lt;&lt;-)</h3>
+        <p><code><<-</code> strips leading tabs (not spaces) from each line, so the heredoc can be indented with the surrounding code.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>if true; then
+	cat &lt;&lt;-EOF
+		This line has tabs stripped
+		So does this one
+	EOF
+fi</code></pre>
+        </div>
+
+        <h3>Disable variable expansion (quoted delimiter)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Single-quote the delimiter to treat content as literal text
+cat &lt;&lt;'EOF'
+No expansion: $USER  \n  $(date)
+EOF
+# prints literally: No expansion: $USER  \n  $(date)</code></pre>
+        </div>
+
+        <h3>Pass heredoc as stdin to a command</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Send SQL to psql
+psql -U postgres &lt;&lt;EOF
+CREATE DATABASE myapp;
+GRANT ALL PRIVILEGES ON DATABASE myapp TO appuser;
+EOF
+
+# SSH remote commands
+ssh user@host &lt;&lt;'ENDSSH'
+cd /app &amp;&amp; git pull &amp;&amp; npm run build
+ENDSSH</code></pre>
+        </div>
+
+        <h3>Herestring — single-line stdin</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># &lt;&lt;&lt; passes a string as stdin
+grep "pattern" &lt;&lt;&lt; "some text with pattern here"
+
+# Useful to avoid echo | command
+base64 &lt;&lt;&lt; "hello world"</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/redirect-stderr/">redirect stderr to stdout (2>&1)</a></li>
+          <li><a href="/bash/syntax-error-unexpected/">bash syntax error: unexpected end of file</a></li>
+          <li><a href="/bash/for-loop/">bash for loop</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

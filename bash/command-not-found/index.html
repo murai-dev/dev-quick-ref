@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash: command not found — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;bash: command not found&quot; by checking PATH, installing the missing program, or using the full path to the binary." />
+    <link rel="canonical" href="https://errorfix.dev/bash/command-not-found/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / command-not-found</p>
+
+      <h1>bash: command not found — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check if the command exists anywhere on the system
+which node           # shows path if found
+command -v node      # POSIX-compatible version
+type node            # also shows if it's an alias or function
+
+# Check your PATH
+echo $PATH
+
+# If you just installed something, reload your shell config
+source ~/.bashrc     # bash
+source ~/.zshrc      # zsh</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>bash: node: command not found
+# or
+zsh: command not found: python</code></pre>
+        </div>
+        <p>The shell cannot find the program in any directory listed in <code>$PATH</code>.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Add a directory to PATH</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Temporarily (current session only)
+export PATH="$HOME/.local/bin:$PATH"
+
+# Permanently — add to ~/.bashrc or ~/.zshrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+        </div>
+
+        <h3>Install the missing command (Ubuntu/Debian)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Search for which package provides a command
+apt-cache search node
+sudo apt install nodejs
+
+# Or use apt-file
+sudo apt install apt-file
+apt-file search bin/node</code></pre>
+        </div>
+
+        <h3>Version manager installed but not initialised</h3>
+        <p>Tools like nvm, rbenv, pyenv need to be initialized in your shell profile.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># nvm — add to ~/.bashrc or ~/.zshrc
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; source "$NVM_DIR/nvm.sh"
+
+# Then reload
+source ~/.bashrc</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/permission-denied/">bash permission denied — chmod +x</a></li>
+          <li><a href="/bash/set-e-exit-on-error/">bash set -e — exit on error</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

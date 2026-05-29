@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bash date — format date and timestamp | errorfix.dev</title>
+    <meta name="description" content="Format dates and timestamps in bash using the date command. Covers ISO 8601, Unix epoch, arithmetic, and macOS vs Linux differences." />
+    <link rel="canonical" href="https://errorfix.dev/bash/date-format/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/" class="active">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/bash/">bash</a> / date-format</p>
+
+      <h1>bash date — format date and timestamp</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Current date and time (ISO 8601)
+date +"%Y-%m-%dT%H:%M:%S"
+# 2024-01-15T09:30:00
+
+# Date only
+date +"%Y-%m-%d"
+# 2024-01-15
+
+# Unix epoch (seconds since 1970-01-01)
+date +%s</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Usage</p>
+        <p>You need to generate timestamps for log filenames, backups, or script output.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Common format specifiers</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>%Y   four-digit year         2024
+%m   month (01-12)            01
+%d   day of month (01-31)     15
+%H   hour (00-23)             09
+%M   minute (00-59)           30
+%S   second (00-59)           00
+%Z   timezone                 UTC
+%s   Unix epoch seconds       1705312200
+%N   nanoseconds (Linux)      123456789</code></pre>
+        </div>
+
+        <h3>Date arithmetic (GNU date / Linux)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># 7 days ago
+date -d "7 days ago" +"%Y-%m-%d"
+
+# Tomorrow
+date -d "tomorrow" +"%Y-%m-%d"
+
+# Specific date + offset
+date -d "2024-01-01 + 30 days" +"%Y-%m-%d"</code></pre>
+        </div>
+
+        <h3>macOS date arithmetic (BSD date)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># macOS uses -v for arithmetic
+date -v-7d +"%Y-%m-%d"    # 7 days ago
+date -v+1d +"%Y-%m-%d"    # tomorrow
+
+# Install GNU coreutils for date -d on macOS
+brew install coreutils
+gdate -d "7 days ago" +"%Y-%m-%d"</code></pre>
+        </div>
+
+        <h3>Timestamp in a filename</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>logfile="backup_$(date +"%Y%m%d_%H%M%S").tar.gz"
+echo $logfile   # backup_20240115_093000.tar.gz</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/bash/cron-job/">crontab syntax and schedules</a></li>
+          <li><a href="/bash/check-exit-code/">check exit code ($?)</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

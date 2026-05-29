@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cannot connect to the Docker daemon — how to fix | errorfix.dev</title>
+    <meta name="description" content="Fix &quot;Cannot connect to the Docker daemon at unix:///var/run/docker.sock&quot; by starting the Docker daemon or Desktop app." />
+    <link rel="canonical" href="https://errorfix.dev/docker/cannot-connect-daemon/" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/docker/">docker</a> / cannot-connect-daemon</p>
+
+      <h1>cannot connect to the Docker daemon — how to fix</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># macOS / Windows: start Docker Desktop
+open -a Docker          # macOS
+# Or launch Docker Desktop from Applications
+
+# Linux: start the daemon
+sudo systemctl start docker
+sudo systemctl enable docker   # auto-start on boot
+
+# Verify
+docker info</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <div class="code-block error-block">
+          <pre><code>Cannot connect to the Docker daemon at unix:///var/run/docker.sock.
+Is the docker daemon running?</code></pre>
+        </div>
+        <p>The Docker CLI cannot reach the daemon because it is not running, or the socket path is wrong.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Other causes &amp; fixes</p>
+        <h3>Check daemon status (Linux)</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>sudo systemctl status docker
+# If inactive:
+sudo systemctl start docker</code></pre>
+        </div>
+
+        <h3>Custom socket or remote daemon</h3>
+        <p>If the daemon uses a custom socket or TCP address, set <code>DOCKER_HOST</code>:</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>export DOCKER_HOST=unix:///run/user/1000/docker.sock
+# or TCP
+export DOCKER_HOST=tcp://192.168.1.10:2376</code></pre>
+        </div>
+
+        <h3>Rootless Docker socket</h3>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># The socket lives under the user runtime directory
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/docker/permission-denied-docker-socket/">docker permission denied /var/run/docker.sock</a></li>
+          <li><a href="/docker/container-exits-immediately/">docker container exits immediately</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>
