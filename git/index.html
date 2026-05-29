@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>git — errorfix.dev</title>
+    <meta name="description" content="Copy-paste fixes for common git errors and workflows." />
+    <link rel="canonical" href="https://errorfix.dev/git/" />
+    <script type="module" src="../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/">/</a> / git</p>
+
+      <h1>git</h1>
+
+      <section class="section">
+        <p class="section-label">30 pages</p>
+        <ul class="category-page-list">
+          <li>
+            <a href="/git/amend-commit-message/">git amend last commit message — rewrite without a new commit</a>
+            <p>Fix the last git commit message with git commit --amend -m "New message". Works only if you have not pushed the commit yet.</p>
+          </li>
+          <li>
+            <a href="/git/bisect/">git bisect — find the commit that introduced a bug</a>
+            <p>Use git bisect to perform a binary search through your commit history and find the exact commit that introduced a bug.</p>
+          </li>
+          <li>
+            <a href="/git/cherry-pick/">git cherry-pick — apply a commit from another branch</a>
+            <p>Use git cherry-pick to copy a specific commit from one branch to another without merging the whole branch.</p>
+          </li>
+          <li>
+            <a href="/git/clone-specific-branch/">git clone a specific branch</a>
+            <p>Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches.</p>
+          </li>
+          <li>
+            <a href="/git/delete-remote-branch/">git delete remote branch — push delete</a>
+            <p>Delete a remote branch in git using git push origin --delete branch-name. Also covers deleting local branches and pruning stale remote refs.</p>
+          </li>
+          <li>
+            <a href="/git/detached-head/">git detached HEAD — what it means and how to fix</a>
+            <p>Fix a git detached HEAD state by creating a new branch to save your work, or switch back to an existing branch. Recover commits made while detached.</p>
+          </li>
+          <li>
+            <a href="/git/diff-branches/">git diff between two branches</a>
+            <p>Compare two git branches with git diff. See all changed files, or diff a specific file between branches.</p>
+          </li>
+          <li>
+            <a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a>
+            <p>Discard all unstaged changes in your working directory with git restore . or git checkout -- . Covers discarding a single file and staged changes.</p>
+          </li>
+          <li>
+            <a href="/git/large-file-rejected/">git push rejected — file too large</a>
+            <p>Fix git push rejected because a file exceeds the size limit. Remove the large file from history with git rm --cached or migrate it to Git LFS.</p>
+          </li>
+          <li>
+            <a href="/git/line-ending-crlf/">git line ending warning (CRLF / LF) — how to fix</a>
+            <p>Fix git line ending warnings about CRLF and LF by configuring core.autocrlf correctly for your OS, or using a .gitattributes file.</p>
+          </li>
+          <li>
+            <a href="/git/merge-conflict/">git merge conflict — how to resolve</a>
+            <p>Resolve a git merge conflict by editing the conflicted files, removing conflict markers, then running git add and git merge --continue.</p>
+          </li>
+          <li>
+            <a href="/git/permission-denied-publickey/">git permission denied (publickey) — how to fix</a>
+            <p>Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup.</p>
+          </li>
+          <li>
+            <a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge — which to use</a>
+            <p>Understand the difference between git pull --rebase and git pull --merge. Use rebase for a linear history, merge for explicit merge commits.</p>
+          </li>
+          <li>
+            <a href="/git/push-rejected/">git push rejected (non-fast-forward) — how to fix</a>
+            <p>Fix git push rejected non-fast-forward by running git pull --rebase before pushing. The remote has commits your local branch does not have.</p>
+          </li>
+          <li>
+            <a href="/git/rebase-abort/">git rebase --abort — cancel a rebase in progress</a>
+            <p>Cancel an in-progress git rebase and restore your branch to its pre-rebase state with git rebase --abort.</p>
+          </li>
+          <li>
+            <a href="/git/recover-deleted-branch/">git recover deleted branch — using reflog</a>
+            <p>Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b.</p>
+          </li>
+          <li>
+            <a href="/git/remote-change-url/">git remote change URL — switch origin or add new remote</a>
+            <p>Change a git remote URL with git remote set-url. Switch between HTTPS and SSH, or update after a repository was renamed or moved.</p>
+          </li>
+          <li>
+            <a href="/git/remove-untracked/">git remove all untracked files and directories</a>
+            <p>Remove untracked files from your working directory using git clean. Use -n for a dry run first to see what would be deleted.</p>
+          </li>
+          <li>
+            <a href="/git/rename-branch/">git rename a branch (local and remote)</a>
+            <p>Rename a git branch locally with git branch -m, then update the remote by pushing the new name and deleting the old one.</p>
+          </li>
+          <li>
+            <a href="/git/reset-soft-mixed-hard/">git reset --soft vs --mixed vs --hard — the difference</a>
+            <p>Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them.</p>
+          </li>
+          <li>
+            <a href="/git/shallow-to-full-clone/">git convert shallow clone to full history</a>
+            <p>Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow.</p>
+          </li>
+          <li>
+            <a href="/git/show-file-at-commit/">git show a file at a specific commit</a>
+            <p>View or restore a file from any past git commit using git show or git checkout. No need to switch branches.</p>
+          </li>
+          <li>
+            <a href="/git/squash-commits/">git squash commits — combine commits before merging</a>
+            <p>Squash multiple git commits into one using interactive rebase (git rebase -i). Clean up your commit history before opening a pull request.</p>
+          </li>
+          <li>
+            <a href="/git/ssl-certificate-error/">git SSL certificate problem — how to fix</a>
+            <p>Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification.</p>
+          </li>
+          <li>
+            <a href="/git/stash-drop/">git stash drop — remove a specific stash</a>
+            <p>Drop a specific git stash entry with git stash drop stash@{n}, or clear all stashes at once with git stash clear.</p>
+          </li>
+          <li>
+            <a href="/git/submodule-update/">git submodule update — initialize and update all submodules</a>
+            <p>Initialize and update all git submodules recursively with git submodule update --init --recursive. Fix missing submodule directories after cloning.</p>
+          </li>
+          <li>
+            <a href="/git/tag-commit/">git tag a specific commit — create and push tags</a>
+            <p>Tag a specific git commit with git tag and push it to the remote. Covers annotated tags, listing tags, and deleting tags.</p>
+          </li>
+          <li>
+            <a href="/git/undo-last-commit/">git undo last commit — keep or discard changes</a>
+            <p>Undo the last git commit without losing your work using git reset --soft HEAD~1. Covers all three modes: soft, mixed, and hard reset.</p>
+          </li>
+          <li>
+            <a href="/git/untrack-file/">git stop tracking a file — remove from git without deleting</a>
+            <p>Stop tracking a file that is already committed in git using git rm --cached, then add it to .gitignore so it stays ignored going forward.</p>
+          </li>
+          <li>
+            <a href="/git/worktree/">git worktree — work on multiple branches simultaneously</a>
+            <p>Use git worktree to check out multiple branches at once in separate directories. No stashing or switching required.</p>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

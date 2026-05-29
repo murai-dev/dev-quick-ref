@@ -266,3 +266,37 @@ a.category-card:hover {
 .category-card--soon {
   opacity: 0.45;
 }
+
+/* ── category index page list ── */
+.category-page-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.category-page-list li {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.category-page-list li:last-child {
+  border-bottom: none;
+}
+
+.category-page-list a {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--link);
+  text-decoration: none;
+}
+
+.category-page-list a:hover { text-decoration: underline; }
+
+.category-page-list p {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}

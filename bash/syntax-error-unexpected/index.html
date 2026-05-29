@@ -42,8 +42,8 @@ dos2unix script.sh
 sed -i 's///' script.sh
 
 # Check for unclosed blocks — count openers vs closers
-grep -c 'if' script.sh   # should match fi count
-grep -c 'fi' script.sh</code></pre>
+grep -c '\bif\b' script.sh   # should match fi count
+grep -c '\bfi\b' script.sh</code></pre>
         </div>
       </section>
 

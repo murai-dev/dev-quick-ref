@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>docker — errorfix.dev</title>
+    <meta name="description" content="Copy-paste fixes for common Docker errors and commands." />
+    <link rel="canonical" href="https://errorfix.dev/docker/" />
+    <script type="module" src="../src/entrypoints/page.ts"></script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">errorfix.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/" class="active">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/">/</a> / docker</p>
+
+      <h1>docker</h1>
+
+      <section class="section">
+        <p class="section-label">20 pages</p>
+        <ul class="category-page-list">
+          <li>
+            <a href="/docker/build-failed-no-such-file/">docker build COPY failed — no such file or directory</a>
+            <p>Fix "COPY failed: no such file or directory" in docker build by checking .dockerignore, build context path, and COPY source paths.</p>
+          </li>
+          <li>
+            <a href="/docker/cannot-connect-daemon/">cannot connect to the Docker daemon — how to fix</a>
+            <p>Fix "Cannot connect to the Docker daemon at unix:///var/run/docker.sock" by starting the Docker daemon or Desktop app.</p>
+          </li>
+          <li>
+            <a href="/docker/compose-env/">docker compose environment variables — how to set</a>
+            <p>Set environment variables in docker compose using env_file, environment key, .env file substitution, and override files.</p>
+          </li>
+          <li>
+            <a href="/docker/container-exits-immediately/">docker container exits immediately — how to fix</a>
+            <p>Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command.</p>
+          </li>
+          <li>
+            <a href="/docker/container-ip/">docker get container IP address</a>
+            <p>Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network.</p>
+          </li>
+          <li>
+            <a href="/docker/container-name-in-use/">docker container name already in use — how to fix</a>
+            <p>Fix "container name is already in use" by removing the existing container or using --rm / a different name.</p>
+          </li>
+          <li>
+            <a href="/docker/copy-files/">docker cp — copy files between container and host</a>
+            <p>Use docker cp to copy files or directories between a Docker container and the host. Works with running or stopped containers.</p>
+          </li>
+          <li>
+            <a href="/docker/env-file/">docker pass environment variables — --env-file and -e</a>
+            <p>Pass environment variables to Docker containers using -e for single values or --env-file for a file of KEY=VALUE pairs.</p>
+          </li>
+          <li>
+            <a href="/docker/exec-container/">docker exec — run a command inside a running container</a>
+            <p>Use docker exec to open a shell or run a command inside a running Docker container. Covers interactive shell, one-off commands, and running as a specific user.</p>
+          </li>
+          <li>
+            <a href="/docker/health-check/">docker HEALTHCHECK — add container health check</a>
+            <p>Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically.</p>
+          </li>
+          <li>
+            <a href="/docker/image-not-found/">docker image not found / repository does not exist — how to fix</a>
+            <p>Fix "Unable to find image" or "repository does not exist" in Docker by checking image name, tag, and registry login.</p>
+          </li>
+          <li>
+            <a href="/docker/multi-stage-build/">docker multi-stage build — reduce image size</a>
+            <p>Use Docker multi-stage builds to produce small production images by discarding build tools and dependencies in a separate builder stage.</p>
+          </li>
+          <li>
+            <a href="/docker/network-connect/">docker network — connect containers to each other</a>
+            <p>Connect Docker containers on the same user-defined network so they can communicate by container name. Covers bridge networks and docker compose networking.</p>
+          </li>
+          <li>
+            <a href="/docker/no-space-left/">docker no space left on device — how to fix</a>
+            <p>Fix "no space left on device" in Docker by pruning unused images, containers, volumes, and build cache with docker system prune.</p>
+          </li>
+          <li>
+            <a href="/docker/permission-denied-docker-socket/">docker permission denied /var/run/docker.sock — how to fix</a>
+            <p>Fix "permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock" by adding your user to the docker group.</p>
+          </li>
+          <li>
+            <a href="/docker/port-already-in-use/">docker port already allocated — how to fix</a>
+            <p>Fix "Bind for 0.0.0.0:PORT failed: port is already allocated" in Docker by finding and stopping the process using that port.</p>
+          </li>
+          <li>
+            <a href="/docker/prune-images/">docker image prune — remove unused images</a>
+            <p>Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options.</p>
+          </li>
+          <li>
+            <a href="/docker/remove-all-stopped/">docker remove all stopped containers</a>
+            <p>Remove all stopped Docker containers with docker container prune or docker rm. Includes filtering by status and bulk removal.</p>
+          </li>
+          <li>
+            <a href="/docker/view-logs/">docker logs — view container output</a>
+            <p>Use docker logs to view stdout/stderr output from a Docker container. Includes tail, follow, timestamps, and since options.</p>
+          </li>
+          <li>
+            <a href="/docker/volume-mount/">docker volume mount and bind mount — how to use</a>
+            <p>Mount volumes or bind directories into Docker containers using -v and --mount. Covers named volumes, bind mounts, and read-only mounts.</p>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+    </footer>
+
+  </body>
+</html>

@@ -9,8 +9,8 @@ dos2unix script.sh
 sed -i 's/\r//' script.sh
 
 # Check for unclosed blocks — count openers vs closers
-grep -c '\bif\b' script.sh   # should match fi count
-grep -c '\bfi\b' script.sh`,
+grep -c '\\bif\\b' script.sh   # should match fi count
+grep -c '\\bfi\\b' script.sh`,
   when: {
     error: `script.sh: line 42: syntax error: unexpected end of file
 # or
