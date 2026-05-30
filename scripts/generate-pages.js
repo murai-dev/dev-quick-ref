@@ -110,6 +110,9 @@ ${items}
     <title>${escAttr(data.title)} | errorfix.dev</title>
     <meta name="description" content="${escAttr(data.description)}" />
     <link rel="canonical" href="https://errorfix.dev/${category}/${slug}/" />
+    <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   </head>
   <body>
@@ -147,6 +150,7 @@ ${relatedItems}
       <a href="/">errorfix.dev</a> &mdash; developer error solutions
     </footer>
 
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
 </html>
 `;
