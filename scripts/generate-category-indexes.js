@@ -71,6 +71,14 @@ function renderCategoryIndex(category, pages) {
     <title>${esc(category)} — errorfix.dev</title>
     <meta name="description" content="${escAttr(desc)}" />
     <link rel="canonical" href="https://errorfix.dev/${category}/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="errorfix.dev" />
+    <meta property="og:url" content="https://errorfix.dev/${category}/" />
+    <meta property="og:title" content="${esc(category)} — errorfix.dev" />
+    <meta property="og:description" content="${escAttr(desc)}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${esc(category)} — errorfix.dev" />
+    <meta name="twitter:description" content="${escAttr(desc)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
