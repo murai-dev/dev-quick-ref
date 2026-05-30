@@ -80,7 +80,8 @@ function renderCategoryIndex(category, pages) {
     <meta name="twitter:title" content="${esc(category)} — errorfix.dev" />
     <meta name="twitter:description" content="${escAttr(desc)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../src/entrypoints/page.ts"></script>
   </head>
