@@ -65,6 +65,58 @@ function codeBlock(code, copyBtn = true) {
 }
 
 // ---------------------------------------------------------------------------
+// JSON-LD structured data
+// ---------------------------------------------------------------------------
+
+function renderJsonLd(data, category, slug) {
+  const pageUrl = `${BASE_URL}/${category}/${slug}/`;
+  const catUrl  = `${BASE_URL}/${category}/`;
+
+  const graph = [];
+
+  // TechArticle
+  graph.push({
+    '@type': 'TechArticle',
+    '@id': pageUrl,
+    headline: data.title,
+    description: data.description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    author:    { '@type': 'Organization', name: SITE_HOST, url: BASE_URL },
+    publisher: { '@type': 'Organization', name: SITE_HOST, url: BASE_URL },
+  });
+
+  // BreadcrumbList
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: category, item: catUrl },
+      { '@type': 'ListItem', position: 3, name: data.title },
+    ],
+  });
+
+  // FAQPage — only when details items have an explanation field
+  const faqItems = (data.details ?? []).filter(d => d.explanation);
+  if (faqItems.length > 0) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(d => ({
+        '@type': 'Question',
+        name: d.title,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: d.explanation + (d.code ? `\n\`\`\`\n${d.code}\n\`\`\`` : ''),
+        },
+      })),
+    });
+  }
+
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2);
+  return `  <script type="application/ld+json">\n${json}\n  </script>`;
+}
+
+// ---------------------------------------------------------------------------
 // HTML template
 // ---------------------------------------------------------------------------
 
@@ -129,6 +181,7 @@ ${items}
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
+${renderJsonLd(data, category, slug)}
   </head>
   <body>
 
