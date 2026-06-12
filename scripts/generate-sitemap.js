@@ -12,6 +12,8 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const dataDir  = join(rootDir, 'src/data');
+
+// Use SITE_URL from environment when available (fallback to Pages URL)
 const BASE_URL = process.env.SITE_URL || 'https://dev-quick-ref.pages.dev';
 
 const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];
