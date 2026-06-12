@@ -1,5 +1,6 @@
 export default {
   title: 'regex lookahead and lookbehind — (?=...) (?<=...) (?!...) (?<!...)',
+  metaTitle: 'regex lookahead & lookbehind — zero-width assertions',
   description: 'Use regex lookahead (?=...) and lookbehind (?<=...) assertions to match patterns without including them in the result.',
   quickAnswer: `# Positive lookahead — match "foo" only when followed by "bar"
 /foo(?=bar)/    matches "foobar" → "foo"

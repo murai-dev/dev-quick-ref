@@ -1,5 +1,6 @@
 export default {
   title: 'regex global replace — replace all matches in JavaScript, Python, sed',
+  metaTitle: 'regex global replace — all matches in JS, Python, sed',
   description: 'Replace all regex matches in a string using the global flag in JavaScript, re.sub() in Python, or sed s///g. Covers case-insensitive and multiline replacements.',
   quickAnswer: `// JavaScript — /g flag
 'foo foo foo'.replace(/foo/g, 'bar')

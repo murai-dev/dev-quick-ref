@@ -1,5 +1,6 @@
 export default {
   title: 'docker image not found / repository does not exist — how to fix',
+  metaTitle: 'docker image not found — fix registry & tag errors',
   description: 'Fix "Unable to find image" or "repository does not exist" in Docker by checking image name, tag, and registry login.',
   quickAnswer: `# Pull explicitly before running
 docker pull nginx:latest
