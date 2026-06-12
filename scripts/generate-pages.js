@@ -160,21 +160,24 @@ ${items}
     .map(r => `          <li><a href="${r.href}">${r.text}</a></li>`)
     .join('\n');
 
+  // metaTitle: short version for <title> tag (≤60 chars); falls back to title
+  const metaTitle = data.metaTitle || data.title;
+
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escAttr(data.title)} | ${SITE_HOST}</title>
+    <title>${escAttr(metaTitle)} | ${SITE_HOST}</title>
     <meta name="description" content="${escAttr(data.description)}" />
     <link rel="canonical" href="${BASE_URL}/${category}/${slug}/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${SITE_HOST}" />
     <meta property="og:url" content="${BASE_URL}/${category}/${slug}/" />
-    <meta property="og:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
+    <meta property="og:title" content="${escAttr(metaTitle)} | ${SITE_HOST}" />
     <meta property="og:description" content="${escAttr(data.description)}" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
+    <meta name="twitter:title" content="${escAttr(metaTitle)} | ${SITE_HOST}" />
     <meta name="twitter:description" content="${escAttr(data.description)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
