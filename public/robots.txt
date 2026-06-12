@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://errorfix.dev/sitemap.xml
+Sitemap: https://dev-quick-ref.pages.dev/sitemap.xml

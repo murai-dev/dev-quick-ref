@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const dataDir  = join(rootDir, 'src/data');
-const BASE_URL = 'https://errorfix.dev';
+const BASE_URL = process.env.SITE_URL || 'https://dev-quick-ref.pages.dev';
 
 const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];
 const TODAY = new Date().toISOString().split('T')[0];
