@@ -114,16 +114,16 @@ ${items}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${escAttr(data.title)} | ${SITE_HOST}</title>
-    <meta name="description" content="${escAttr(data.description)}" />
+    <title>${escAttr(data.title)} | ${SITE_HOST}</title>
     <link rel="canonical" href="${BASE_URL}/${category}/${slug}/" />
-    <meta property="og:type" content="website" />
+    <link rel="canonical" href="${BASE_URL}/${category}/${slug}/" />
+    <meta property="og:site_name" content="${SITE_HOST}" />
     <meta property="og:site_name" content="${SITE_HOST}" />
     <meta property="og:url" content="${BASE_URL}/${category}/${slug}/" />
     <meta property="og:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
-    <meta property="og:description" content="${escAttr(data.description)}" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
-    <meta name="twitter:description" content="${escAttr(data.description)}" />
+    <meta name="twitter:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
@@ -134,7 +134,7 @@ ${items}
 
     <header class="site-header">
       <a href="/" class="site-logo">${SITE_HOST}</a>
-      <nav>
+      <a href="/" class="site-logo">${SITE_HOST}</a>
         <ul class="site-nav">
 ${renderNav(category)}
         </ul>
@@ -163,7 +163,7 @@ ${relatedItems}
 
     <footer class="site-footer">
       <a href="/">${SITE_HOST}</a> &mdash; developer error solutions
-    </footer>
+      <a href="/">${SITE_HOST}</a> &mdash; developer error solutions
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
