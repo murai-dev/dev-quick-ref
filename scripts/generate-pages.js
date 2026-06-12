@@ -17,12 +17,6 @@ const rootDir = fileURLToPath(new URL('..', import.meta.url));
 const dataDir  = join(rootDir, 'src/data');
 const pagesDir = rootDir;
 
-// Use SITE_URL from environment to generate canonical/OG URLs
-const BASE_URL = process.env.SITE_URL || 'https://dev-quick-ref.pages.dev';
-const SITE_HOST = (() => {
-  try { return new URL(BASE_URL).host; } catch (e) { return 'dev-quick-ref.pages.dev'; }
-})();
-
 const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];
 
 // ---------------------------------------------------------------------------
@@ -113,16 +107,16 @@ ${items}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escAttr(data.title)} | ${SITE_HOST}</title>
+    <title>${escAttr(data.title)} | errorfix.dev</title>
     <meta name="description" content="${escAttr(data.description)}" />
-    <link rel="canonical" href="${BASE_URL}/${category}/${slug}/" />
+    <link rel="canonical" href="https://errorfix.dev/${category}/${slug}/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="${SITE_HOST}" />
-    <meta property="og:url" content="${BASE_URL}/${category}/${slug}/" />
-    <meta property="og:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
+    <meta property="og:site_name" content="errorfix.dev" />
+    <meta property="og:url" content="https://errorfix.dev/${category}/${slug}/" />
+    <meta property="og:title" content="${escAttr(data.title)} | errorfix.dev" />
     <meta property="og:description" content="${escAttr(data.description)}" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="${escAttr(data.title)} | ${SITE_HOST}" />
+    <meta name="twitter:title" content="${escAttr(data.title)} | errorfix.dev" />
     <meta name="twitter:description" content="${escAttr(data.description)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -133,7 +127,7 @@ ${items}
   <body>
 
     <header class="site-header">
-      <a href="/" class="site-logo">${SITE_HOST}</a>
+      <a href="/" class="site-logo">errorfix.dev</a>
       <nav>
         <ul class="site-nav">
 ${renderNav(category)}
@@ -162,7 +156,7 @@ ${relatedItems}
     </main>
 
     <footer class="site-footer">
-      <a href="/">${SITE_HOST}</a> &mdash; developer error solutions
+      <a href="/">errorfix.dev</a> &mdash; developer error solutions
     </footer>
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
