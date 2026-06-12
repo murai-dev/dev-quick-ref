@@ -7,7 +7,7 @@
     "generate": "node scripts/generate-pages.js",
     "generate:sitemap": "node scripts/generate-sitemap.js",
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.js && vite build",
+    "build": "node scripts/generate-pages.js && node scripts/generate-sitemap.js && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
