@@ -13,3 +13,4 @@
 - [research-method](./research-method.md): 検索需要の調査手法（Google Suggest・Stack Overflow API）
 - [keyword-first-workflow](./keyword-first-workflow.md): キーワード起点で既存統合 / 新規作成を判断する運用手順
 - [keyword-shortlist-2026-06-13](./keyword-shortlist-2026-06-13.md): Git / Docker の実キーワード選定メモ（既存統合 / 新規候補 / 見直し候補）
+- [keyword-shortlist-npm-2026-06-13](./keyword-shortlist-npm-2026-06-13.md): npm の実キーワード選定メモ（既存統合 / 新規候補 / 見直し候補）

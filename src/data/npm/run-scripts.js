@@ -69,6 +69,7 @@ npm install --save-dev cross-env
     },
   ],
   related: [
+    { href: '/npm/missing-script/', text: 'npm ERR! missing script' },
     { href: '/npm/link-local-package/', text: 'npm link — local package development' },
     { href: '/npm/engines-field/', text: 'npm engines — require Node.js version' },
   ],

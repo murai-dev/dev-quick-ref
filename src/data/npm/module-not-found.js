@@ -1,6 +1,6 @@
 export default {
-  title: "npm Cannot find module — how to fix",
-  description: "Fix \"Cannot find module 'xyz'\" in Node.js by installing the missing package, checking paths, and verifying module resolution.",
+  title: "cannot find module / npm module not found — how to fix",
+  description: "Fix \"Cannot find module\" and npm module not found errors in Node.js by installing the missing package, checking paths, and verifying module resolution.",
   quickAnswer: `# Install the missing module
 npm install xyz
 
@@ -15,7 +15,7 @@ npm install`,
 Require stack:
 - /home/user/project/src/index.js
     at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1039:15)`,
-    post: 'Node.js cannot locate the module because it is not installed, the package name is misspelled, or node_modules is missing.',
+    post: 'Node.js cannot locate the module because it is not installed, the package name is misspelled, or node_modules is missing. This is the common "cannot find module" error.',
   },
   details: [
     {
@@ -57,6 +57,7 @@ const express = require('express');`,
   related: [
     { href: '/npm/enoent-no-such-file/', text: 'npm ENOENT no such file' },
     { href: '/npm/eresolve-peer-deps/', text: 'npm ERESOLVE dependency conflict' },
+    { href: '/npm/missing-script/', text: 'npm ERR! missing script' },
     { href: '/npm/npm-cache-clean/', text: 'npm cache clean' },
   ],
 };
