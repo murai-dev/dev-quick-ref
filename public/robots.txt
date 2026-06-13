@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://dev-quick-ref.pages.dev/sitemap.xml
+Sitemap: https://dev-quick-ref.pages.dev/sitemap.html
