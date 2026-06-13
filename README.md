@@ -1,8 +1,8 @@
-# errorfix.dev
+# dev-quick-ref
 
 「開発者が困った瞬間に、3行で答えを出す」英語圏向けリファレンスサイト。
 
-Domain: https://errorfix.dev
+Domain: https://dev-quick-ref.pages.dev
 
 ## コンセプト
 
