@@ -3,27 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>docker image prune — remove unused images | errorfix.dev</title>
+    <title>docker image prune — remove unused images | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options." />
-    <link rel="canonical" href="https://errorfix.dev/docker/prune-images/" />
+    <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/prune-images/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="errorfix.dev" />
-    <meta property="og:url" content="https://errorfix.dev/docker/prune-images/" />
-    <meta property="og:title" content="docker image prune — remove unused images | errorfix.dev" />
+    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
+    <meta property="og:url" content="https://dev-quick-ref.pages.dev/docker/prune-images/" />
+    <meta property="og:title" content="docker image prune — remove unused images | dev-quick-ref.pages.dev" />
     <meta property="og:description" content="Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="docker image prune — remove unused images | errorfix.dev" />
+    <meta name="twitter:title" content="docker image prune — remove unused images | dev-quick-ref.pages.dev" />
     <meta name="twitter:description" content="Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://dev-quick-ref.pages.dev/docker/prune-images/",
+      "headline": "docker image prune — remove unused images",
+      "description": "Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options.",
+      "url": "https://dev-quick-ref.pages.dev/docker/prune-images/",
+      "mainEntityOfPage": "https://dev-quick-ref.pages.dev/docker/prune-images/",
+      "author": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dev-quick-ref.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "docker",
+          "item": "https://dev-quick-ref.pages.dev/docker/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "docker image prune — remove unused images"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
   </head>
   <body>
 
     <header class="site-header">
-      <a href="/" class="site-logo">errorfix.dev</a>
+      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
       <nav>
         <ul class="site-nav">
           <li><a href="/git/">git</a></li>
@@ -113,9 +183,7 @@ docker rmi -f my-image:latest</code></pre>
     </main>
 
     <footer class="site-footer">
-      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
     </footer>
-
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
 </html>

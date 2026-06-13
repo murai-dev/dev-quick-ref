@@ -64,6 +64,35 @@ function codeBlock(code, copyBtn = true) {
         </div>`;
 }
 
+function renderAnalyticsScripts() {
+  return `    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>`;
+}
+
 // ---------------------------------------------------------------------------
 // JSON-LD structured data
 // ---------------------------------------------------------------------------
@@ -180,11 +209,9 @@ ${items}
     <meta name="twitter:title" content="${escAttr(metaTitle)} | ${SITE_HOST}" />
     <meta name="twitter:description" content="${escAttr(data.description)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
 ${renderJsonLd(data, category, slug)}
+${renderAnalyticsScripts()}
   </head>
   <body>
 
@@ -220,8 +247,6 @@ ${relatedItems}
     <footer class="site-footer">
       <a href="/">${SITE_HOST}</a> &mdash; developer error solutions
     </footer>
-
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
 </html>
 `;

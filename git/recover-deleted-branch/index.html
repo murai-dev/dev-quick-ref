@@ -3,27 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>git recover deleted branch — using reflog | errorfix.dev</title>
+    <title>git recover deleted branch — using reflog | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b." />
-    <link rel="canonical" href="https://errorfix.dev/git/recover-deleted-branch/" />
+    <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/recover-deleted-branch/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="errorfix.dev" />
-    <meta property="og:url" content="https://errorfix.dev/git/recover-deleted-branch/" />
-    <meta property="og:title" content="git recover deleted branch — using reflog | errorfix.dev" />
+    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
+    <meta property="og:url" content="https://dev-quick-ref.pages.dev/git/recover-deleted-branch/" />
+    <meta property="og:title" content="git recover deleted branch — using reflog | dev-quick-ref.pages.dev" />
     <meta property="og:description" content="Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="git recover deleted branch — using reflog | errorfix.dev" />
+    <meta name="twitter:title" content="git recover deleted branch — using reflog | dev-quick-ref.pages.dev" />
     <meta name="twitter:description" content="Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://dev-quick-ref.pages.dev/git/recover-deleted-branch/",
+      "headline": "git recover deleted branch — using reflog",
+      "description": "Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b.",
+      "url": "https://dev-quick-ref.pages.dev/git/recover-deleted-branch/",
+      "mainEntityOfPage": "https://dev-quick-ref.pages.dev/git/recover-deleted-branch/",
+      "author": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dev-quick-ref.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "git",
+          "item": "https://dev-quick-ref.pages.dev/git/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "git recover deleted branch — using reflog"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Reading the reflog output",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Look for a line like <code>abc1234 HEAD@{3}: checkout: moving from recovered-branch to main</code> — the hash before the checkout is your branch tip.\n```\ngit reflog --oneline | head -20\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Recover a branch deleted on the remote",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the branch was deleted on GitHub/GitLab but still exists locally:\n```\ngit push origin recovered-branch\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Reflog only keeps entries for ~90 days",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the branch was deleted a long time ago, the commit may have been garbage-collected. Act quickly.\n```\ngit gc --prune=now   # do NOT run this if you are trying to recover\n```"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
   </head>
   <body>
 
     <header class="site-header">
-      <a href="/" class="site-logo">errorfix.dev</a>
+      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
       <nav>
         <ul class="site-nav">
           <li><a href="/git/" class="active">git</a></li>
@@ -97,9 +196,7 @@ git checkout -b recovered-branch abc1234</code></pre>
     </main>
 
     <footer class="site-footer">
-      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
     </footer>
-
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
 </html>
