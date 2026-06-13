@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git bisect — find the commit that introduced a bug | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use git bisect to perform a binary search through your commit history and find the exact commit that introduced a bug." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/bisect/" />
@@ -152,7 +153,7 @@ git bisect reset</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Automate the test with a script</h3>
+        <h2>Automate the test with a script</h2>
         <p>If you have a test command that exits 0 for good and non-zero for bad, bisect can run automatically:</p>
 
         <div class="code-block">
@@ -163,7 +164,7 @@ git bisect good v1.2.0
 git bisect run npm test -- --grep "failing test name"</code></pre>
         </div>
 
-        <h3>Skip a commit you cannot test</h3>
+        <h2>Skip a commit you cannot test</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

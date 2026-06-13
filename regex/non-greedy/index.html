@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex non-greedy matching — .*? vs .* | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use non-greedy (lazy) quantifiers like .*? to match as little as possible. Explains the difference between greedy and lazy matching with examples." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/non-greedy/" />
@@ -143,7 +144,7 @@
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Lazy quantifier syntax</h3>
+        <h2>Lazy quantifier syntax</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,7 +154,7 @@
 {n,m}? n to m times (lazy)</code></pre>
         </div>
 
-        <h3>JavaScript example</h3>
+        <h2>JavaScript example</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -168,7 +169,7 @@ html.match(/&lt;.+?&gt;/g)
 // ['&lt;b&gt;', '&lt;/b&gt;', '&lt;i&gt;', '&lt;/i&gt;']</code></pre>
         </div>
 
-        <h3>Python example</h3>
+        <h2>Python example</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -185,7 +186,7 @@ re.findall(r'".*?"', text)
 # ['"first"', '"second"']</code></pre>
         </div>
 
-        <h3>Prefer [^...] over .*? when possible</h3>
+        <h2>Prefer [^...] over .*? when possible</h2>
         <p>A negated character class is clearer and faster than a lazy quantifier.</p>
 
         <div class="code-block">

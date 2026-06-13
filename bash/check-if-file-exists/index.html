@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash check if file or directory exists | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Test if a file, directory, or symlink exists in bash using [ -f ], [ -d ], [ -e ], and [ -L ] in an if statement or inline." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/check-if-file-exists/" />
@@ -137,7 +138,7 @@ fi
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>All file test operators</h3>
+        <h2>All file test operators</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -152,7 +153,7 @@ fi
 [ -z file ]   # string is empty (different — for variables)</code></pre>
         </div>
 
-        <h3>File does not exist</h3>
+        <h2>File does not exist</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -162,7 +163,7 @@ fi
 fi</code></pre>
         </div>
 
-        <h3>Combine conditions</h3>
+        <h2>Combine conditions</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -172,7 +173,7 @@ if [ -f "$file" ] &amp;&amp; [ -r "$file" ]; then
 fi</code></pre>
         </div>
 
-        <h3>Use [[ ]] for safer tests</h3>
+        <h2>Use [[ ]] for safer tests</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

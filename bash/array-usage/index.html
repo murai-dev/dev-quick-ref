@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash arrays — create, iterate, append, slice | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Create and use bash arrays: declare, iterate with for, append elements, get length, slice, and use associative arrays." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/array-usage/" />
@@ -137,7 +138,7 @@ done</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Append and remove elements</h3>
+        <h2>Append and remove elements</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,7 +152,7 @@ unset 'fruits[1]'
 fruits=("${fruits[@]}")</code></pre>
         </div>
 
-        <h3>Slice and subarray</h3>
+        <h2>Slice and subarray</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -162,7 +163,7 @@ echo "${fruits[@]:1:2}"   # banana cherry
 echo "${fruits[-1]}"</code></pre>
         </div>
 
-        <h3>Array from command output</h3>
+        <h2>Array from command output</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -174,7 +175,7 @@ echo "${#files[@]} files found"
 words=($( echo "one two three" ))</code></pre>
         </div>
 
-        <h3>Associative arrays (bash 4+)</h3>
+        <h2>Associative arrays (bash 4+)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

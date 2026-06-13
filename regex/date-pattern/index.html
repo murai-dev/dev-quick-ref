@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex match date — YYYY-MM-DD and common formats | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Regex patterns to match ISO 8601 dates (YYYY-MM-DD) and other common date formats. Covers validation and extraction in JavaScript and Python." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/date-pattern/" />
@@ -145,7 +146,7 @@ text.match(/\b\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])\b/g)
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Common date format patterns</h3>
+        <h2>Common date format patterns</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -159,7 +160,7 @@ text.match(/\b\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])\b/g)
 /\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}/</code></pre>
         </div>
 
-        <h3>Python — parse with datetime instead of regex</h3>
+        <h2>Python — parse with datetime instead of regex</h2>
         <p>For actual date validation (e.g. Feb 30 does not exist), use the datetime library.</p>
 
         <div class="code-block">
@@ -176,7 +177,7 @@ parse_date('2024-01-15')   # datetime(2024, 1, 15)
 parse_date('2024-02-30')   # None — invalid date</code></pre>
         </div>
 
-        <h3>Extract date components with named groups</h3>
+        <h2>Extract date components with named groups</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

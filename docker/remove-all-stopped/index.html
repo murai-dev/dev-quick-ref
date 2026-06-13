@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker remove all stopped containers | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Remove all stopped Docker containers with docker container prune or docker rm. Includes filtering by status and bulk removal." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/remove-all-stopped/" />
@@ -133,7 +134,7 @@ docker rm container1 container2</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>List stopped containers first</h3>
+        <h2>List stopped containers first</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -144,14 +145,14 @@ docker ps -a --filter "status=exited"
 docker ps -a -q --filter "status=exited"</code></pre>
         </div>
 
-        <h3>Remove all stopped containers with xargs</h3>
+        <h2>Remove all stopped containers with xargs</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker ps -a -q --filter "status=exited" | xargs docker rm</code></pre>
         </div>
 
-        <h3>Remove containers AND their volumes</h3>
+        <h2>Remove containers AND their volumes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -159,7 +160,7 @@ docker ps -a -q --filter "status=exited"</code></pre>
 # -v also removes anonymous volumes attached to the container</code></pre>
         </div>
 
-        <h3>Remove everything unused (containers, images, networks, cache)</h3>
+        <h2>Remove everything unused (containers, images, networks, cache)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

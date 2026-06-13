@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git rename a branch (local and remote) | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Rename a git branch locally with git branch -m, then update the remote by pushing the new name and deleting the old one." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/rename-branch/" />
@@ -146,14 +147,14 @@ git push origin --delete old-name</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Rename a branch you are not currently on</h3>
+        <h2>Rename a branch you are not currently on</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git branch -m old-name new-name</code></pre>
         </div>
 
-        <h3>Update other teammates after renaming</h3>
+        <h2>Update other teammates after renaming</h2>
         <p>Others with the old branch checked out need to reset their upstream reference:</p>
 
         <div class="code-block">

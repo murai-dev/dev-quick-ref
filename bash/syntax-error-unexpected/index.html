@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash syntax error: unexpected end of file — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;syntax error: unexpected end of file&quot; in bash scripts caused by unclosed if/for/while, missing fi/done/esac, or CRLF line endings." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/syntax-error-unexpected/" />
@@ -140,7 +141,7 @@ script.sh: line 1: syntax error: unexpected end of file</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Missing fi — if without fi</h3>
+        <h2>Missing fi — if without fi</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +156,7 @@ if [ "$var" = "yes" ]; then
 fi</code></pre>
         </div>
 
-        <h3>Missing done — for/while without done</h3>
+        <h2>Missing done — for/while without done</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -170,7 +171,7 @@ for file in *.txt; do
 done</code></pre>
         </div>
 
-        <h3>Unclosed string or heredoc</h3>
+        <h2>Unclosed string or heredoc</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -186,7 +187,7 @@ content here
 EOF</code></pre>
         </div>
 
-        <h3>Use bash -n to syntax-check without running</h3>
+        <h2>Use bash -n to syntax-check without running</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

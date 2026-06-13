@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker container name already in use — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;container name is already in use&quot; by removing the existing container or using --rm / a different name." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/container-name-in-use/" />
@@ -138,7 +139,7 @@ container to be able to reuse that name.</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>List all containers including stopped ones</h3>
+        <h2>List all containers including stopped ones</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -147,7 +148,7 @@ container to be able to reuse that name.</code></pre>
 # abc123         my-image Exited   my-container  ← this one</code></pre>
         </div>
 
-        <h3>Rename instead of remove</h3>
+        <h2>Rename instead of remove</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +156,7 @@ container to be able to reuse that name.</code></pre>
 docker run --name my-container my-image</code></pre>
         </div>
 
-        <h3>Remove all stopped containers</h3>
+        <h2>Remove all stopped containers</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker no space left on device — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;no space left on device&quot; in Docker by pruning unused images, containers, volumes, and build cache with docker system prune." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/no-space-left/" />
@@ -150,7 +151,7 @@ write /var/lib/docker/tmp/...: no space left on device</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Prune selectively (safer)</h3>
+        <h2>Prune selectively (safer)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -167,14 +168,14 @@ docker builder prune
 docker volume prune</code></pre>
         </div>
 
-        <h3>Find large images</h3>
+        <h2>Find large images</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker images --format "{{.Repository}}:{{.Tag}}\t{{.Size}}" | sort -k2 -h -r | head -20</code></pre>
         </div>
 
-        <h3>Move Docker data directory (Linux)</h3>
+        <h2>Move Docker data directory (Linux)</h2>
         <p>If the root partition is small, move Docker data to a larger disk.</p>
 
         <div class="code-block">

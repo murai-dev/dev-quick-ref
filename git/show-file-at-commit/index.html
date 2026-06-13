@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git show a file at a specific commit | dev-quick-ref.pages.dev</title>
     <meta name="description" content="View or restore a file from any past git commit using git show or git checkout. No need to switch branches." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/show-file-at-commit/" />
@@ -130,14 +131,14 @@ git checkout abc1234 -- src/app.ts</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Save the old version to a different filename</h3>
+        <h2>Save the old version to a different filename</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git show abc1234:src/app.ts &gt; src/app.old.ts</code></pre>
         </div>
 
-        <h3>Show a file from a tag or branch</h3>
+        <h2>Show a file from a tag or branch</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -145,7 +146,7 @@ git checkout abc1234 -- src/app.ts</code></pre>
 git show main:src/app.ts</code></pre>
         </div>
 
-        <h3>See all files changed in a commit</h3>
+        <h2>See all files changed in a commit</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

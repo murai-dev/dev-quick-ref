@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker image prune — remove unused images | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Free disk space by removing dangling and unused Docker images with docker image prune. Includes safe vs aggressive cleanup options." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/prune-images/" />
@@ -133,7 +134,7 @@ docker image prune -a -f</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check disk usage before pruning</h3>
+        <h2>Check disk usage before pruning</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -145,7 +146,7 @@ docker image prune -a -f</code></pre>
 # Build Cache     ...</code></pre>
         </div>
 
-        <h3>Remove images older than N days</h3>
+        <h2>Remove images older than N days</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,7 +154,7 @@ docker image prune -a -f</code></pre>
 docker image prune -a --filter "until=48h"</code></pre>
         </div>
 
-        <h3>Delete a specific image</h3>
+        <h2>Delete a specific image</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +164,7 @@ docker image prune -a --filter "until=48h"</code></pre>
 docker rmi -f my-image:latest</code></pre>
         </div>
 
-        <h3>Remove all images (nuclear option)</h3>
+        <h2>Remove all images (nuclear option)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

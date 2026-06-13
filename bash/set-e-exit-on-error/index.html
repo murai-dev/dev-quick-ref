@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash set -e — exit script on error | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/set-e-exit-on-error/" />
@@ -144,7 +145,7 @@ set -euo pipefail
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Allow a command to fail intentionally</h3>
+        <h2>Allow a command to fail intentionally</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -160,7 +161,7 @@ risky_command
 set -e</code></pre>
         </div>
 
-        <h3>set -u — catch undefined variables</h3>
+        <h2>set -u — catch undefined variables</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -173,7 +174,7 @@ echo "$UNDEFINED_VAR"
 echo "${OPTIONAL_VAR:-default}"</code></pre>
         </div>
 
-        <h3>Trap errors for cleanup or logging</h3>
+        <h2>Trap errors for cleanup or logging</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -188,7 +189,7 @@ trap 'cleanup $LINENO' ERR
 trap 'cleanup' EXIT</code></pre>
         </div>
 
-        <h3>set -e does not catch all failures</h3>
+        <h2>set -e does not catch all failures</h2>
         <p><code>set -e</code> is ignored in some contexts: <code>if</code> conditions, <code>while</code>/<code>until</code> tests, <code>||</code> and <code>&&</code> lists.</p>
 
         <div class="code-block">

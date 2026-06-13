@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git detached HEAD — what it means and how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix a git detached HEAD state by creating a new branch to save your work, or switch back to an existing branch. Recover commits made while detached." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/detached-head/" />
@@ -154,7 +155,7 @@ git checkout main</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Recover commits already made while detached</h3>
+        <h2>Recover commits already made while detached</h2>
         <p>Find the commit hash with <code>git log --oneline</code>, then attach it to a new branch.</p>
 
         <div class="code-block">
@@ -163,7 +164,7 @@ git checkout main</code></pre>
 git checkout -b recovery-branch abc1234</code></pre>
         </div>
 
-        <h3>How to safely inspect a past commit</h3>
+        <h2>How to safely inspect a past commit</h2>
         <p>Use a worktree to check out an old commit without detaching HEAD in your main working directory.</p>
 
         <div class="code-block">

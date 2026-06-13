@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git diff between two branches | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Compare two git branches with git diff. See all changed files, or diff a specific file between branches." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/diff-branches/" />
@@ -143,14 +144,14 @@ git diff --name-only main..feature/login</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Diff a specific file between two branches</h3>
+        <h2>Diff a specific file between two branches</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git diff main..feature/login -- src/auth.ts</code></pre>
         </div>
 
-        <h3>Two-dot (..) vs three-dot (...) diff</h3>
+        <h2>Two-dot (..) vs three-dot (...) diff</h2>
         <p><code>main..feature</code> shows changes since the branches diverged. <code>main...feature</code> shows only what changed on feature since the merge base.</p>
 
         <div class="code-block">
@@ -159,7 +160,7 @@ git diff --name-only main..feature/login</code></pre>
 git diff main...feature    # only what feature changed since branching off main</code></pre>
         </div>
 
-        <h3>Show a summary of changed lines per file</h3>
+        <h2>Show a summary of changed lines per file</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

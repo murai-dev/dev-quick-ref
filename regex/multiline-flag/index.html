@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex multiline flag — ^ and $ match line start/end | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use the multiline flag (m) so ^ and $ match the start and end of each line, not just the entire string. Covers JavaScript, Python, and the DOTALL flag." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/multiline-flag/" />
@@ -148,7 +149,7 @@ re.findall(r'^\w+', text, re.MULTILINE)
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>DOTALL / single-line flag — . matches newlines</h3>
+        <h2>DOTALL / single-line flag — . matches newlines</h2>
         <p>By default <code>.</code> does NOT match newline characters. The DOTALL flag changes this.</p>
 
         <div class="code-block">
@@ -160,7 +161,7 @@ re.findall(r'^\w+', text, re.MULTILINE)
 re.search(r'first.second', 'first\nsecond', re.DOTALL)</code></pre>
         </div>
 
-        <h3>Combining flags</h3>
+        <h2>Combining flags</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -171,7 +172,7 @@ text.match(/^pattern/gmi)
 re.findall(r'^pattern', text, re.MULTILINE | re.IGNORECASE)</code></pre>
         </div>
 
-        <h3>Match end of each line with $</h3>
+        <h2>Match end of each line with $</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git push rejected — file too large | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix git push rejected because a file exceeds the size limit. Remove the large file from history with git rm --cached or migrate it to Git LFS." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/large-file-rejected/" />
@@ -149,7 +150,7 @@ remote: error: File path/to/large-file.zip is 105.00 MB; this exceeds GitHub's f
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>If the large file was committed several commits ago</h3>
+        <h2>If the large file was committed several commits ago</h2>
         <p>Use <code>git filter-repo</code> to remove it from the full history.</p>
 
         <div class="code-block">
@@ -159,7 +160,7 @@ git filter-repo --path path/to/large-file.zip --invert-paths
 git push --force-with-lease origin main</code></pre>
         </div>
 
-        <h3>Track large files with Git LFS instead</h3>
+        <h2>Track large files with Git LFS instead</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash permission denied — how to fix (chmod +x) | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;bash: ./script.sh: Permission denied&quot; by adding execute permission with chmod +x. Covers common permission issues and setuid." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/permission-denied/" />
@@ -151,7 +152,7 @@ zsh: permission denied: ./script.sh</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check current permissions</h3>
+        <h2>Check current permissions</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +164,7 @@ zsh: permission denied: ./script.sh</code></pre>
 # -rwxr-xr-x 1 user group 512 Jan 1 12:00 script.sh</code></pre>
         </div>
 
-        <h3>chmod permission modes</h3>
+        <h2>chmod permission modes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -173,7 +174,7 @@ chmod 755 script.sh         # rwxr-xr-x (owner:rwx, others:r-x)
 chmod 700 script.sh         # rwx------ (owner only)</code></pre>
         </div>
 
-        <h3>File on a noexec-mounted filesystem</h3>
+        <h2>File on a noexec-mounted filesystem</h2>
         <p>If the file lives on a filesystem mounted with <code>noexec</code> (common for /tmp or NFS), chmod +x will not help.</p>
 
         <div class="code-block">

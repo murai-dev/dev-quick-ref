@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git discard all unstaged changes | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Discard all unstaged changes in your working directory with git restore . or git checkout -- . Covers discarding a single file and staged changes." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/discard-unstaged-changes/" />
@@ -130,7 +131,7 @@ git restore src/app.ts</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Old syntax (git &lt; 2.23)</h3>
+        <h2>Old syntax (git &lt; 2.23)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -138,7 +139,7 @@ git restore src/app.ts</code></pre>
 git checkout -- src/app.ts  # specific file</code></pre>
         </div>
 
-        <h3>Discard staged changes (unstage + discard)</h3>
+        <h2>Discard staged changes (unstage + discard)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -146,7 +147,7 @@ git checkout -- src/app.ts  # specific file</code></pre>
 git restore .               # then discard unstaged</code></pre>
         </div>
 
-        <h3>Preview what would be discarded first</h3>
+        <h2>Preview what would be discarded first</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

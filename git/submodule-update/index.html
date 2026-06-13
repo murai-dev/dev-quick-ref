@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git submodule update — initialize and update all submodules | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Initialize and update all git submodules recursively with git submodule update --init --recursive. Fix missing submodule directories after cloning." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/submodule-update/" />
@@ -127,21 +128,21 @@ git submodule update --init --recursive</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Clone a repo and initialize submodules in one command</h3>
+        <h2>Clone a repo and initialize submodules in one command</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git clone --recurse-submodules https://github.com/user/repo.git</code></pre>
         </div>
 
-        <h3>Pull latest changes in all submodules</h3>
+        <h2>Pull latest changes in all submodules</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git submodule update --remote --recursive</code></pre>
         </div>
 
-        <h3>Show submodule status</h3>
+        <h2>Show submodule status</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

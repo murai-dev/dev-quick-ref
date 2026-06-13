@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git amend last commit message — rewrite without a new commit | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix the last git commit message with git commit --amend -m &quot;New message&quot;. Works only if you have not pushed the commit yet." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/amend-commit-message/" />
@@ -143,7 +144,7 @@ git commit --amend</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Add a forgotten file to the last commit</h3>
+        <h2>Add a forgotten file to the last commit</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,7 +152,7 @@ git commit --amend</code></pre>
 git commit --amend --no-edit     # keeps the existing message</code></pre>
         </div>
 
-        <h3>Amend a commit that was already pushed</h3>
+        <h2>Amend a commit that was already pushed</h2>
         <p><strong>Avoid amending pushed commits on shared branches.</strong> If you must, force-push — but only if you are the sole user of the branch.</p>
 
         <div class="code-block">

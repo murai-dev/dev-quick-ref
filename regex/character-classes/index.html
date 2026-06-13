@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex character classes — [...], \d, \w, \s | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use regex character classes to match sets of characters. Covers [...], negated [^...], shorthand classes \d \w \s and their inverses." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/character-classes/" />
@@ -149,7 +150,7 @@
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Common patterns using character classes</h3>
+        <h2>Common patterns using character classes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -169,7 +170,7 @@
 str.replace(/[^\w\s]/g, '')</code></pre>
         </div>
 
-        <h3>Special characters inside [...]</h3>
+        <h2>Special characters inside [...]</h2>
         <p>Most metacharacters lose their meaning inside <code>[...]</code>. Only <code>]</code>, <code>\</code>, <code>^</code>, and <code>-</code> need escaping.</p>
 
         <div class="code-block">
@@ -180,7 +181,7 @@ str.replace(/[^\w\s]/g, '')</code></pre>
 [a\]b]   # matches a ] or b</code></pre>
         </div>
 
-        <h3>Unicode property classes (\p{}) — JS and Python</h3>
+        <h2>Unicode property classes (\p{}) — JS and Python</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

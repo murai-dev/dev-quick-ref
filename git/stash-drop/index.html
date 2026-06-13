@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git stash drop — remove a specific stash | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Drop a specific git stash entry with git stash drop stash@{n}, or clear all stashes at once with git stash clear." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/stash-drop/" />
@@ -133,21 +134,21 @@ git stash clear</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Apply a stash and remove it in one step</h3>
+        <h2>Apply a stash and remove it in one step</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git stash pop              # applies stash@{0} and drops it</code></pre>
         </div>
 
-        <h3>Apply a stash without removing it</h3>
+        <h2>Apply a stash without removing it</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git stash apply stash@{1}  # keeps the stash in the list</code></pre>
         </div>
 
-        <h3>Show the contents of a stash before dropping</h3>
+        <h2>Show the contents of a stash before dropping</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

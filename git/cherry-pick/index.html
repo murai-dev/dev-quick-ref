@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git cherry-pick — apply a commit from another branch | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use git cherry-pick to copy a specific commit from one branch to another without merging the whole branch." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/cherry-pick/" />
@@ -143,14 +144,14 @@ git cherry-pick abc1234</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Cherry-pick a range of commits</h3>
+        <h2>Cherry-pick a range of commits</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git cherry-pick abc1234..def5678   # applies commits from abc (exclusive) to def (inclusive)</code></pre>
         </div>
 
-        <h3>Cherry-pick without committing immediately</h3>
+        <h2>Cherry-pick without committing immediately</h2>
         <p>Use <code>-n</code> (no-commit) to stage the changes without creating a commit, so you can edit before committing.</p>
 
         <div class="code-block">
@@ -160,7 +161,7 @@ git status          # review staged changes
 git commit -m "Applied fix from feature branch"</code></pre>
         </div>
 
-        <h3>Resolve conflicts during cherry-pick</h3>
+        <h2>Resolve conflicts during cherry-pick</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

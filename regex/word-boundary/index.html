@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex word boundary \b — match whole words only | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/word-boundary/" />
@@ -149,7 +150,7 @@ re.findall(r'\bcat\b', 'The cat concatenate scat')
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>What counts as a word boundary</h3>
+        <h2>What counts as a word boundary</h2>
         <p><code>\b</code> matches at a position between a word character (<code>\w</code>: <code>[a-zA-Z0-9_]</code>) and a non-word character.</p>
 
         <div class="code-block">
@@ -162,7 +163,7 @@ re.findall(r'\bcat\b', 'The cat concatenate scat')
 // ^ between 'd' and end-of-string  → \b</code></pre>
         </div>
 
-        <h3>\B — match NON-word boundary</h3>
+        <h2>\B — match NON-word boundary</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -171,7 +172,7 @@ re.findall(r'\bcat\b', 'The cat concatenate scat')
 /\Bcat\B/.test('cat')           // false</code></pre>
         </div>
 
-        <h3>Replace whole words only</h3>
+        <h2>Replace whole words only</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

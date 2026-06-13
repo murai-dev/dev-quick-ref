@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker cp — copy files between container and host | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use docker cp to copy files or directories between a Docker container and the host. Works with running or stopped containers." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/copy-files/" />
@@ -146,7 +147,7 @@ docker cp my-container:/app/dist ./dist</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Copy works on stopped containers too</h3>
+        <h2>Copy works on stopped containers too</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +156,7 @@ docker ps -a | grep my-container   # Exited
 docker cp my-container:/app/config.json ./config.json</code></pre>
         </div>
 
-        <h3>Directory trailing slash behavior</h3>
+        <h2>Directory trailing slash behavior</h2>
         <p>Adding a trailing <code>/</code> to the source copies the directory contents (not the directory itself).</p>
 
         <div class="code-block">
@@ -167,7 +168,7 @@ docker cp my-container:/app/dist ./
 docker cp my-container:/app/dist/. ./dist-output/</code></pre>
         </div>
 
-        <h3>Use volumes for persistent sharing instead</h3>
+        <h2>Use volumes for persistent sharing instead</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

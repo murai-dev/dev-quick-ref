@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git pull --rebase vs --merge — which to use | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Understand the difference between git pull --rebase and git pull --merge. Use rebase for a linear history, merge for explicit merge commits." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/pull-rebase-vs-merge/" />
@@ -143,14 +144,14 @@ git pull origin main</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Details</p>
-        <h3>Set rebase as the default for all pulls</h3>
+        <h2>Set rebase as the default for all pulls</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git config --global pull.rebase true</code></pre>
         </div>
 
-        <h3>History shape: rebase vs merge</h3>
+        <h2>History shape: rebase vs merge</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +164,7 @@ A - B - C - M   (M = merge commit)
           D</code></pre>
         </div>
 
-        <h3>When to prefer --merge</h3>
+        <h2>When to prefer --merge</h2>
         <p>Use merge when you want the history to explicitly show that two branches were combined — common on long-lived integration branches.</p>
 
         <div class="code-block">

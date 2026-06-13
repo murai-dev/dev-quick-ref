@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm node-gyp build failed — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;node-gyp build failed&quot; by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/npm/node-gyp-failed/" />
@@ -154,7 +155,7 @@ gyp ERR! command   "node" "/usr/local/lib/node_modules/npm/node_modules/node-gyp
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Specify Python version</h3>
+        <h2>Specify Python version</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,7 +165,7 @@ gyp ERR! command   "node" "/usr/local/lib/node_modules/npm/node_modules/node-gyp
 npm config set python python3</code></pre>
         </div>
 
-        <h3>Use a pre-built binary if available</h3>
+        <h2>Use a pre-built binary if available</h2>
         <p>Some packages offer pre-built binaries via <code>node-pre-gyp</code> that skip compilation.</p>
 
         <div class="code-block">
@@ -175,7 +176,7 @@ npm config set python python3</code></pre>
 # e.g. bcryptjs instead of bcrypt (pure JS)</code></pre>
         </div>
 
-        <h3>Verify environment</h3>
+        <h2>Verify environment</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

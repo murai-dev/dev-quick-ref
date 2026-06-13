@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash find files by name, extension, or age | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use the find command to locate files by name, extension, size, modification date, or content. Includes -exec, -mtime, and -type options." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/find-files/" />
@@ -133,7 +134,7 @@ find . -name "*.tmp" -exec rm {} \;</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Find by modification time</h3>
+        <h2>Find by modification time</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -147,7 +148,7 @@ find . -mtime +30
 find . -mtime 0</code></pre>
         </div>
 
-        <h3>Find by type</h3>
+        <h2>Find by type</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -156,7 +157,7 @@ find . -type d    # directories only
 find . -type l    # symlinks only</code></pre>
         </div>
 
-        <h3>Find by size</h3>
+        <h2>Find by size</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,14 +165,14 @@ find . -type l    # symlinks only</code></pre>
 find . -size -1k      # smaller than 1 KB</code></pre>
         </div>
 
-        <h3>Exclude directories</h3>
+        <h2>Exclude directories</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>find . -name "*.js" -not -path "*/node_modules/*"</code></pre>
         </div>
 
-        <h3>Use -exec efficiently with + instead of ;</h3>
+        <h2>Use -exec efficiently with + instead of ;</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

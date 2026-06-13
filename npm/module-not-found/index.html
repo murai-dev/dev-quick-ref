@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm Cannot find module — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;Cannot find module 'xyz'&quot; in Node.js by installing the missing package, checking paths, and verifying module resolution." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/npm/module-not-found/" />
@@ -153,7 +154,7 @@ Require stack:
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check if it is installed</h3>
+        <h2>Check if it is installed</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,7 +165,7 @@ npm ls express
 ls node_modules/express</code></pre>
         </div>
 
-        <h3>Relative path import errors</h3>
+        <h2>Relative path import errors</h2>
         <p>For local file imports, check the path is correct relative to the importing file.</p>
 
         <div class="code-block">
@@ -177,7 +178,7 @@ const utils = require('./utils');
 const utils = require('../lib/utils');</code></pre>
         </div>
 
-        <h3>TypeScript — missing @types package</h3>
+        <h2>TypeScript — missing @types package</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -188,7 +189,7 @@ npm install --save-dev @types/express
 npm info express types</code></pre>
         </div>
 
-        <h3>ESM vs CJS mismatch</h3>
+        <h2>ESM vs CJS mismatch</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

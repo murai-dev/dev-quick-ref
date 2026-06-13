@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash for loop — iterate over files, list, range | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use bash for loops to iterate over files, lists, arrays, ranges, and command output. Covers glob patterns, C-style loops, and while loops." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/for-loop/" />
@@ -139,7 +140,7 @@ done</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>C-style for loop</h3>
+        <h2>C-style for loop</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -148,7 +149,7 @@ done</code></pre>
 done</code></pre>
         </div>
 
-        <h3>Iterate over an array</h3>
+        <h2>Iterate over an array</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +164,7 @@ for i in "${!items[@]}"; do
 done</code></pre>
         </div>
 
-        <h3>Iterate over command output (safe)</h3>
+        <h2>Iterate over command output (safe)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -173,7 +174,7 @@ while IFS= read -r file; do
 done &lt; &lt;(find . -name "*.log")</code></pre>
         </div>
 
-        <h3>Break and continue</h3>
+        <h2>Break and continue</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

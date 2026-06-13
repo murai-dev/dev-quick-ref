@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git push rejected (non-fast-forward) — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix git push rejected non-fast-forward by running git pull --rebase before pushing. The remote has commits your local branch does not have." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/push-rejected/" />
@@ -147,7 +148,7 @@ hint: 'git pull ...') before pushing again.</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Alternative: pull with merge commit instead of rebase</h3>
+        <h2>Alternative: pull with merge commit instead of rebase</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +156,7 @@ hint: 'git pull ...') before pushing again.</code></pre>
 git push origin main</code></pre>
         </div>
 
-        <h3>Force push — last resort, never on shared branches</h3>
+        <h2>Force push — last resort, never on shared branches</h2>
         <p><code>--force-with-lease</code> is safer than <code>--force</code>: it fails if someone pushed since your last fetch.</p>
 
         <div class="code-block">

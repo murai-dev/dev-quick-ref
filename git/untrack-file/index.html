@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git stop tracking a file — remove from git without deleting | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Stop tracking a file that is already committed in git using git rm --cached, then add it to .gitignore so it stays ignored going forward." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/untrack-file/" />
@@ -145,7 +146,7 @@ git commit -m "stop tracking secrets.json"</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Untrack an entire directory</h3>
+        <h2>Untrack an entire directory</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -154,7 +155,7 @@ echo "node_modules/" &gt;&gt; .gitignore
 git commit -m "remove node_modules from tracking"</code></pre>
         </div>
 
-        <h3>Remove a sensitive file from all past commits</h3>
+        <h2>Remove a sensitive file from all past commits</h2>
         <p>If credentials were committed, <code>git rm --cached</code> only stops future tracking — the file still exists in history. Use <code>git filter-repo</code> to scrub it completely.</p>
 
         <div class="code-block">

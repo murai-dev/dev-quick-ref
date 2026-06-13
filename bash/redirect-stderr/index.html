@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash redirect stderr to stdout — 2&gt;&amp;1 and &amp;&gt; | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Redirect stderr (2) to stdout (1) in bash using 2&gt;&amp;1. Includes capturing both streams, redirecting to a file, and suppressing output." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/redirect-stderr/" />
@@ -135,7 +136,7 @@ command &amp;&gt; /dev/null</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Order matters — 2&gt;&amp;1 must come after &gt;</h3>
+        <h2>Order matters — 2&gt;&amp;1 must come after &gt;</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -146,7 +147,7 @@ command &gt; file.log 2&gt;&amp;1
 command 2&gt;&amp;1 &gt; file.log</code></pre>
         </div>
 
-        <h3>Capture only stderr (discard stdout)</h3>
+        <h2>Capture only stderr (discard stdout)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -156,14 +157,14 @@ command 2&gt;&amp;1 1&gt;/dev/null
 command 1&gt;/dev/null</code></pre>
         </div>
 
-        <h3>Append both streams to a log file</h3>
+        <h2>Append both streams to a log file</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>command &gt;&gt; output.log 2&gt;&amp;1</code></pre>
         </div>
 
-        <h3>Capture command output into a variable</h3>
+        <h2>Capture command output into a variable</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

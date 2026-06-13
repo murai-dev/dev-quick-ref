@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm ENOENT no such file or directory — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix npm &quot;ENOENT: no such file or directory&quot; errors during install, run, or build by checking paths, node_modules, and package.json." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/npm/enoent-no-such-file/" />
@@ -152,7 +153,7 @@ npm ERR! enoent ENOENT: no such file or directory, open 'package.json'</code></p
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Wrong working directory</h3>
+        <h2>Wrong working directory</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -162,14 +163,14 @@ cd my-project
 npm install</code></pre>
         </div>
 
-        <h3>Missing package.json — initialize a new project</h3>
+        <h2>Missing package.json — initialize a new project</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>npm init -y   # create package.json with defaults</code></pre>
         </div>
 
-        <h3>Path issues with npm scripts</h3>
+        <h2>Path issues with npm scripts</h2>
         <p>If a script references a file that does not exist, you get ENOENT when running it.</p>
 
         <div class="code-block">

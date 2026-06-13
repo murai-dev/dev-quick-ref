@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker get container IP address | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/container-ip/" />
@@ -143,7 +144,7 @@ docker inspect my-container | grep -i ipaddress</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>IP on a specific named network</h3>
+        <h2>IP on a specific named network</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,14 +152,14 @@ docker inspect my-container | grep -i ipaddress</code></pre>
 docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-container</code></pre>
         </div>
 
-        <h3>List all IPs for all running containers</h3>
+        <h2>List all IPs for all running containers</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker inspect $(docker ps -q) --format '{{.Name}}: {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'</code></pre>
         </div>
 
-        <h3>Get IP from inside the container</h3>
+        <h2>Get IP from inside the container</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -167,7 +168,7 @@ docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-
 docker exec my-container ip addr show eth0</code></pre>
         </div>
 
-        <h3>Prefer container names over IPs</h3>
+        <h2>Prefer container names over IPs</h2>
         <p>On user-defined networks, containers resolve each other by name — more reliable than IP.</p>
 
         <div class="code-block">

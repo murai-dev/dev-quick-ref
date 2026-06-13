@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm engines field — require specific Node.js version | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use the engines field in package.json to declare required Node.js and npm versions. Covers npm engine-strict and .nvmrc." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/npm/engines-field/" />
@@ -143,7 +144,7 @@ engine-strict=true</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Enforce engines (blocks install on wrong version)</h3>
+        <h2>Enforce engines (blocks install on wrong version)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,7 +154,7 @@ engine-strict=true
 # Now npm install will fail if Node.js version is incompatible</code></pre>
         </div>
 
-        <h3>Use .nvmrc to pin the Node.js version</h3>
+        <h2>Use .nvmrc to pin the Node.js version</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -165,7 +166,7 @@ nvm use        # reads .nvmrc
 nvm install    # installs if not present</code></pre>
         </div>
 
-        <h3>Use Volta to manage Node.js per project</h3>
+        <h2>Use Volta to manage Node.js per project</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

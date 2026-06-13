@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex replace with capture group backreference | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use capture group backreferences ($1, \1, \g&lt;1&gt;) in regex replacements to reuse matched text. Covers JavaScript, Python, sed, and named groups." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/replace-capture-group/" />
@@ -136,7 +137,7 @@ echo "John Smith" | sed 's/\(\w\+\) \(\w\+\)/\2, \1/'</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Named group backreference in replacement</h3>
+        <h2>Named group backreference in replacement</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,7 +154,7 @@ re.sub(
 'John Smith'.replace(/(?&lt;first&gt;\w+) (?&lt;last&gt;\w+)/, '$&lt;last&gt;, $&lt;first&gt;')</code></pre>
         </div>
 
-        <h3>Wrap matched text with backreference</h3>
+        <h2>Wrap matched text with backreference</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -162,7 +163,7 @@ re.sub(
 // 'Price: &lt;strong&gt;42&lt;/strong&gt; dollars'</code></pre>
         </div>
 
-        <h3>sed extended regex</h3>
+        <h2>sed extended regex</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

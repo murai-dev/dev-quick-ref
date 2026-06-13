@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git line ending warning (CRLF / LF) — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix git line ending warnings about CRLF and LF by configuring core.autocrlf correctly for your OS, or using a .gitattributes file." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/line-ending-crlf/" />
@@ -147,7 +148,7 @@ The file will have its original line endings in your working directory.</code></
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Use .gitattributes for consistent cross-platform settings</h3>
+        <h2>Use .gitattributes for consistent cross-platform settings</h2>
         <p>A <code>.gitattributes</code> file enforces line endings regardless of individual developer settings.</p>
 
         <div class="code-block">
@@ -157,7 +158,7 @@ The file will have its original line endings in your working directory.</code></
 *.bat text eol=crlf</code></pre>
         </div>
 
-        <h3>Normalize existing files in the repository</h3>
+        <h2>Normalize existing files in the repository</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -165,7 +166,7 @@ The file will have its original line endings in your working directory.</code></
 git commit -m "normalize line endings"</code></pre>
         </div>
 
-        <h3>Disable warnings (not recommended)</h3>
+        <h2>Disable warnings (not recommended)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

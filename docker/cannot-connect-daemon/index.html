@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>cannot connect to the Docker daemon — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix &quot;Cannot connect to the Docker daemon at unix:///var/run/docker.sock&quot; by starting the Docker daemon or Desktop app." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/cannot-connect-daemon/" />
@@ -152,7 +153,7 @@ Is the docker daemon running?</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check daemon status (Linux)</h3>
+        <h2>Check daemon status (Linux)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -161,7 +162,7 @@ Is the docker daemon running?</code></pre>
 sudo systemctl start docker</code></pre>
         </div>
 
-        <h3>Custom socket or remote daemon</h3>
+        <h2>Custom socket or remote daemon</h2>
         <p>If the daemon uses a custom socket or TCP address, set <code>DOCKER_HOST</code>:</p>
 
         <div class="code-block">
@@ -171,7 +172,7 @@ sudo systemctl start docker</code></pre>
 export DOCKER_HOST=tcp://192.168.1.10:2376</code></pre>
         </div>
 
-        <h3>Rootless Docker socket</h3>
+        <h2>Rootless Docker socket</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

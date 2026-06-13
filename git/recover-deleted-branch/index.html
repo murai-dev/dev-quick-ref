@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git recover deleted branch — using reflog | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Recover a deleted git branch by finding its last commit in git reflog and recreating the branch with git checkout -b." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/recover-deleted-branch/" />
@@ -159,7 +160,7 @@ git checkout -b recovered-branch abc1234</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Reading the reflog output</h3>
+        <h2>Reading the reflog output</h2>
         <p>Look for a line like <code>abc1234 HEAD@{3}: checkout: moving from recovered-branch to main</code> — the hash before the checkout is your branch tip.</p>
 
         <div class="code-block">
@@ -167,7 +168,7 @@ git checkout -b recovered-branch abc1234</code></pre>
           <pre><code>git reflog --oneline | head -20</code></pre>
         </div>
 
-        <h3>Recover a branch deleted on the remote</h3>
+        <h2>Recover a branch deleted on the remote</h2>
         <p>If the branch was deleted on GitHub/GitLab but still exists locally:</p>
 
         <div class="code-block">
@@ -175,7 +176,7 @@ git checkout -b recovered-branch abc1234</code></pre>
           <pre><code>git push origin recovered-branch</code></pre>
         </div>
 
-        <h3>Reflog only keeps entries for ~90 days</h3>
+        <h2>Reflog only keeps entries for ~90 days</h2>
         <p>If the branch was deleted a long time ago, the commit may have been garbage-collected. Act quickly.</p>
 
         <div class="code-block">

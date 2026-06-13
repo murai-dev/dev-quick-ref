@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker network — connect containers to each other | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Connect Docker containers on the same user-defined network so they can communicate by container name. Covers bridge networks and docker compose networking." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/network-connect/" />
@@ -147,7 +148,7 @@ docker run -d --name app --network my-net -p 3000:3000 my-app
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Inspect a network</h3>
+        <h2>Inspect a network</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,14 +156,14 @@ docker run -d --name app --network my-net -p 3000:3000 my-app
 docker network inspect my-net</code></pre>
         </div>
 
-        <h3>Connect a running container to a network</h3>
+        <h2>Connect a running container to a network</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker network connect my-net existing-container</code></pre>
         </div>
 
-        <h3>Docker Compose — automatic networking</h3>
+        <h2>Docker Compose — automatic networking</h2>
         <p>Compose creates a default network for each project. Services can reach each other by service name.</p>
 
         <div class="code-block">
@@ -178,7 +179,7 @@ services:
 # No explicit network needed — Compose handles it</code></pre>
         </div>
 
-        <h3>Expose a port to the host</h3>
+        <h2>Expose a port to the host</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

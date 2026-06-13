@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>regex match IPv4 address | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Regex pattern to match and validate IPv4 addresses (0-255 per octet). Covers simple and strict patterns in JavaScript and Python." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/ip-address/" />
@@ -143,7 +144,7 @@
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Strict octet range breakdown</h3>
+        <h2>Strict octet range breakdown</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -154,7 +155,7 @@
 \d           0-9</code></pre>
         </div>
 
-        <h3>JavaScript — extract IPs from log</h3>
+        <h2>JavaScript — extract IPs from log</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,7 +165,7 @@ log.match(ipPattern)
 // ['192.168.1.1', '10.0.0.255']</code></pre>
         </div>
 
-        <h3>Python — use ipaddress module for validation</h3>
+        <h2>Python — use ipaddress module for validation</h2>
         <p>For validation, the standard library is more reliable than regex.</p>
 
         <div class="code-block">

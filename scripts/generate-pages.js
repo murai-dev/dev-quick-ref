@@ -175,7 +175,7 @@ ${parts.join('\n')}
     const items = data.details.map(d => {
       const expHtml = d.explanation ? `        <p>${d.explanation}</p>\n` : '';
       const codeHtml = d.code ? `\n${codeBlock(d.code, true)}\n` : '';
-      return `        <h3>${esc(d.title)}</h3>\n${expHtml}${codeHtml}`;
+      return `        <h2>${esc(d.title)}</h2>\n${expHtml}${codeHtml}`;
     }).join('\n');
     detailsSection = `
       <section class="section">
@@ -197,6 +197,7 @@ ${items}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>${escAttr(metaTitle)} | ${SITE_HOST}</title>
     <meta name="description" content="${escAttr(data.description)}" />
     <link rel="canonical" href="${BASE_URL}/${category}/${slug}/" />

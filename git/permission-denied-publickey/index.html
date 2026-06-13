@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/permission-denied-publickey/" />
@@ -166,7 +167,7 @@ and the repository exists.</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>No SSH key exists yet</h3>
+        <h2>No SSH key exists yet</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -177,7 +178,7 @@ ls ~/.ssh/id_*.pub
 ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
         </div>
 
-        <h3>macOS: key lost after reboot</h3>
+        <h2>macOS: key lost after reboot</h2>
         <p>On macOS the ssh-agent resets on restart. Add this to <code>~/.ssh/config</code> to load the key automatically via Keychain:</p>
 
         <div class="code-block">
@@ -188,7 +189,7 @@ ssh-keygen -t ed25519 -C "you@example.com"</code></pre>
   IdentityFile ~/.ssh/id_ed25519</code></pre>
         </div>
 
-        <h3>Remote URL is HTTPS, not SSH</h3>
+        <h2>Remote URL is HTTPS, not SSH</h2>
         <p>If the remote URL starts with <code>https://</code>, Git uses a password/token prompt instead of SSH keys.</p>
 
         <div class="code-block">

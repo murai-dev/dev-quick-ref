@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash kill process by port number | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/kill-process-by-port/" />
@@ -135,7 +136,7 @@ ss -tlnp | grep 8080</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Find PID without killing</h3>
+        <h2>Find PID without killing</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -149,7 +150,7 @@ lsof -i :3000
 ss -tlnp | grep :3000</code></pre>
         </div>
 
-        <h3>Kill gracefully first, then force</h3>
+        <h2>Kill gracefully first, then force</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -159,7 +160,7 @@ sleep 2
 kill -9 $pid 2&gt;/dev/null || true  # SIGKILL if still running</code></pre>
         </div>
 
-        <h3>Multiple processes on the same port</h3>
+        <h2>Multiple processes on the same port</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
