@@ -30,17 +30,17 @@ function urlEntry(loc, priority, changefreq = 'weekly') {
   ].join('\n');
 }
 
-const entries = [];
+const urls = [];
 
 // Homepage
-entries.push(urlEntry(`${BASE_URL}/`, '1.0', 'daily'));
+urls.push({ loc: `${BASE_URL}/`, priority: '1.0', changefreq: 'daily', lastmod: TODAY });
 
 // About
-entries.push(urlEntry(`${BASE_URL}/about/`, '0.5', 'monthly'));
+urls.push({ loc: `${BASE_URL}/about/`, priority: '0.5', changefreq: 'monthly', lastmod: TODAY });
 
 // Category index pages + individual pages
 for (const cat of ALL_CATEGORIES) {
-  entries.push(urlEntry(`${BASE_URL}/${cat}/`, '0.8', 'weekly'));
+  urls.push({ loc: `${BASE_URL}/${cat}/`, priority: '0.8', changefreq: 'weekly', lastmod: TODAY });
 
   const files = await readdir(join(dataDir, cat));
   const slugs = files
@@ -49,15 +49,20 @@ for (const cat of ALL_CATEGORIES) {
     .sort();
 
   for (const slug of slugs) {
-    entries.push(urlEntry(`${BASE_URL}/${cat}/${slug}/`, '0.7', 'monthly'));
+    urls.push({ loc: `${BASE_URL}/${cat}/${slug}/`, priority: '0.7', changefreq: 'monthly', lastmod: TODAY });
   }
 }
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${entries.join('\n')}
-</urlset>
-`;
+const xmlEntries = urls.map(u => urlEntry(u.loc, u.priority, u.changefreq));
+const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${xmlEntries.join('\n')}\n</urlset>\n`;
 
 await writeFile(join(rootDir, 'public/sitemap.xml'), xml, 'utf8');
-console.log(`✓ sitemap.xml generated (${entries.length} URLs)`);
+
+// Also generate a human-readable sitemap.html for browsers and quick inspection.
+const htmlList = urls.map(u => `  <li><a href="${u.loc}">${u.loc}</a> <small>${u.lastmod}</small></li>`).join('\n');
+const html = `<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta name="viewport" content="width=device-width,initial-scale=1" />\n    <title>Sitemap — ${BASE_URL}</title>\n  </head>\n  <body>\n    <h1>Sitemap</h1>\n    <p>Generated: ${TODAY}</p>\n    <ul>\n${htmlList}\n    </ul>\n  </body>\n</html>\n`;
+
+await writeFile(join(rootDir, 'public/sitemap.html'), html, 'utf8');
+
+console.log(`✓ sitemap.xml generated (${urls.length} URLs)`);
+console.log(`✓ sitemap.html generated (${urls.length} URLs)`);
