@@ -142,7 +142,7 @@ denied: requested access to the resource is denied.</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Build the image locally first</h3>
+        <h2>Build the image locally first</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,7 +153,7 @@ docker build -t myapp:latest .
 docker run myapp:latest</code></pre>
         </div>
 
-        <h3>Specify the full registry path</h3>
+        <h2>Specify the full registry path</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -168,7 +168,7 @@ aws ecr get-login-password | docker login --username AWS --password-stdin 123456
 docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest</code></pre>
         </div>
 
-        <h3>List all locally available images</h3>
+        <h2>List all locally available images</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -162,7 +162,7 @@ git reset --hard HEAD~1</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Mode comparison</p>
-        <h3>--soft: safest — keeps everything staged</h3>
+        <h2>--soft: safest — keeps everything staged</h2>
         <p>The commit is removed, but all changes from that commit are left in the staging area, ready to recommit.</p>
 
         <div class="code-block">
@@ -172,7 +172,7 @@ git status          # changes show as "Changes to be committed"
 git commit -m "Better message"</code></pre>
         </div>
 
-        <h3>--mixed (default): unstages but keeps files</h3>
+        <h2>--mixed (default): unstages but keeps files</h2>
         <p>The commit is removed and changes are unstaged, but your actual files are not touched.</p>
 
         <div class="code-block">
@@ -181,7 +181,7 @@ git commit -m "Better message"</code></pre>
 git status          # changes show as "Changes not staged for commit"</code></pre>
         </div>
 
-        <h3>--hard: discards everything (use with care)</h3>
+        <h2>--hard: discards everything (use with care)</h2>
         <p><strong>Cannot be undone easily.</strong> All changes from the commit and any unstaged edits are permanently deleted.</p>
 
         <div class="code-block">

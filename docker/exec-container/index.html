@@ -133,7 +133,7 @@ docker exec my-container ls /app</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Find the container name or ID</h3>
+        <h2>Find the container name or ID</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -142,7 +142,7 @@ docker exec my-container ls /app</code></pre>
 # d3f9a1b2c3d4   nginx    Up 5m     web</code></pre>
         </div>
 
-        <h3>Run as a specific user</h3>
+        <h2>Run as a specific user</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -150,14 +150,14 @@ docker exec my-container ls /app</code></pre>
 docker exec -it --user 1000:1000 my-container /bin/sh</code></pre>
         </div>
 
-        <h3>Set environment variables</h3>
+        <h2>Set environment variables</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker exec -it -e DEBUG=true my-container /bin/bash</code></pre>
         </div>
 
-        <h3>Exec into a container by partial ID</h3>
+        <h2>Exec into a container by partial ID</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -161,7 +161,7 @@ Bind for 0.0.0.0:8080 failed: port is already allocated</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Use a different host port</h3>
+        <h2>Use a different host port</h2>
         <p>Map a different host port to the same container port:</p>
 
         <div class="code-block">
@@ -170,14 +170,14 @@ Bind for 0.0.0.0:8080 failed: port is already allocated</code></pre>
 docker run -p 8081:8080 my-image</code></pre>
         </div>
 
-        <h3>Stop all containers on a given port</h3>
+        <h2>Stop all containers on a given port</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker ps --filter "publish=8080" -q | xargs docker stop</code></pre>
         </div>
 
-        <h3>On macOS: AirPlay Receiver uses port 5000 / 7000</h3>
+        <h2>On macOS: AirPlay Receiver uses port 5000 / 7000</h2>
         <p>Disable AirPlay Receiver in System Settings → General → AirDrop & Handoff.</p>
 
         <div class="code-block">

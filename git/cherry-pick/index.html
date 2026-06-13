@@ -143,14 +143,14 @@ git cherry-pick abc1234</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Cherry-pick a range of commits</h3>
+        <h2>Cherry-pick a range of commits</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git cherry-pick abc1234..def5678   # applies commits from abc (exclusive) to def (inclusive)</code></pre>
         </div>
 
-        <h3>Cherry-pick without committing immediately</h3>
+        <h2>Cherry-pick without committing immediately</h2>
         <p>Use <code>-n</code> (no-commit) to stage the changes without creating a commit, so you can edit before committing.</p>
 
         <div class="code-block">
@@ -160,7 +160,7 @@ git status          # review staged changes
 git commit -m "Applied fix from feature branch"</code></pre>
         </div>
 
-        <h3>Resolve conflicts during cherry-pick</h3>
+        <h2>Resolve conflicts during cherry-pick</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

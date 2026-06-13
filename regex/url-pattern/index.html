@@ -132,7 +132,7 @@ text.match(/https?:\/\/[^\s&lt;&gt;"{}|\\^\[\]]+/g)
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Stricter URL pattern with domain validation</h3>
+        <h2>Stricter URL pattern with domain validation</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -145,7 +145,7 @@ text.match(/https?:\/\/[^\s&lt;&gt;"{}|\\^\[\]]+/g)
 //   http://localhost  (no TLD)</code></pre>
         </div>
 
-        <h3>Python — extract URLs</h3>
+        <h2>Python — extract URLs</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -158,14 +158,14 @@ urls = URL_RE.findall(text)
 # ['https://example.com/path']</code></pre>
         </div>
 
-        <h3>Validate a complete URL with named groups</h3>
+        <h2>Validate a complete URL with named groups</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>/^(?P&lt;scheme&gt;https?):\/\/(?P&lt;host&gt;[^\/?#]+)(?P&lt;path&gt;[^?#]*)(\?(?P&lt;query&gt;[^#]*))?(#(?P&lt;fragment&gt;.*))?$/</code></pre>
         </div>
 
-        <h3>Prefer URL() constructor for validation in JS</h3>
+        <h2>Prefer URL() constructor for validation in JS</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

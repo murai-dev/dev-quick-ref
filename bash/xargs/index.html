@@ -133,7 +133,7 @@ find . -name "*.txt" -print0 | xargs -0 rm</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Parallel execution with -P</h3>
+        <h2>Parallel execution with -P</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -141,7 +141,7 @@ find . -name "*.txt" -print0 | xargs -0 rm</code></pre>
 find . -name "*.png" | xargs -P 4 -I{} convert {} {}.webp</code></pre>
         </div>
 
-        <h3>Limit arguments per call with -n</h3>
+        <h2>Limit arguments per call with -n</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -149,7 +149,7 @@ find . -name "*.png" | xargs -P 4 -I{} convert {} {}.webp</code></pre>
 find . -name "*.tmp" | xargs -n 10 rm</code></pre>
         </div>
 
-        <h3>Preview the command before running</h3>
+        <h2>Preview the command before running</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -157,7 +157,7 @@ find . -name "*.tmp" | xargs -n 10 rm</code></pre>
 # xargs -p asks for confirmation before each call</code></pre>
         </div>
 
-        <h3>Handle empty input safely</h3>
+        <h2>Handle empty input safely</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

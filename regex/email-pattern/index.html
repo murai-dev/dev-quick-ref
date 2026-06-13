@@ -150,7 +150,7 @@ def is_valid_email(email):
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Extract all emails from text</h3>
+        <h2>Extract all emails from text</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,7 +164,7 @@ import re
 re.findall(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}', text)</code></pre>
         </div>
 
-        <h3>Pattern breakdown</h3>
+        <h2>Pattern breakdown</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -177,7 +177,7 @@ re.findall(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}', text)</code></pr
 $                   end of string</code></pre>
         </div>
 
-        <h3>Note: perfect email validation is impossible with regex</h3>
+        <h2>Note: perfect email validation is impossible with regex</h2>
         <p>For production use, send a verification email rather than relying solely on regex. The full RFC 5322 spec allows characters that most simple patterns reject.</p>
 
         <div class="code-block">

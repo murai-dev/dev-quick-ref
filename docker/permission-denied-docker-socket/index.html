@@ -151,14 +151,14 @@ dial unix /var/run/docker.sock: connect: permission denied</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other approaches</p>
-        <h3>Run with sudo (quick but not recommended)</h3>
+        <h2>Run with sudo (quick but not recommended)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>sudo docker run --rm hello-world</code></pre>
         </div>
 
-        <h3>Check the docker group exists</h3>
+        <h2>Check the docker group exists</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -167,7 +167,7 @@ dial unix /var/run/docker.sock: connect: permission denied</code></pre>
 sudo groupadd docker</code></pre>
         </div>
 
-        <h3>Rootless Docker — run Docker without root</h3>
+        <h2>Rootless Docker — run Docker without root</h2>
         <p>Rootless mode runs the Docker daemon as a non-root user, improving security.</p>
 
         <div class="code-block">

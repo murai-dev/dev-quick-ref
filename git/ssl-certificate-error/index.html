@@ -155,7 +155,7 @@ SSL certificate problem: unable to get local issuer certificate</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Corporate proxy / self-signed cert — add the CA cert</h3>
+        <h2>Corporate proxy / self-signed cert — add the CA cert</h2>
         <p>Ask your IT team for the corporate CA certificate, then:</p>
 
         <div class="code-block">
@@ -165,7 +165,7 @@ sudo cat corp-ca.crt &gt;&gt; /etc/ssl/certs/ca-certificates.crt
 git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt</code></pre>
         </div>
 
-        <h3>Temporarily disable SSL verification (not recommended for production)</h3>
+        <h2>Temporarily disable SSL verification (not recommended for production)</h2>
         <p><strong>Only use this as a short-term workaround.</strong> Disabling SSL verification exposes you to man-in-the-middle attacks.</p>
 
         <div class="code-block">
@@ -173,7 +173,7 @@ git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt</code></pr
           <pre><code>git config --global http.sslVerify false</code></pre>
         </div>
 
-        <h3>Disable verification for one specific host only</h3>
+        <h2>Disable verification for one specific host only</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

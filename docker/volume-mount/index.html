@@ -133,7 +133,7 @@ docker run -v $(pwd)/config:/app/config:ro my-image</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Create and inspect named volumes</h3>
+        <h2>Create and inspect named volumes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -147,7 +147,7 @@ docker volume ls
 docker volume inspect my-volume</code></pre>
         </div>
 
-        <h3>--mount syntax (more explicit)</h3>
+        <h2>--mount syntax (more explicit)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -158,7 +158,7 @@ docker run --mount type=bind,source=$(pwd)/data,target=/app/data my-image
 docker run --mount type=volume,source=my-volume,target=/app/data my-image</code></pre>
         </div>
 
-        <h3>Docker Compose volumes</h3>
+        <h2>Docker Compose volumes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

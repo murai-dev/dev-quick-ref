@@ -149,7 +149,7 @@ services:
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Variable substitution from .env</h3>
+        <h2>Variable substitution from .env</h2>
         <p>Compose automatically reads <code>.env</code> in the project directory for variable substitution in the YAML:</p>
 
         <div class="code-block">
@@ -166,14 +166,14 @@ services:
       POSTGRES_DB: {DB_NAME}</code></pre>
         </div>
 
-        <h3>Override with -e at runtime</h3>
+        <h2>Override with -e at runtime</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker compose run -e NODE_ENV=test app npm test</code></pre>
         </div>
 
-        <h3>Per-environment override files</h3>
+        <h2>Per-environment override files</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -183,7 +183,7 @@ services:
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d</code></pre>
         </div>
 
-        <h3>Pass host variables into compose</h3>
+        <h2>Pass host variables into compose</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

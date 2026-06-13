@@ -175,7 +175,7 @@ ${parts.join('\n')}
     const items = data.details.map(d => {
       const expHtml = d.explanation ? `        <p>${d.explanation}</p>\n` : '';
       const codeHtml = d.code ? `\n${codeBlock(d.code, true)}\n` : '';
-      return `        <h3>${esc(d.title)}</h3>\n${expHtml}${codeHtml}`;
+      return `        <h2>${esc(d.title)}</h2>\n${expHtml}${codeHtml}`;
     }).join('\n');
     detailsSection = `
       <section class="section">

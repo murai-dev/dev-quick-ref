@@ -128,7 +128,7 @@ done &lt; input.txt</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Why IFS= and -r matter</h3>
+        <h2>Why IFS= and -r matter</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -141,7 +141,7 @@ while read line; do   # BAD — leading spaces stripped, \ consumed
 done &lt; file.txt</code></pre>
         </div>
 
-        <h3>Process the last line even without trailing newline</h3>
+        <h2>Process the last line even without trailing newline</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,7 +151,7 @@ done &lt; input.txt
 # The || [ -n "$line" ] handles files missing a final newline</code></pre>
         </div>
 
-        <h3>Read from a command output</h3>
+        <h2>Read from a command output</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -160,7 +160,7 @@ done &lt; input.txt
 done &lt; &lt;(find . -name "*.txt")</code></pre>
         </div>
 
-        <h3>Read two fields per line (CSV-like)</h3>
+        <h2>Read two fields per line (CSV-like)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -169,7 +169,7 @@ done &lt; &lt;(find . -name "*.txt")</code></pre>
 done &lt; data.csv</code></pre>
         </div>
 
-        <h3>Use mapfile to read all lines into an array</h3>
+        <h2>Use mapfile to read all lines into an array</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

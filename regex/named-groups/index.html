@@ -134,7 +134,7 @@ console.log(m.groups.year);   // 2024</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Named backreference in pattern</h3>
+        <h2>Named backreference in pattern</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -147,7 +147,7 @@ re.search(r'(?P&lt;word&gt;\w+) (?P=word)', 'the the fox')
 /(?&lt;word&gt;\w+) \k&lt;word&gt;/.test('the the fox')   // true</code></pre>
         </div>
 
-        <h3>Named group in replacement</h3>
+        <h2>Named group in replacement</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -168,7 +168,7 @@ result = re.sub(
 // '15/01/2024'</code></pre>
         </div>
 
-        <h3>PHP named groups</h3>
+        <h2>PHP named groups</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

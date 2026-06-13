@@ -162,7 +162,7 @@ docker run --env-file .env my-image</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>.env file format</h3>
+        <h2>.env file format</h2>
         <p>The file is plain <code>KEY=VALUE</code>, one per line. Comments and blank lines are allowed.</p>
 
         <div class="code-block">
@@ -174,7 +174,7 @@ SECRET_KEY=s3cr3t
 # This line is a comment</code></pre>
         </div>
 
-        <h3>Pass a variable from the host environment</h3>
+        <h2>Pass a variable from the host environment</h2>
         <p>If you omit the value, Docker reads it from the host shell:</p>
 
         <div class="code-block">
@@ -184,7 +184,7 @@ docker run -e MY_TOKEN my-image
 # Container sees MY_TOKEN=abc123</code></pre>
         </div>
 
-        <h3>Docker Compose env_file</h3>
+        <h2>Docker Compose env_file</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -197,7 +197,7 @@ services:
       - .env.local</code></pre>
         </div>
 
-        <h3>Never bake secrets into images</h3>
+        <h2>Never bake secrets into images</h2>
         <p>Avoid <code>ENV SECRET=...</code> in Dockerfiles — it is visible in <code>docker history</code>.</p>
 
         <div class="code-block">

@@ -152,7 +152,7 @@ CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS    PORTS   NAMES
       </section>
       <section class="section">
         <p class="section-label">Common causes</p>
-        <h3>No foreground process (daemon forked to background)</h3>
+        <h2>No foreground process (daemon forked to background)</h2>
         <p>If your CMD starts a service that daemonizes (e.g. nginx -g "daemon off;" is missing), the container exits.</p>
 
         <div class="code-block">
@@ -164,7 +164,7 @@ CMD ["nginx", "-g", "daemon off;"]
 CMD ["/bin/sh", "-c", "start-server &amp;&amp; wait"]</code></pre>
         </div>
 
-        <h3>Keep a container alive for debugging</h3>
+        <h2>Keep a container alive for debugging</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -175,7 +175,7 @@ docker run -it --entrypoint /bin/sh your-image
 docker run -d your-image tail -f /dev/null</code></pre>
         </div>
 
-        <h3>Restart policy — auto-restart on failure</h3>
+        <h2>Restart policy — auto-restart on failure</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

@@ -151,7 +151,7 @@ zsh: permission denied: ./script.sh</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check current permissions</h3>
+        <h2>Check current permissions</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +163,7 @@ zsh: permission denied: ./script.sh</code></pre>
 # -rwxr-xr-x 1 user group 512 Jan 1 12:00 script.sh</code></pre>
         </div>
 
-        <h3>chmod permission modes</h3>
+        <h2>chmod permission modes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -173,7 +173,7 @@ chmod 755 script.sh         # rwxr-xr-x (owner:rwx, others:r-x)
 chmod 700 script.sh         # rwx------ (owner only)</code></pre>
         </div>
 
-        <h3>File on a noexec-mounted filesystem</h3>
+        <h2>File on a noexec-mounted filesystem</h2>
         <p>If the file lives on a filesystem mounted with <code>noexec</code> (common for /tmp or NFS), chmod +x will not help.</p>
 
         <div class="code-block">

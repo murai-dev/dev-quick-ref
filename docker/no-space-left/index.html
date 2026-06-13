@@ -150,7 +150,7 @@ write /var/lib/docker/tmp/...: no space left on device</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Prune selectively (safer)</h3>
+        <h2>Prune selectively (safer)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -167,14 +167,14 @@ docker builder prune
 docker volume prune</code></pre>
         </div>
 
-        <h3>Find large images</h3>
+        <h2>Find large images</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>docker images --format "{{.Repository}}:{{.Tag}}\t{{.Size}}" | sort -k2 -h -r | head -20</code></pre>
         </div>
 
-        <h3>Move Docker data directory (Linux)</h3>
+        <h2>Move Docker data directory (Linux)</h2>
         <p>If the root partition is small, move Docker data to a larger disk.</p>
 
         <div class="code-block">

@@ -151,7 +151,7 @@ stat app/package.json: file does not exist</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check .dockerignore is not too aggressive</h3>
+        <h2>Check .dockerignore is not too aggressive</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -162,7 +162,7 @@ dist
 # Make sure you are not ignoring files you need to COPY</code></pre>
         </div>
 
-        <h3>Widen the build context</h3>
+        <h2>Widen the build context</h2>
         <p>Pass a parent directory as the context and specify the Dockerfile location with <code>-f</code>:</p>
 
         <div class="code-block">
@@ -171,7 +171,7 @@ dist
 docker build -f app/Dockerfile -t my-image ..</code></pre>
         </div>
 
-        <h3>Correct COPY paths</h3>
+        <h2>Correct COPY paths</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

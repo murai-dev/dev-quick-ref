@@ -135,7 +135,7 @@ ss -tlnp | grep 8080</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Find PID without killing</h3>
+        <h2>Find PID without killing</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -149,7 +149,7 @@ lsof -i :3000
 ss -tlnp | grep :3000</code></pre>
         </div>
 
-        <h3>Kill gracefully first, then force</h3>
+        <h2>Kill gracefully first, then force</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -159,7 +159,7 @@ sleep 2
 kill -9 $pid 2&gt;/dev/null || true  # SIGKILL if still running</code></pre>
         </div>
 
-        <h3>Multiple processes on the same port</h3>
+        <h2>Multiple processes on the same port</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

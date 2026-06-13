@@ -128,7 +128,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>HEALTHCHECK options explained</h3>
+        <h2>HEALTHCHECK options explained</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -140,7 +140,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD curl -f http://localhost/health || exit 1</code></pre>
         </div>
 
-        <h3>Check health status</h3>
+        <h2>Check health status</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,7 +151,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 docker inspect --format '{{range .State.Health.Log}}{{.Output}}{{end}}' my-container</code></pre>
         </div>
 
-        <h3>Docker Compose healthcheck</h3>
+        <h2>Docker Compose healthcheck</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -167,7 +167,7 @@ services:
       start_period: 10s</code></pre>
         </div>
 
-        <h3>Disable an inherited healthcheck</h3>
+        <h2>Disable an inherited healthcheck</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

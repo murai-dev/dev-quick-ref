@@ -143,7 +143,7 @@ git rebase -i HEAD~3
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>What the rebase editor looks like</h3>
+        <h2>What the rebase editor looks like</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -152,7 +152,7 @@ squash def5678 fix typo
 squash ghi9012 remove console.log</code></pre>
         </div>
 
-        <h3>Squash all commits on a feature branch at once</h3>
+        <h2>Squash all commits on a feature branch at once</h2>
         <p>Use the merge-base to find where your branch diverged from main:</p>
 
         <div class="code-block">
@@ -160,7 +160,7 @@ squash ghi9012 remove console.log</code></pre>
           <pre><code>git rebase -i $(git merge-base HEAD main)</code></pre>
         </div>
 
-        <h3>Push after squashing (force push required)</h3>
+        <h2>Push after squashing (force push required)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

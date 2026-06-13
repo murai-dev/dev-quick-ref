@@ -158,7 +158,7 @@ npm warn deprecated some-component@1.0.0: Use new-component instead</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>What is a peer dependency?</h3>
+        <h2>What is a peer dependency?</h2>
         <p>Peer dependencies are packages that a library needs you to provide, rather than bundling itself. Common pattern: a plugin that requires the host library (e.g. a React component requiring React).</p>
 
         <div class="code-block">
@@ -172,7 +172,7 @@ npm warn deprecated some-component@1.0.0: Use new-component instead</code></pre>
 // You must have react installed at a compatible version</code></pre>
         </div>
 
-        <h3>Auto-install peer deps (npm 7+)</h3>
+        <h2>Auto-install peer deps (npm 7+)</h2>
         <p>npm 7+ installs peer deps automatically. This can cause ERESOLVE errors when versions conflict. npm 6 only warned.</p>
 
         <div class="code-block">
@@ -181,7 +181,7 @@ npm warn deprecated some-component@1.0.0: Use new-component instead</code></pre>
 npm install --legacy-peer-deps</code></pre>
         </div>
 
-        <h3>Check which peers are missing</h3>
+        <h2>Check which peers are missing</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

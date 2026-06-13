@@ -145,7 +145,7 @@ text.match(/(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g)
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>International phone numbers (E.164 format)</h3>
+        <h2>International phone numbers (E.164 format)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -156,7 +156,7 @@ text.match(/(?:\+1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g)
 /\+?[\d\s().\-]{7,20}/</code></pre>
         </div>
 
-        <h3>Python — extract US phone numbers</h3>
+        <h2>Python — extract US phone numbers</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -168,7 +168,7 @@ PHONE_RE.findall(text)
 # ['800-555-0199', '(800) 555-0100']</code></pre>
         </div>
 
-        <h3>Normalize a matched phone number to digits only</h3>
+        <h2>Normalize a matched phone number to digits only</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -179,7 +179,7 @@ function normalize(phone) {
 normalize('(555) 123-4567');  // '5551234567'</code></pre>
         </div>
 
-        <h3>Consider a library for production use</h3>
+        <h2>Consider a library for production use</h2>
         <p>libphonenumber-js validates numbers against real carrier data (supports 200+ countries).</p>
 
         <div class="code-block">

@@ -149,7 +149,7 @@ docker logs -t my-container</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Logs since a time or duration</h3>
+        <h2>Logs since a time or duration</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -163,7 +163,7 @@ docker logs --since "2024-01-15T10:00:00" my-container
 docker logs --since "2024-01-15T09:00:00" --until "2024-01-15T10:00:00" my-container</code></pre>
         </div>
 
-        <h3>Logs from a stopped container</h3>
+        <h2>Logs from a stopped container</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -172,7 +172,7 @@ docker ps -a   # find the container ID
 docker logs &lt;container-id&gt;</code></pre>
         </div>
 
-        <h3>Configure log driver and size limit</h3>
+        <h2>Configure log driver and size limit</h2>
         <p>By default Docker uses the <code>json-file</code> driver. Limit size to avoid disk exhaustion:</p>
 
         <div class="code-block">

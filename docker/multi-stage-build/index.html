@@ -140,7 +140,7 @@ CMD ["node", "dist/index.js"]</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Go — build a tiny static binary</h3>
+        <h2>Go — build a tiny static binary</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +155,7 @@ EXPOSE 8080
 ENTRYPOINT ["/server"]</code></pre>
         </div>
 
-        <h3>Copy only specific files from a stage</h3>
+        <h2>Copy only specific files from a stage</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -164,7 +164,7 @@ COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/public /app/public</code></pre>
         </div>
 
-        <h3>Build a specific stage (for debugging)</h3>
+        <h2>Build a specific stage (for debugging)</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

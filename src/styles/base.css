@@ -67,7 +67,7 @@ body {
   color: var(--fg-muted);
   margin-bottom: 20px;
 }
-.breadcrumb a { color: var(--link); text-decoration: none; }
+.breadcrumb a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
 .breadcrumb a:hover { text-decoration: underline; }
 
 /* ── headings ── */
@@ -105,6 +105,7 @@ h1 {
   margin-bottom: 12px;
 }
 
+.section h2,
 .section h3 {
   font-size: 15px;
   font-weight: 600;
@@ -177,7 +178,8 @@ code:not(pre code) {
   font-family: var(--mono);
   font-size: 13px;
   color: var(--link);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .related-list a:hover { text-decoration: underline; }
@@ -193,7 +195,7 @@ code:not(pre code) {
   color: var(--fg-muted);
 }
 
-.site-footer a { color: var(--fg-muted); text-decoration: none; }
+.site-footer a { color: var(--fg-muted); text-decoration: underline; text-underline-offset: 2px; }
 .site-footer a:hover { color: var(--fg); }
 
 /* ── responsive ── */
@@ -289,7 +291,8 @@ a.category-card:hover {
   font-size: 14px;
   font-weight: 600;
   color: var(--link);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .category-page-list a:hover { text-decoration: underline; }

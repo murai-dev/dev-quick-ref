@@ -144,14 +144,14 @@ warning: Could not find remote branch ...</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Check if your clone is shallow</h3>
+        <h2>Check if your clone is shallow</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git rev-parse --is-shallow-repository    # prints "true" if shallow</code></pre>
         </div>
 
-        <h3>Fetch only a limited depth (not full history)</h3>
+        <h2>Fetch only a limited depth (not full history)</h2>
         <p>If you do not need the complete history but need more than 1 commit:</p>
 
         <div class="code-block">
@@ -159,7 +159,7 @@ warning: Could not find remote branch ...</code></pre>
           <pre><code>git fetch --depth=100</code></pre>
         </div>
 
-        <h3>Unshallow a specific remote</h3>
+        <h2>Unshallow a specific remote</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

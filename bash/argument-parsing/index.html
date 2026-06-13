@@ -143,7 +143,7 @@ echo "Arg count: $#"</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Parse flags with getopts</h3>
+        <h2>Parse flags with getopts</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -160,7 +160,7 @@ shift $((OPTIND - 1))   # remove parsed flags, $@ now has remaining args
 echo "Remaining args: $@"</code></pre>
         </div>
 
-        <h3>Parse long options with --</h3>
+        <h2>Parse long options with --</h2>
         <p>getopts does not support long options (--flag). Use a case statement with shift instead.</p>
 
         <div class="code-block">
@@ -177,7 +177,7 @@ while [[ $# -gt 0 ]]; do
 done</code></pre>
         </div>
 
-        <h3>Default values for arguments</h3>
+        <h2>Default values for arguments</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

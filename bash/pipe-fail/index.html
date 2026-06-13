@@ -136,7 +136,7 @@ echo $?   # prints 0 — the "false" failure is silently swallowed</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Combine with set -e and set -u</h3>
+        <h2>Combine with set -e and set -u</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -149,7 +149,7 @@ set -euo pipefail
 # - pipeline failure (-o pipefail)</code></pre>
         </div>
 
-        <h3>Get individual pipeline exit codes</h3>
+        <h2>Get individual pipeline exit codes</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -157,7 +157,7 @@ set -euo pipefail
 echo "${PIPESTATUS[@]}"   # e.g. "0 1 0" — grep failed, others ok</code></pre>
         </div>
 
-        <h3>Allow specific pipeline failures</h3>
+        <h2>Allow specific pipeline failures</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

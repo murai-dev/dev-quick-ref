@@ -148,7 +148,7 @@ re.match(r'^hello$', 'hello world')      # None</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Validate entire input</h3>
+        <h2>Validate entire input</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -161,7 +161,7 @@ bool(re.fullmatch(r'\d{5}(-\d{4})?', '12345'))       # True
 bool(re.fullmatch(r'\d{5}(-\d{4})?', '12345-6789'))   # True</code></pre>
         </div>
 
-        <h3>\A and \Z — always match string boundaries (Python)</h3>
+        <h2>\A and \Z — always match string boundaries (Python)</h2>
         <p><code>\A</code> and <code>\Z</code> always match the start and end of the whole string, even with re.MULTILINE.</p>
 
         <div class="code-block">
@@ -172,7 +172,7 @@ re.findall(r'^\w+', text, re.MULTILINE)   # ['line1', 'line2'] — ^ per line
 re.findall(r'\A\w+', text, re.MULTILINE) # ['line1'] — always string start</code></pre>
         </div>
 
-        <h3>Multiline mode changes ^ and $ behavior</h3>
+        <h2>Multiline mode changes ^ and $ behavior</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

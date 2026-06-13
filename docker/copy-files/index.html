@@ -146,7 +146,7 @@ docker cp my-container:/app/dist ./dist</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h3>Copy works on stopped containers too</h3>
+        <h2>Copy works on stopped containers too</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -155,7 +155,7 @@ docker ps -a | grep my-container   # Exited
 docker cp my-container:/app/config.json ./config.json</code></pre>
         </div>
 
-        <h3>Directory trailing slash behavior</h3>
+        <h2>Directory trailing slash behavior</h2>
         <p>Adding a trailing <code>/</code> to the source copies the directory contents (not the directory itself).</p>
 
         <div class="code-block">
@@ -167,7 +167,7 @@ docker cp my-container:/app/dist ./
 docker cp my-container:/app/dist/. ./dist-output/</code></pre>
         </div>
 
-        <h3>Use volumes for persistent sharing instead</h3>
+        <h2>Use volumes for persistent sharing instead</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
