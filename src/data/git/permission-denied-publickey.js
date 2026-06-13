@@ -1,6 +1,6 @@
 export default {
-  title: 'git permission denied (publickey) — how to fix',
-  description: 'Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup.',
+  title: 'GitHub / git permission denied (publickey) — how to fix',
+  description: 'Fix GitHub or git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup.',
   quickAnswer: `# 1. Start ssh-agent and load your key
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
@@ -14,13 +14,13 @@ cat ~/.ssh/id_ed25519.pub
 ssh -T git@github.com
 # Expected: Hi <username>! You've successfully authenticated...`,
   when: {
-    pre: 'You run <code>git push</code>, <code>git pull</code>, or <code>git clone</code> over SSH and see:',
+    pre: 'You run <code>git push</code>, <code>git pull</code>, or <code>git clone</code> over SSH and GitHub shows a publickey error such as:',
     error: `git@github.com: Permission denied (publickey).
 fatal: Could not read from remote repository.
 
 Please make sure you have the correct access rights
 and the repository exists.`,
-    post: 'Git cannot authenticate because it cannot find or use your SSH private key.',
+    post: 'Git cannot authenticate because it cannot find or use your SSH private key. This is the common GitHub "permission denied publickey" failure.',
   },
   detailsLabel: 'Other causes &amp; fixes',
   details: [

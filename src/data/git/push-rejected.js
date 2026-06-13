@@ -1,6 +1,6 @@
 export default {
-  title: 'git push rejected (non-fast-forward) — how to fix',
-  description: 'Fix git push rejected non-fast-forward by running git pull --rebase before pushing. The remote has commits your local branch does not have.',
+  title: 'failed to push some refs / git push rejected (non-fast-forward) — how to fix',
+  description: 'Fix "failed to push some refs" and git push rejected non-fast-forward by running git pull --rebase before pushing. The remote branch has commits your local branch does not have.',
   quickAnswer: `git pull --rebase origin main
 git push origin main`,
   when: {
@@ -9,7 +9,7 @@ error: failed to push some refs to 'github.com:user/repo.git'
 hint: Updates were rejected because the tip of your current branch is behind
 hint: its remote counterpart. Integrate the remote changes (e.g.
 hint: 'git pull ...') before pushing again.`,
-    post: 'Someone else pushed new commits to the remote branch since your last pull. You must integrate their changes first.',
+    post: 'Someone else pushed new commits to the remote branch since your last pull. This is the usual cause of "failed to push some refs" and the non-fast-forward error.',
   },
   details: [
     {
@@ -26,6 +26,7 @@ git push origin main`,
   related: [
     { href: '/git/pull-rebase-vs-merge/', text: 'git pull --rebase vs --merge' },
     { href: '/git/merge-conflict/', text: 'git merge conflict — how to resolve' },
+    { href: '/git/force-pull-overwrite-local-changes/', text: 'git force pull / overwrite local changes' },
     { href: '/git/permission-denied-publickey/', text: 'git permission denied (publickey) — fix' },
   ],
 };

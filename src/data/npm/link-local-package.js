@@ -1,6 +1,6 @@
 export default {
   title: 'npm link — use a local package without publishing',
-  description: 'Use npm link to develop and test a local package in another project without publishing to the registry.',
+  description: 'Use npm link to develop and test a local package in another project without publishing to the registry or package index.',
   quickAnswer: `# 1. In the package you are developing:
 cd /path/to/my-library
 npm link
@@ -12,7 +12,7 @@ npm link my-library
 # Now changes in my-library are immediately reflected in my-app`,
   when: {
     label: 'Usage',
-    pre: 'You are developing a library and want to test it in a real project without publishing to npm.',
+    pre: 'You are developing a library and want to test it in a real project with npm link, without publishing to npm.',
   },
   details: [
     {

@@ -38,3 +38,7 @@ coverage/
 
 # Misc
 *.tgz
+
+# Generated sitemap artifacts
+public/sitemap.xml
+public/sitemap.html

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <title>git force pull / overwrite local changes — how to do it safely | dev-quick-ref.pages.dev</title>
+    <meta name="description" content="Overwrite local changes with the remote branch safely using git fetch and git reset --hard origin/main. Includes a stash step if you might need your work later." />
+    <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/force-pull-overwrite-local-changes/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
+    <meta property="og:url" content="https://dev-quick-ref.pages.dev/git/force-pull-overwrite-local-changes/" />
+    <meta property="og:title" content="git force pull / overwrite local changes — how to do it safely | dev-quick-ref.pages.dev" />
+    <meta property="og:description" content="Overwrite local changes with the remote branch safely using git fetch and git reset --hard origin/main. Includes a stash step if you might need your work later." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="git force pull / overwrite local changes — how to do it safely | dev-quick-ref.pages.dev" />
+    <meta name="twitter:description" content="Overwrite local changes with the remote branch safely using git fetch and git reset --hard origin/main. Includes a stash step if you might need your work later." />
+    <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://dev-quick-ref.pages.dev/git/force-pull-overwrite-local-changes/",
+      "headline": "git force pull / overwrite local changes — how to do it safely",
+      "description": "Overwrite local changes with the remote branch safely using git fetch and git reset --hard origin/main. Includes a stash step if you might need your work later.",
+      "url": "https://dev-quick-ref.pages.dev/git/force-pull-overwrite-local-changes/",
+      "mainEntityOfPage": "https://dev-quick-ref.pages.dev/git/force-pull-overwrite-local-changes/",
+      "author": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dev-quick-ref.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "git",
+          "item": "https://dev-quick-ref.pages.dev/git/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "git force pull / overwrite local changes — how to do it safely"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Also remove untracked files and folders",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A hard reset does not delete untracked files. If you want a completely clean tree, run <code>git clean</code> after the reset.\n```\ngit fetch origin\ngit reset --hard origin/main\ngit clean -fd\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "If you already pushed your local commits",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Do not reset shared history unless you really intend to rewrite it. In shared branches, use <code>git revert</code> or coordinate before force-pushing.\n```\n# Safer for shared history\ngit revert <commit>\n\n# Only if you intentionally rewrite remote history\ngit push --force-with-lease origin main\n```"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / force-pull-overwrite-local-changes</p>
+
+      <h1>git force pull / overwrite local changes — how to do it safely</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># If you might need your local work, save it first
+git stash push -u -m "before overwrite"
+
+# Fetch the latest remote state
+git fetch origin
+
+# Make your current branch match the remote exactly
+git reset --hard origin/main</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <p>You want to force pull from the remote and overwrite local changes so your branch matches <code>origin/main</code> exactly.</p>
+        <div class="code-block error-block">
+          <pre><code>error: Your local changes to the following files would be overwritten by merge:
+  src/app.js
+Please commit your changes or stash them before you merge.
+Aborting</code></pre>
+        </div>
+        <p>Git refuses to pull because you have local changes or commits that would be overwritten. If you truly want the remote version, fetch first and then reset hard to the remote branch.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Safer variants</p>
+        <h2>Keep a backup of your local work before overwriting</h2>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Save tracked + untracked files
+git stash push -u -m "before overwrite"
+
+# Later, restore if needed
+git stash pop</code></pre>
+        </div>
+
+        <h2>Also remove untracked files and folders</h2>
+        <p>A hard reset does not delete untracked files. If you want a completely clean tree, run <code>git clean</code> after the reset.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch origin
+git reset --hard origin/main
+git clean -fd</code></pre>
+        </div>
+
+        <h2>Overwrite a branch other than main</h2>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Example: make your branch match origin/develop
+git fetch origin
+git reset --hard origin/develop</code></pre>
+        </div>
+
+        <h2>If you already pushed your local commits</h2>
+        <p>Do not reset shared history unless you really intend to rewrite it. In shared branches, use <code>git revert</code> or coordinate before force-pushing.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Safer for shared history
+git revert &lt;commit&gt;
+
+# Only if you intentionally rewrite remote history
+git push --force-with-lease origin main</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/push-rejected/">failed to push some refs / git push rejected</a></li>
+          <li><a href="/git/pull-rebase-vs-merge/">git pull --rebase vs --merge</a></li>
+          <li><a href="/git/discard-unstaged-changes/">git discard all unstaged changes</a></li>
+          <li><a href="/git/remove-untracked/">git remove untracked files</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
+    </footer>
+  </body>
+</html>

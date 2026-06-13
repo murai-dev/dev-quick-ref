@@ -37,6 +37,7 @@ code .                   # then click "Resolve in Merge Editor"`,
     },
   ],
   related: [
+    { href: '/git/revert-merge-commit/', text: 'git revert merge commit' },
     { href: '/git/rebase-abort/', text: 'git rebase --abort' },
     { href: '/git/pull-rebase-vs-merge/', text: 'git pull --rebase vs --merge' },
     { href: '/git/squash-commits/', text: 'git squash commits before merging' },

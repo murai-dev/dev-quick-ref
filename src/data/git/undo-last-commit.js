@@ -29,6 +29,7 @@ git push origin main`,
   ],
   related: [
     { href: '/git/amend-commit-message/', text: 'git amend last commit message' },
+    { href: '/git/revert-merge-commit/', text: 'git revert merge commit' },
     { href: '/git/reset-soft-mixed-hard/', text: 'git reset --soft vs --mixed vs --hard' },
     { href: '/git/discard-unstaged-changes/', text: 'git discard all unstaged changes' },
   ],

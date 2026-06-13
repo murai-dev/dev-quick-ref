@@ -1,6 +1,6 @@
 export default {
   title: 'docker container exits immediately — how to fix',
-  description: 'Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command.',
+  description: 'Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command.',
   quickAnswer: `# Run interactively to see what fails
 docker run -it --rm your-image /bin/sh
 
@@ -9,12 +9,12 @@ docker run --name debug your-image
 docker logs debug
 docker inspect debug --format '{{.State.ExitCode}}'`,
   when: {
-    pre: 'You run <code>docker run your-image</code> and the container stops instantly:',
+    pre: 'You run <code>docker run your-image</code> and the container exits immediately or stops instantly:',
     error: `$ docker run my-app
 $ docker ps
 CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS    PORTS   NAMES
 # (empty — container already exited)`,
-    post: 'The container started, executed its command, then exited because nothing kept it running in the foreground.',
+    post: 'The container started, executed its command, then exited because nothing kept it running in the foreground or the entrypoint failed right away.',
   },
   detailsLabel: 'Common causes',
   details: [

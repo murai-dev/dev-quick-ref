@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <title>git revert merge commit — how to undo a merge safely | dev-quick-ref.pages.dev</title>
+    <meta name="description" content="Undo a merge commit without rewriting history using git revert -m 1 &lt;merge-commit&gt;. Includes how to find the merge hash and choose the correct parent." />
+    <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/revert-merge-commit/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
+    <meta property="og:url" content="https://dev-quick-ref.pages.dev/git/revert-merge-commit/" />
+    <meta property="og:title" content="git revert merge commit — how to undo a merge safely | dev-quick-ref.pages.dev" />
+    <meta property="og:description" content="Undo a merge commit without rewriting history using git revert -m 1 &lt;merge-commit&gt;. Includes how to find the merge hash and choose the correct parent." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="git revert merge commit — how to undo a merge safely | dev-quick-ref.pages.dev" />
+    <meta name="twitter:description" content="Undo a merge commit without rewriting history using git revert -m 1 &lt;merge-commit&gt;. Includes how to find the merge hash and choose the correct parent." />
+    <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://dev-quick-ref.pages.dev/git/revert-merge-commit/",
+      "headline": "git revert merge commit — how to undo a merge safely",
+      "description": "Undo a merge commit without rewriting history using git revert -m 1 <merge-commit>. Includes how to find the merge hash and choose the correct parent.",
+      "url": "https://dev-quick-ref.pages.dev/git/revert-merge-commit/",
+      "mainEntityOfPage": "https://dev-quick-ref.pages.dev/git/revert-merge-commit/",
+      "author": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dev-quick-ref.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "git",
+          "item": "https://dev-quick-ref.pages.dev/git/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "git revert merge commit — how to undo a merge safely"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What `-m 1` means",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<code>-m 1</code> tells Git to keep parent 1, which is usually the branch you were on when you ran <code>git merge</code>. The merged-in branch changes are undone.\n```\n# Most common case\ngit revert -m 1 <merge-commit-hash>\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do not use reset on shared branches",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the merge commit is already pushed to a shared branch, prefer <code>git revert</code> over <code>git reset</code>. Reset rewrites history and usually requires a force-push.\n```\n# Safer on shared branches\ngit revert -m 1 <merge-commit-hash>\n\n# Risky on shared branches\ngit reset --hard <commit-before-merge>\n```"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / revert-merge-commit</p>
+
+      <h1>git revert merge commit — how to undo a merge safely</h1>
+
+      <section class="quick-answer">
+        <p class="section-label">Quick Answer</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># 1. Find the merge commit hash
+git log --oneline --graph
+
+# 2. Revert the merge commit
+git revert -m 1 &lt;merge-commit-hash&gt;
+
+# 3. Push the new revert commit
+git push origin main</code></pre>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">When this happens</p>
+        <p>You already merged a branch and pushed it, but now need to undo that merge without rewriting shared history.</p>
+        <div class="code-block error-block">
+          <pre><code>error: commit abc1234 is a merge but no -m option was given.
+fatal: revert failed</code></pre>
+        </div>
+        <p>Merge commits have more than one parent, so git revert needs the <code>-m</code> option to know which parent should be kept as the mainline.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Details</p>
+        <h2>What `-m 1` means</h2>
+        <p><code>-m 1</code> tells Git to keep parent 1, which is usually the branch you were on when you ran <code>git merge</code>. The merged-in branch changes are undone.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Most common case
+git revert -m 1 &lt;merge-commit-hash&gt;</code></pre>
+        </div>
+
+        <h2>Inspect the parents before reverting</h2>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git show --summary &lt;merge-commit-hash&gt;
+
+# Or list parents directly
+git rev-list --parents -n 1 &lt;merge-commit-hash&gt;</code></pre>
+        </div>
+
+        <h2>If conflicts happen during the revert</h2>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Resolve conflicts in the files
+git status
+git add .
+git revert --continue
+
+# Or abandon the revert
+git revert --abort</code></pre>
+        </div>
+
+        <h2>Do not use reset on shared branches</h2>
+        <p>If the merge commit is already pushed to a shared branch, prefer <code>git revert</code> over <code>git reset</code>. Reset rewrites history and usually requires a force-push.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Safer on shared branches
+git revert -m 1 &lt;merge-commit-hash&gt;
+
+# Risky on shared branches
+git reset --hard &lt;commit-before-merge&gt;</code></pre>
+        </div>
+
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/undo-last-commit/">git undo last commit</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
+          <li><a href="/git/reset-soft-mixed-hard/">git reset --soft vs --mixed vs --hard</a></li>
+          <li><a href="/git/rebase-abort/">git rebase --abort</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
+    </footer>
+  </body>
+</html>

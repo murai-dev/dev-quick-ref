@@ -1,6 +1,6 @@
 export default {
-  title: 'npm ERESOLVE unable to resolve dependency tree — how to fix',
-  description: 'Fix "npm ERR! ERESOLVE unable to resolve dependency tree" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.',
+  title: 'npm peer dependency conflict / ERESOLVE — how to fix',
+  description: 'Fix npm peer dependency conflict and "npm ERR! ERESOLVE unable to resolve dependency tree" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.',
   quickAnswer: `# Quick fix — use legacy peer deps resolution
 npm install --legacy-peer-deps
 
@@ -20,7 +20,7 @@ npm ERR!   react@"^18.3.0" from the root project
 npm ERR! 
 npm ERR! Could not resolve dependency:
 npm ERR! peer react@"^17.0.0" from some-library@2.1.0`,
-    post: 'A dependency requires a specific peer dependency version that conflicts with another installed version.',
+    post: 'A dependency requires a specific peer dependency version that conflicts with another installed version. This is the typical npm peer dependency conflict.',
   },
   details: [
     {
@@ -51,6 +51,7 @@ npm install some-library@3.0.0`,
   ],
   related: [
     { href: '/npm/missing-peer-dependency/', text: 'npm peer dependency warnings' },
+    { href: '/npm/missing-script/', text: 'npm ERR! missing script' },
     { href: '/npm/npm-cache-clean/', text: 'npm cache clean' },
     { href: '/npm/lock-file-conflict/', text: 'package-lock.json conflict' },
   ],
