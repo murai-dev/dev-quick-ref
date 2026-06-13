@@ -1,6 +1,6 @@
 export default {
   title: 'docker cp — copy files between container and host',
-  description: 'Use docker cp to copy files or directories between a Docker container and the host. Works with running or stopped containers.',
+  description: 'Use docker cp to copy files or directories between a Docker container and the host, including "docker copy file from container" cases. Works with running or stopped containers.',
   quickAnswer: `# Host → container
 docker cp ./local-file.txt my-container:/app/file.txt
 
@@ -11,7 +11,7 @@ docker cp my-container:/app/logs/error.log ./error.log
 docker cp my-container:/app/dist ./dist`,
   when: {
     label: 'Usage',
-    pre: 'You need to copy config files, logs, or build artifacts between your host and a container.',
+    pre: 'You need to copy config files, logs, or build artifacts between your host and a container, such as copying a file from a container to the host.',
   },
   details: [
     {

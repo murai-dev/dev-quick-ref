@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <title>git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev</title>
-    <meta name="description" content="Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
+    <title>GitHub / git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev</title>
+    <meta name="description" content="Fix GitHub or git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/permission-denied-publickey/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
     <meta property="og:url" content="https://dev-quick-ref.pages.dev/git/permission-denied-publickey/" />
-    <meta property="og:title" content="git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev" />
-    <meta property="og:description" content="Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
+    <meta property="og:title" content="GitHub / git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev" />
+    <meta property="og:description" content="Fix GitHub or git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev" />
-    <meta name="twitter:description" content="Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
+    <meta name="twitter:title" content="GitHub / git permission denied (publickey) — how to fix | dev-quick-ref.pages.dev" />
+    <meta name="twitter:description" content="Fix GitHub or git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   <script type="application/ld+json">
@@ -24,8 +24,8 @@
     {
       "@type": "TechArticle",
       "@id": "https://dev-quick-ref.pages.dev/git/permission-denied-publickey/",
-      "headline": "git permission denied (publickey) — how to fix",
-      "description": "Fix git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup.",
+      "headline": "GitHub / git permission denied (publickey) — how to fix",
+      "description": "Fix GitHub or git permission denied (publickey) by adding your SSH key to ssh-agent and registering the public key on GitHub or GitLab. Includes macOS Keychain setup.",
       "url": "https://dev-quick-ref.pages.dev/git/permission-denied-publickey/",
       "mainEntityOfPage": "https://dev-quick-ref.pages.dev/git/permission-denied-publickey/",
       "author": {
@@ -57,7 +57,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "git permission denied (publickey) — how to fix"
+          "name": "GitHub / git permission denied (publickey) — how to fix"
         }
       ]
     },
@@ -132,7 +132,7 @@
 
       <p class="breadcrumb"><a href="/git/">git</a> / permission-denied-publickey</p>
 
-      <h1>git permission denied (publickey) — how to fix</h1>
+      <h1>GitHub / git permission denied (publickey) — how to fix</h1>
 
       <section class="quick-answer">
         <p class="section-label">Quick Answer</p>
@@ -155,7 +155,7 @@ ssh -T git@github.com
 
       <section class="section">
         <p class="section-label">When this happens</p>
-        <p>You run <code>git push</code>, <code>git pull</code>, or <code>git clone</code> over SSH and see:</p>
+        <p>You run <code>git push</code>, <code>git pull</code>, or <code>git clone</code> over SSH and GitHub shows a publickey error such as:</p>
         <div class="code-block error-block">
           <pre><code>git@github.com: Permission denied (publickey).
 fatal: Could not read from remote repository.
@@ -163,7 +163,7 @@ fatal: Could not read from remote repository.
 Please make sure you have the correct access rights
 and the repository exists.</code></pre>
         </div>
-        <p>Git cannot authenticate because it cannot find or use your SSH private key.</p>
+        <p>Git cannot authenticate because it cannot find or use your SSH private key. This is the common GitHub "permission denied publickey" failure.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>

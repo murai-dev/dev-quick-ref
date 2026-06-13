@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker container exits immediately — how to fix | dev-quick-ref.pages.dev</title>
-    <meta name="description" content="Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command." />
+    <meta name="description" content="Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/container-exits-immediately/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
     <meta property="og:url" content="https://dev-quick-ref.pages.dev/docker/container-exits-immediately/" />
     <meta property="og:title" content="docker container exits immediately — how to fix | dev-quick-ref.pages.dev" />
-    <meta property="og:description" content="Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command." />
+    <meta property="og:description" content="Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="docker container exits immediately — how to fix | dev-quick-ref.pages.dev" />
-    <meta name="twitter:description" content="Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command." />
+    <meta name="twitter:description" content="Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   <script type="application/ld+json">
@@ -25,7 +25,7 @@
       "@type": "TechArticle",
       "@id": "https://dev-quick-ref.pages.dev/docker/container-exits-immediately/",
       "headline": "docker container exits immediately — how to fix",
-      "description": "Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command.",
+      "description": "Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command.",
       "url": "https://dev-quick-ref.pages.dev/docker/container-exits-immediately/",
       "mainEntityOfPage": "https://dev-quick-ref.pages.dev/docker/container-exits-immediately/",
       "author": {
@@ -142,14 +142,14 @@ docker inspect debug --format '{{.State.ExitCode}}'</code></pre>
 
       <section class="section">
         <p class="section-label">When this happens</p>
-        <p>You run <code>docker run your-image</code> and the container stops instantly:</p>
+        <p>You run <code>docker run your-image</code> and the container exits immediately or stops instantly:</p>
         <div class="code-block error-block">
           <pre><code>$ docker run my-app
 $ docker ps
 CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS    PORTS   NAMES
 # (empty — container already exited)</code></pre>
         </div>
-        <p>The container started, executed its command, then exited because nothing kept it running in the foreground.</p>
+        <p>The container started, executed its command, then exited because nothing kept it running in the foreground or the entrypoint failed right away.</p>
       </section>
       <section class="section">
         <p class="section-label">Common causes</p>

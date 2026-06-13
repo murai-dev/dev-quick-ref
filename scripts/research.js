@@ -5,14 +5,18 @@
  * MVP candidates validation
  *   1. Google Suggest count  (en / us, 0-10)
  *   2. Stack Overflow top question view count
+ *   3. Google Trends keyword comparison (optional)
  *
  * Usage:
  *   node scripts/research.js
  *   node scripts/research.js --category git
+ *   node scripts/research.js --compare-trends "query A|query B|query C"
+ *   node scripts/research.js --compare-trends "query A|query B" --trends-window 30d --trends-geo US
  */
 
 import https from 'node:https';
 import zlib from 'node:zlib';
+import googleTrends from 'google-trends-api';
 
 // ------------------------------------------------------------------ helpers
 
@@ -81,6 +85,132 @@ function fmtViews(n) {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `${Math.round(n / 1_000)}K`;
   return String(n);
+}
+
+function parseArgs(argv) {
+  const args = {
+    category: null,
+    compareTrends: null,
+    trendsGeo: 'US',
+    trendsWindow: '90d',
+    trendsHl: 'en-US',
+  };
+
+  for (let i = 2; i < argv.length; i++) {
+    const arg = argv[i];
+    const next = argv[i + 1];
+
+    if (arg === '--category' && next) {
+      args.category = next;
+      i++;
+      continue;
+    }
+
+    if (arg === '--compare-trends' && next) {
+      args.compareTrends = next;
+      i++;
+      continue;
+    }
+
+    if (arg === '--trends-geo' && next) {
+      args.trendsGeo = next;
+      i++;
+      continue;
+    }
+
+    if (arg === '--trends-window' && next) {
+      args.trendsWindow = next;
+      i++;
+      continue;
+    }
+
+    if (arg === '--trends-hl' && next) {
+      args.trendsHl = next;
+      i++;
+    }
+  }
+
+  return args;
+}
+
+function parseWindowToDateRange(windowValue) {
+  const endTime = new Date();
+  const startTime = new Date(endTime);
+
+  if (/^\d+d$/.test(windowValue)) {
+    startTime.setDate(endTime.getDate() - Number.parseInt(windowValue, 10));
+    return { startTime, endTime };
+  }
+
+  if (/^\d+m$/.test(windowValue)) {
+    startTime.setMonth(endTime.getMonth() - Number.parseInt(windowValue, 10));
+    return { startTime, endTime };
+  }
+
+  if (/^\d+y$/.test(windowValue)) {
+    startTime.setFullYear(endTime.getFullYear() - Number.parseInt(windowValue, 10));
+    return { startTime, endTime };
+  }
+
+  throw new Error(`Unsupported --trends-window value: ${windowValue}. Use formats like 7d, 30d, 90d, 12m, 5y.`);
+}
+
+function summarizeTimeline(keyword, timelineData, index) {
+  const values = timelineData
+    .map((point) => Number.parseInt(point.value?.[index] ?? '0', 10))
+    .filter((value) => Number.isFinite(value));
+
+  if (values.length === 0) {
+    return { keyword, average: 0, peak: 0 };
+  }
+
+  const total = values.reduce((sum, value) => sum + value, 0);
+  return {
+    keyword,
+    average: Number((total / values.length).toFixed(1)),
+    peak: Math.max(...values),
+  };
+}
+
+async function compareTrends(keywords, options) {
+  const { startTime, endTime } = parseWindowToDateRange(options.trendsWindow);
+  const raw = await googleTrends.interestOverTime({
+    keyword: keywords,
+    startTime,
+    endTime,
+    geo: options.trendsGeo,
+    hl: options.trendsHl,
+  });
+
+  const parsed = JSON.parse(raw);
+  const timelineData = parsed.default?.timelineData ?? [];
+  const rows = keywords.map((keyword, index) => summarizeTimeline(keyword, timelineData, index));
+  const winner = rows.reduce((best, row) => (row.average > best.average ? row : best), rows[0]);
+
+  return {
+    window: options.trendsWindow,
+    geo: options.trendsGeo,
+    hl: options.trendsHl,
+    startTime,
+    endTime,
+    rows,
+    winner,
+  };
+}
+
+function printTrendsComparison(result) {
+  console.log(`Google Trends comparison (${result.geo}, ${result.window})`);
+  console.log('| keyword | average interest | peak interest |');
+  console.log('| --- | ---: | ---: |');
+
+  for (const row of result.rows) {
+    console.log(`| ${row.keyword} | ${row.average} | ${row.peak} |`);
+  }
+
+  console.log('');
+  console.log(`Winner: ${result.winner.keyword} (avg ${result.winner.average})`);
+  console.log(`Range: ${result.startTime.toISOString().slice(0, 10)} -> ${result.endTime.toISOString().slice(0, 10)}`);
+  console.log('Note: values are relative within this comparison batch, so compare only keywords in the same run.');
 }
 
 // ------------------------------------------------------------------ queries
@@ -199,11 +329,27 @@ const QUERIES = [
 
 // ------------------------------------------------------------------ main
 
-const filterCategory = process.argv[3]; // node research.js --category git
+const args = parseArgs(process.argv);
 
 async function main() {
-  const targets = filterCategory
-    ? QUERIES.filter((q) => q.category === filterCategory)
+  if (args.compareTrends) {
+    const keywords = args.compareTrends
+      .split('|')
+      .map((keyword) => keyword.trim())
+      .filter(Boolean);
+
+    if (keywords.length < 2) {
+      throw new Error('Use at least two keywords with --compare-trends, separated by "|".');
+    }
+
+    process.stderr.write(`Comparing Google Trends for ${keywords.length} keywords...\n\n`);
+    const trends = await compareTrends(keywords, args);
+    printTrendsComparison(trends);
+    return;
+  }
+
+  const targets = args.category
+    ? QUERIES.filter((q) => q.category === args.category)
     : QUERIES;
 
   process.stderr.write(`Running research for ${targets.length} queries...\n\n`);

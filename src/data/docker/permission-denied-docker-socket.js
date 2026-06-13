@@ -1,6 +1,6 @@
 export default {
-  title: 'docker permission denied /var/run/docker.sock — how to fix',
-  description: 'Fix "permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock" by adding your user to the docker group.',
+  title: 'docker permission denied socket /var/run/docker.sock — how to fix',
+  description: 'Fix "docker permission denied socket" and "permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock" by adding your user to the docker group.',
   quickAnswer: `# Add your user to the docker group
 sudo usermod -aG docker $USER
 
@@ -13,7 +13,7 @@ docker run --rm hello-world`,
     error: `Got permission denied while trying to connect to the Docker daemon socket at
 unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create":
 dial unix /var/run/docker.sock: connect: permission denied`,
-    post: 'Your user does not have permission to access the Docker socket. Adding yourself to the <code>docker</code> group grants access without sudo.',
+    post: 'Your user does not have permission to access the Docker socket. Adding yourself to the <code>docker</code> group grants access without sudo. This is the usual "docker permission denied socket" error.',
   },
   detailsLabel: 'Other approaches',
   details: [

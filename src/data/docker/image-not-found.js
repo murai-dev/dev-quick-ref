@@ -50,6 +50,7 @@ docker images nginx`,
   ],
   related: [
     { href: '/docker/build-failed-no-such-file/', text: 'docker build COPY — no such file or directory' },
+    { href: '/docker/pull-rate-limit-exceeded/', text: 'docker pull rate limit exceeded' },
     { href: '/docker/prune-images/', text: 'docker image prune — remove unused images' },
     { href: '/docker/no-space-left/', text: 'docker no space left on device' },
   ],
