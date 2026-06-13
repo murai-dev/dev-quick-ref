@@ -3,27 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>regex word boundary \b — match whole words only | errorfix.dev</title>
+    <title>regex word boundary \b — match whole words only | dev-quick-ref.pages.dev</title>
     <meta name="description" content="Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages." />
-    <link rel="canonical" href="https://errorfix.dev/regex/word-boundary/" />
+    <link rel="canonical" href="https://dev-quick-ref.pages.dev/regex/word-boundary/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="errorfix.dev" />
-    <meta property="og:url" content="https://errorfix.dev/regex/word-boundary/" />
-    <meta property="og:title" content="regex word boundary \b — match whole words only | errorfix.dev" />
+    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
+    <meta property="og:url" content="https://dev-quick-ref.pages.dev/regex/word-boundary/" />
+    <meta property="og:title" content="regex word boundary \b — match whole words only | dev-quick-ref.pages.dev" />
     <meta property="og:description" content="Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="regex word boundary \b — match whole words only | errorfix.dev" />
+    <meta name="twitter:title" content="regex word boundary \b — match whole words only | dev-quick-ref.pages.dev" />
     <meta name="twitter:description" content="Use \b word boundary assertion to match whole words and avoid partial matches. Covers \b, \B, and word boundary in different languages." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://dev-quick-ref.pages.dev/regex/word-boundary/",
+      "headline": "regex word boundary \\b — match whole words only",
+      "description": "Use \\b word boundary assertion to match whole words and avoid partial matches. Covers \\b, \\B, and word boundary in different languages.",
+      "url": "https://dev-quick-ref.pages.dev/regex/word-boundary/",
+      "mainEntityOfPage": "https://dev-quick-ref.pages.dev/regex/word-boundary/",
+      "author": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dev-quick-ref.pages.dev",
+        "url": "https://dev-quick-ref.pages.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dev-quick-ref.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "regex",
+          "item": "https://dev-quick-ref.pages.dev/regex/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "regex word boundary \\b — match whole words only"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What counts as a word boundary",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<code>\\b</code> matches at a position between a word character (<code>\\w</code>: <code>[a-zA-Z0-9_]</code>) and a non-word character.\n```\n// Boundaries in \"hello world\":\n// |hello| |world|\n// ^ between start-of-string and 'h' → \\b\n// ^ between 'o' and ' '            → \\b\n// ^ between ' ' and 'w'            → \\b\n// ^ between 'd' and end-of-string  → \\b\n```"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
   </head>
   <body>
 
     <header class="site-header">
-      <a href="/" class="site-logo">errorfix.dev</a>
+      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
       <nav>
         <ul class="site-nav">
           <li><a href="/git/">git</a></li>
@@ -115,9 +198,7 @@ re.sub(r'\bfoo\b', 'baz', 'foo foobar foo')
     </main>
 
     <footer class="site-footer">
-      <a href="/">errorfix.dev</a> &mdash; developer error solutions
+      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
     </footer>
-
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
   </body>
 </html>
