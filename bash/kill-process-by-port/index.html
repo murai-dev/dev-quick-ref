@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <title>bash kill process by port number | dev-quick-ref.pages.dev</title>
-    <meta name="description" content="Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS." />
+    <title>bash kill process on port 3000 or 8080 | dev-quick-ref.pages.dev</title>
+    <meta name="description" content="Find and kill the process listening on a port such as 3000 or 8080. Commands for macOS, Linux, Ubuntu, and Git Bash on Windows." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/bash/kill-process-by-port/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
     <meta property="og:url" content="https://dev-quick-ref.pages.dev/bash/kill-process-by-port/" />
-    <meta property="og:title" content="bash kill process by port number | dev-quick-ref.pages.dev" />
-    <meta property="og:description" content="Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS." />
+    <meta property="og:title" content="bash kill process on port 3000 or 8080 | dev-quick-ref.pages.dev" />
+    <meta property="og:description" content="Find and kill the process listening on a port such as 3000 or 8080. Commands for macOS, Linux, Ubuntu, and Git Bash on Windows." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="bash kill process by port number | dev-quick-ref.pages.dev" />
-    <meta name="twitter:description" content="Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS." />
+    <meta name="twitter:title" content="bash kill process on port 3000 or 8080 | dev-quick-ref.pages.dev" />
+    <meta name="twitter:description" content="Find and kill the process listening on a port such as 3000 or 8080. Commands for macOS, Linux, Ubuntu, and Git Bash on Windows." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   <script type="application/ld+json">
@@ -24,8 +24,8 @@
     {
       "@type": "TechArticle",
       "@id": "https://dev-quick-ref.pages.dev/bash/kill-process-by-port/",
-      "headline": "bash kill process by port number",
-      "description": "Kill the process listening on a specific port using lsof, fuser, or ss. Works on Linux and macOS.",
+      "headline": "bash kill process on port 3000 or 8080",
+      "description": "Find and kill the process listening on a port such as 3000 or 8080. Commands for macOS, Linux, Ubuntu, and Git Bash on Windows.",
       "url": "https://dev-quick-ref.pages.dev/bash/kill-process-by-port/",
       "mainEntityOfPage": "https://dev-quick-ref.pages.dev/bash/kill-process-by-port/",
       "author": {
@@ -57,7 +57,44 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "bash kill process by port number"
+          "name": "bash kill process on port 3000 or 8080"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Find PID without killing the process",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start here when you want to see which command owns the port before killing it.\n```\n# Get PID(s) listening on port 3000\nlsof -t -i:3000\n\n# More detail: PID, process name, user\nlsof -i :3000\n\n# Linux: netstat alternative\nss -tlnp | grep :3000\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kill gracefully first, then force",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SIGTERM gives the process a chance to shut down cleanly. Use kill -9 only when the process ignores the normal signal.\n```\npid=$(lsof -t -i:8080)\nkill $pid           # SIGTERM — graceful shutdown\nsleep 2\nkill -9 $pid 2>/dev/null || true  # SIGKILL if still running\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kill every process using the same port",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "lsof can return multiple PIDs. Pipe them to xargs when a port has more than one listener or related process.\n```\n# lsof -t returns multiple PIDs\nlsof -t -i:8080 | xargs kill -9\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Git Bash on Windows: kill process by port",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Git Bash on Windows, lsof is usually not available. Use Windows netstat and taskkill from the same terminal.\n```\n# Find the PID using port 3000\nnetstat -ano | findstr :3000\n\n# Replace 12345 with the PID from the last column\ntaskkill //PID 12345 //F\n```"
+          }
         }
       ]
     }
@@ -111,32 +148,36 @@
 
       <p class="breadcrumb"><a href="/bash/">bash</a> / kill-process-by-port</p>
 
-      <h1>bash kill process by port number</h1>
+      <h1>bash kill process on port 3000 or 8080</h1>
 
       <section class="quick-answer">
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># macOS / Linux — find and kill by port
+          <pre><code># macOS / Linux — kill the process listening on port 3000
+kill -9 $(lsof -t -i:3000)
+
+# Change 3000 to 8080, 8000, 5000, or any blocked port
 kill -9 $(lsof -t -i:8080)
 
 # Linux alternative using fuser
 fuser -k 8080/tcp
 
 # Check what is on the port first
-lsof -i :8080
+lsof -i :3000
 # or
-ss -tlnp | grep 8080</code></pre>
+ss -tlnp | grep :3000</code></pre>
         </div>
       </section>
 
       <section class="section">
         <p class="section-label">Usage</p>
-        <p>A development server is still running from a previous session and blocking the port.</p>
+        <p>A development server is still running from a previous session and blocking a port such as 3000, 8080, 8000, or 5000.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h2>Find PID without killing</h2>
+        <h2>Find PID without killing the process</h2>
+        <p>Start here when you want to see which command owns the port before killing it.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -151,6 +192,7 @@ ss -tlnp | grep :3000</code></pre>
         </div>
 
         <h2>Kill gracefully first, then force</h2>
+        <p>SIGTERM gives the process a chance to shut down cleanly. Use kill -9 only when the process ignores the normal signal.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -160,12 +202,25 @@ sleep 2
 kill -9 $pid 2&gt;/dev/null || true  # SIGKILL if still running</code></pre>
         </div>
 
-        <h2>Multiple processes on the same port</h2>
+        <h2>Kill every process using the same port</h2>
+        <p>lsof can return multiple PIDs. Pipe them to xargs when a port has more than one listener or related process.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># lsof -t returns multiple PIDs
 lsof -t -i:8080 | xargs kill -9</code></pre>
+        </div>
+
+        <h2>Git Bash on Windows: kill process by port</h2>
+        <p>In Git Bash on Windows, lsof is usually not available. Use Windows netstat and taskkill from the same terminal.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Find the PID using port 3000
+netstat -ano | findstr :3000
+
+# Replace 12345 with the PID from the last column
+taskkill //PID 12345 //F</code></pre>
         </div>
 
       </section>

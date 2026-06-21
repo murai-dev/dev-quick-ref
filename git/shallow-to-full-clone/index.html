@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <title>git convert shallow clone to full history | dev-quick-ref.pages.dev</title>
-    <meta name="description" content="Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow." />
+    <title>git fetch --unshallow: convert shallow clone | dev-quick-ref.pages.dev</title>
+    <meta name="description" content="Use git fetch --unshallow to convert a shallow clone (--depth 1) into a full-history repository. Includes checks for shallow repos and common alternatives." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/git/shallow-to-full-clone/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
     <meta property="og:url" content="https://dev-quick-ref.pages.dev/git/shallow-to-full-clone/" />
-    <meta property="og:title" content="git convert shallow clone to full history | dev-quick-ref.pages.dev" />
-    <meta property="og:description" content="Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow." />
+    <meta property="og:title" content="git fetch --unshallow: convert shallow clone | dev-quick-ref.pages.dev" />
+    <meta property="og:description" content="Use git fetch --unshallow to convert a shallow clone (--depth 1) into a full-history repository. Includes checks for shallow repos and common alternatives." />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="git convert shallow clone to full history | dev-quick-ref.pages.dev" />
-    <meta name="twitter:description" content="Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow." />
+    <meta name="twitter:title" content="git fetch --unshallow: convert shallow clone | dev-quick-ref.pages.dev" />
+    <meta name="twitter:description" content="Use git fetch --unshallow to convert a shallow clone (--depth 1) into a full-history repository. Includes checks for shallow repos and common alternatives." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   <script type="application/ld+json">
@@ -24,8 +24,8 @@
     {
       "@type": "TechArticle",
       "@id": "https://dev-quick-ref.pages.dev/git/shallow-to-full-clone/",
-      "headline": "git convert shallow clone to full history",
-      "description": "Convert a shallow git clone (--depth 1) to a full clone with complete history using git fetch --unshallow.",
+      "headline": "git fetch --unshallow — convert shallow clone to full history",
+      "description": "Use git fetch --unshallow to convert a shallow clone (--depth 1) into a full-history repository. Includes checks for shallow repos and common alternatives.",
       "url": "https://dev-quick-ref.pages.dev/git/shallow-to-full-clone/",
       "mainEntityOfPage": "https://dev-quick-ref.pages.dev/git/shallow-to-full-clone/",
       "author": {
@@ -57,7 +57,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "git convert shallow clone to full history"
+          "name": "git fetch --unshallow — convert shallow clone to full history"
         }
       ]
     },
@@ -66,10 +66,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Fetch only a limited depth (not full history)",
+          "name": "Check if your clone is shallow",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "If you do not need the complete history but need more than 1 commit:\n```\ngit fetch --depth=100\n```"
+            "text": "Before running git fetch --unshallow, confirm that Git still considers the repository shallow. A full clone prints false and does not need unshallowing.\n```\ngit rev-parse --is-shallow-repository    # prints \"true\" if shallow\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Convert shallow clone to full history",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This is the direct fix when you need the complete commit history. It downloads the missing commits from the configured remote.\n```\ngit fetch --unshallow\n\n# If your remote is not named origin, specify it:\ngit fetch --unshallow origin\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Fetch only more depth, not full history",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you only need more commits for a build or comparison, increasing depth is faster than downloading the entire repository history.\n```\ngit fetch --depth=100\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "If git fetch --unshallow says the repository is complete",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The message \"fatal: --unshallow on a complete repository does not make sense\" means the clone is already full history. Use the shallow check first when writing scripts.\n```\nif git rev-parse --is-shallow-repository | grep -q true; then\n  git fetch --unshallow\nelse\n  echo \"Repository already has full history\"\nfi\n```"
           }
         }
       ]
@@ -124,13 +148,20 @@
 
       <p class="breadcrumb"><a href="/git/">git</a> / shallow-to-full-clone</p>
 
-      <h1>git convert shallow clone to full history</h1>
+      <h1>git fetch --unshallow — convert shallow clone to full history</h1>
 
       <section class="quick-answer">
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git fetch --unshallow</code></pre>
+          <pre><code># Check whether this repository is shallow
+git rev-parse --is-shallow-repository
+
+# Convert a shallow clone to full history
+git fetch --unshallow
+
+# If you only need more history, not all history
+git fetch --depth=100</code></pre>
         </div>
       </section>
 
@@ -141,30 +172,47 @@
 # or
 warning: Could not find remote branch ...</code></pre>
         </div>
-        <p>Your repository was cloned with <code>--depth 1</code> (common in CI/CD), so git commands that need full history — like <code>git log</code>, <code>git blame</code>, or <code>git bisect</code> — do not work correctly.</p>
+        <p>Your repository was cloned with <code>--depth 1</code> (common in CI/CD). Commands that need full history, such as <code>git log</code>, <code>git blame</code>, <code>git bisect</code>, or release comparison scripts, may be incomplete until you unshallow the clone.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
         <h2>Check if your clone is shallow</h2>
+        <p>Before running git fetch --unshallow, confirm that Git still considers the repository shallow. A full clone prints false and does not need unshallowing.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git rev-parse --is-shallow-repository    # prints "true" if shallow</code></pre>
         </div>
 
-        <h2>Fetch only a limited depth (not full history)</h2>
-        <p>If you do not need the complete history but need more than 1 commit:</p>
+        <h2>Convert shallow clone to full history</h2>
+        <p>This is the direct fix when you need the complete commit history. It downloads the missing commits from the configured remote.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch --unshallow
+
+# If your remote is not named origin, specify it:
+git fetch --unshallow origin</code></pre>
+        </div>
+
+        <h2>Fetch only more depth, not full history</h2>
+        <p>If you only need more commits for a build or comparison, increasing depth is faster than downloading the entire repository history.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git fetch --depth=100</code></pre>
         </div>
 
-        <h2>Unshallow a specific remote</h2>
+        <h2>If git fetch --unshallow says the repository is complete</h2>
+        <p>The message "fatal: --unshallow on a complete repository does not make sense" means the clone is already full history. Use the shallow check first when writing scripts.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git fetch --unshallow origin</code></pre>
+          <pre><code>if git rev-parse --is-shallow-repository | grep -q true; then
+  git fetch --unshallow
+else
+  echo "Repository already has full history"
+fi</code></pre>
         </div>
 
       </section>

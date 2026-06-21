@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker get container IP address | dev-quick-ref.pages.dev</title>
-    <meta name="description" content="Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network." />
+    <meta name="description" content="Find a Docker container IP address from the host using docker inspect. Includes named networks, all container IPs, and why container names are usually better than IPs." />
     <link rel="canonical" href="https://dev-quick-ref.pages.dev/docker/container-ip/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
     <meta property="og:url" content="https://dev-quick-ref.pages.dev/docker/container-ip/" />
     <meta property="og:title" content="docker get container IP address | dev-quick-ref.pages.dev" />
-    <meta property="og:description" content="Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network." />
+    <meta property="og:description" content="Find a Docker container IP address from the host using docker inspect. Includes named networks, all container IPs, and why container names are usually better than IPs." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="docker get container IP address | dev-quick-ref.pages.dev" />
-    <meta name="twitter:description" content="Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network." />
+    <meta name="twitter:description" content="Find a Docker container IP address from the host using docker inspect. Includes named networks, all container IPs, and why container names are usually better than IPs." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script type="module" src="../../src/entrypoints/page.ts"></script>
   <script type="application/ld+json">
@@ -24,8 +24,8 @@
     {
       "@type": "TechArticle",
       "@id": "https://dev-quick-ref.pages.dev/docker/container-ip/",
-      "headline": "docker get container IP address",
-      "description": "Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network.",
+      "headline": "docker get container IP address with docker inspect",
+      "description": "Find a Docker container IP address from the host using docker inspect. Includes named networks, all container IPs, and why container names are usually better than IPs.",
       "url": "https://dev-quick-ref.pages.dev/docker/container-ip/",
       "mainEntityOfPage": "https://dev-quick-ref.pages.dev/docker/container-ip/",
       "author": {
@@ -57,7 +57,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "docker get container IP address"
+          "name": "docker get container IP address with docker inspect"
         }
       ]
     },
@@ -66,10 +66,42 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Prefer container names over IPs",
+          "name": "Get container IP from the host by name",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "On user-defined networks, containers resolve each other by name — more reliable than IP.\n```\n# Use the service/container name in connection strings\nDATABASE_URL=postgres://db:5432/mydb   # \"db\" is the container name\n```"
+            "text": "Use the container name or ID with docker inspect. This is the most common answer for searches like \"docker get container ip\" and \"docker container ip address command\".\n```\ndocker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container\n\n# If you only remember part of the name:\ndocker ps --format '{{.Names}}'\ndocker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "IP on a specific named network",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A container can be attached to more than one network. Query the network name when you need the IP on a specific Docker network.\n```\n# Replace \"my-net\" with your network name\ndocker inspect -f '{{(index .NetworkSettings.Networks \"my-net\").IPAddress}}' my-container\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "List all IPs for all running containers",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use this when you want a quick inventory of container names and IP addresses from the host.\n```\ndocker inspect $(docker ps -q) --format '{{.Name}}: {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Get IP from inside the container",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you are already inside the container, hostname -i or ip addr can show the container-side address.\n```\ndocker exec my-container hostname -i\n# or\ndocker exec my-container ip addr show eth0\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Prefer container names over IP addresses",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On user-defined Docker networks, containers resolve each other by name. Names are more stable than IP addresses, which can change when containers restart.\n```\n# Use the service/container name in connection strings\nDATABASE_URL=postgres://db:5432/mydb   # \"db\" is the container name\n```"
           }
         }
       ]
@@ -124,27 +156,43 @@
 
       <p class="breadcrumb"><a href="/docker/">docker</a> / container-ip</p>
 
-      <h1>docker get container IP address</h1>
+      <h1>docker get container IP address with docker inspect</h1>
 
       <section class="quick-answer">
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># Get a container's IP on the default bridge
+          <pre><code># Get a container's IP from the host
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container
 
-# Shorter alias
-docker inspect my-container | grep -i ipaddress</code></pre>
+# Get a container IP on a named network
+docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-container
+
+# List IPs for all running containers
+docker inspect $(docker ps -q) --format '{{.Name}}: {{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}'</code></pre>
         </div>
       </section>
 
       <section class="section">
         <p class="section-label">Usage</p>
-        <p>You need to know the IP address of a container for debugging or direct connection.</p>
+        <p>You need to know the Docker container IP address for debugging, direct connection, or checking which container is attached to a network.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
+        <h2>Get container IP from the host by name</h2>
+        <p>Use the container name or ID with docker inspect. This is the most common answer for searches like "docker get container ip" and "docker container ip address command".</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container
+
+# If you only remember part of the name:
+docker ps --format '{{.Names}}'
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-container</code></pre>
+        </div>
+
         <h2>IP on a specific named network</h2>
+        <p>A container can be attached to more than one network. Query the network name when you need the IP on a specific Docker network.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -153,6 +201,7 @@ docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-
         </div>
 
         <h2>List all IPs for all running containers</h2>
+        <p>Use this when you want a quick inventory of container names and IP addresses from the host.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -160,6 +209,7 @@ docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-
         </div>
 
         <h2>Get IP from inside the container</h2>
+        <p>If you are already inside the container, hostname -i or ip addr can show the container-side address.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -168,8 +218,8 @@ docker inspect -f '{{(index .NetworkSettings.Networks "my-net").IPAddress}}' my-
 docker exec my-container ip addr show eth0</code></pre>
         </div>
 
-        <h2>Prefer container names over IPs</h2>
-        <p>On user-defined networks, containers resolve each other by name — more reliable than IP.</p>
+        <h2>Prefer container names over IP addresses</h2>
+        <p>On user-defined Docker networks, containers resolve each other by name. Names are more stable than IP addresses, which can change when containers restart.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
