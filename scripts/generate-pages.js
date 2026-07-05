@@ -18,9 +18,9 @@ const dataDir  = join(rootDir, 'src/data');
 const pagesDir = rootDir;
 
 // Use SITE_URL from environment to generate canonical/OG URLs
-const BASE_URL = process.env.SITE_URL || 'https://dev-quick-ref.pages.dev';
+const BASE_URL = process.env.SITE_URL || 'https://error-reference.dev';
 const SITE_HOST = (() => {
-  try { return new URL(BASE_URL).host; } catch (e) { return 'dev-quick-ref.pages.dev'; }
+  try { return new URL(BASE_URL).host; } catch (e) { return 'error-reference.dev'; }
 })();
 
 const ALL_CATEGORIES = ['git', 'docker', 'bash', 'regex', 'npm'];

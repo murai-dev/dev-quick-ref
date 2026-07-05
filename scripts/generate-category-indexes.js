@@ -69,16 +69,16 @@ function renderCategoryIndex(category, pages) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
-    <title>${esc(category)} — dev-quick-ref.pages.dev</title>
+    <title>${esc(category)} — error-reference.dev</title>
     <meta name="description" content="${escAttr(desc)}" />
-    <link rel="canonical" href="https://dev-quick-ref.pages.dev/${category}/" />
+    <link rel="canonical" href="https://error-reference.dev/${category}/" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="dev-quick-ref.pages.dev" />
-    <meta property="og:url" content="https://dev-quick-ref.pages.dev/${category}/" />
-    <meta property="og:title" content="${esc(category)} — dev-quick-ref.pages.dev" />
+    <meta property="og:site_name" content="error-reference.dev" />
+    <meta property="og:url" content="https://error-reference.dev/${category}/" />
+    <meta property="og:title" content="${esc(category)} — error-reference.dev" />
     <meta property="og:description" content="${escAttr(desc)}" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="${esc(category)} — dev-quick-ref.pages.dev" />
+    <meta name="twitter:title" content="${esc(category)} — error-reference.dev" />
     <meta name="twitter:description" content="${escAttr(desc)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -89,7 +89,7 @@ function renderCategoryIndex(category, pages) {
   <body>
 
     <header class="site-header">
-      <a href="/" class="site-logo">dev-quick-ref.pages.dev</a>
+      <a href="/" class="site-logo">error-reference.dev</a>
       <nav>
         <ul class="site-nav">
 ${renderNav(category)}
@@ -113,7 +113,7 @@ ${items}
     </main>
 
     <footer class="site-footer">
-      <a href="/">dev-quick-ref.pages.dev</a> &mdash; developer error solutions
+      <a href="/">error-reference.dev</a> &mdash; developer error solutions
     </footer>
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>
