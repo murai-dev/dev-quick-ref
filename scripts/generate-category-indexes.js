@@ -81,6 +81,7 @@ function renderCategoryIndex(category, pages) {
     <meta name="twitter:title" content="${esc(category)} — error-reference.dev" />
     <meta name="twitter:description" content="${escAttr(desc)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://www.googletagmanager.com" />
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C7WNG19TNC');</script>

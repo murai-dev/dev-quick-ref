@@ -210,6 +210,7 @@ ${items}
     <meta name="twitter:title" content="${escAttr(metaTitle)} | ${SITE_HOST}" />
     <meta name="twitter:description" content="${escAttr(data.description)}" />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
 ${renderJsonLd(data, category, slug)}
 ${renderAnalyticsScripts()}
