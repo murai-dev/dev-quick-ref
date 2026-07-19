@@ -45,7 +45,12 @@
       <h1>npm</h1>
 
       <section class="section">
-        <p class="section-label">16 pages</p>
+        <p class="section-label">Overview</p>
+        <p>npm coordinates JavaScript packages and project scripts. Start with the <a href="/npm/npm-basics/">npm basics guide</a> for manifests, lockfiles, dependency types, scripts, and reproducible installs, then use the references below for a specific failure.</p>
+      </section>
+
+      <section class="section">
+        <p class="section-label">17 pages</p>
         <ul class="category-page-list">
           <li>
             <a href="/npm/audit-fix/">npm audit fix — resolve security vulnerabilities</a>
@@ -60,8 +65,8 @@
             <p>Fix npm "ENOENT: no such file or directory" errors during install, run, or build by checking paths, node_modules, and package.json.</p>
           </li>
           <li>
-            <a href="/npm/eresolve-peer-deps/">npm ERESOLVE unable to resolve dependency tree — how to fix</a>
-            <p>Fix "npm ERR! ERESOLVE unable to resolve dependency tree" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.</p>
+            <a href="/npm/eresolve-peer-deps/">npm peer dependency conflict / ERESOLVE — how to fix</a>
+            <p>Fix npm peer dependency conflict and "npm ERR! ERESOLVE unable to resolve dependency tree" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.</p>
           </li>
           <li>
             <a href="/npm/eslint-version-conflict/">eslint version conflict with TypeScript — how to fix</a>
@@ -69,27 +74,31 @@
           </li>
           <li>
             <a href="/npm/link-local-package/">npm link — use a local package without publishing</a>
-            <p>Use npm link to develop and test a local package in another project without publishing to the registry.</p>
+            <p>Use npm link to develop and test a local package in another project without publishing to the registry or package index.</p>
           </li>
           <li>
             <a href="/npm/lock-file-conflict/">package-lock.json conflict — how to resolve</a>
             <p>Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution.</p>
           </li>
           <li>
-            <a href="/npm/missing-script/">npm ERR! missing script — how to fix</a>
-            <p>Fix npm ERR! missing script by checking the script name, package.json location, workspace target, and whether the script exists under the scripts field.</p>
-          </li>
-          <li>
             <a href="/npm/missing-peer-dependency/">npm peer dependency warning — how to handle</a>
             <p>Understand and fix npm peer dependency warnings. Covers why they appear, when it is safe to ignore them, and how to install missing peer deps.</p>
           </li>
           <li>
-            <a href="/npm/module-not-found/">npm Cannot find module — how to fix</a>
-            <p>Fix "Cannot find module 'xyz'" in Node.js by installing the missing package, checking paths, and verifying module resolution.</p>
+            <a href="/npm/missing-script/">npm ERR! missing script — how to fix</a>
+            <p>Fix npm ERR! missing script by checking the script name, package.json location, workspace target, and whether the script exists under the scripts field.</p>
+          </li>
+          <li>
+            <a href="/npm/module-not-found/">cannot find module / npm module not found — how to fix</a>
+            <p>Fix "Cannot find module" and npm module not found errors in Node.js by installing the missing package, checking paths, and verifying module resolution.</p>
           </li>
           <li>
             <a href="/npm/node-gyp-failed/">npm node-gyp build failed — how to fix</a>
             <p>Fix "node-gyp build failed" by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows.</p>
+          </li>
+          <li>
+            <a href="/npm/npm-basics/">npm basics — package.json, dependencies, scripts, and reproducible installs</a>
+            <p>Understand package.json, package-lock.json, node_modules, dependency types, semantic versions, npm scripts, npm install, and reproducible npm ci workflows.</p>
           </li>
           <li>
             <a href="/npm/npm-cache-clean/">npm cache clean and verify — fix corrupted installs</a>

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <title>npm basics: package.json, dependencies, scripts, and installs | error-reference.dev</title>
+    <meta name="description" content="Understand package.json, package-lock.json, node_modules, dependency types, semantic versions, npm scripts, npm install, and reproducible npm ci workflows." />
+    <link rel="canonical" href="https://error-reference.dev/npm/npm-basics/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="error-reference.dev" />
+    <meta property="og:url" content="https://error-reference.dev/npm/npm-basics/" />
+    <meta property="og:title" content="npm basics: package.json, dependencies, scripts, and installs | error-reference.dev" />
+    <meta property="og:description" content="Understand package.json, package-lock.json, node_modules, dependency types, semantic versions, npm scripts, npm install, and reproducible npm ci workflows." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="npm basics: package.json, dependencies, scripts, and installs | error-reference.dev" />
+    <meta name="twitter:description" content="Understand package.json, package-lock.json, node_modules, dependency types, semantic versions, npm scripts, npm install, and reproducible npm ci workflows." />
+    <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://error-reference.dev/npm/npm-basics/",
+      "headline": "npm basics — package.json, dependencies, scripts, and reproducible installs",
+      "description": "Understand package.json, package-lock.json, node_modules, dependency types, semantic versions, npm scripts, npm install, and reproducible npm ci workflows.",
+      "url": "https://error-reference.dev/npm/npm-basics/",
+      "mainEntityOfPage": "https://error-reference.dev/npm/npm-basics/",
+      "author": {
+        "@type": "Organization",
+        "name": "error-reference.dev",
+        "url": "https://error-reference.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "error-reference.dev",
+        "url": "https://error-reference.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://error-reference.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "npm",
+          "item": "https://error-reference.dev/npm/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "npm basics — package.json, dependencies, scripts, and reproducible installs"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">error-reference.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/" class="active">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/npm/">npm</a> / npm-basics</p>
+
+      <h1>npm basics — package.json, dependencies, scripts, and reproducible installs</h1>
+
+
+
+      <section class="section">
+        <p class="section-label">What npm does</p>
+        <h2>npm coordinates packages for a Node.js project</h2>
+        <p>Node.js runs JavaScript outside the browser. npm is a package manager distributed with Node.js, and the public npm registry is a service that publishes package metadata and archives. The <code>npm</code> command reads project metadata, resolves compatible package versions, downloads packages, and runs named project scripts.</p>
+        <p>These are separate layers. A Node.js version problem is not automatically an npm registry problem, and a package install can succeed while the application later fails because its runtime API is incompatible.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Project files</p>
+        <h2>package.json declares intent; package-lock.json records a resolution</h2>
+        <p><code>package.json</code> describes the project, scripts, supported runtimes, and direct dependency ranges. <code>package-lock.json</code> records the exact dependency graph npm resolved, including transitive packages and integrity hashes. Commit both files for an application so collaborators and CI can reproduce the reviewed graph.</p>
+        <p><code>node_modules</code> is an installed working directory derived from the manifest and lockfile. It is normally excluded from version control. Deleting it can clear a broken local installation, but it is a diagnostic reset rather than a substitute for fixing an invalid dependency declaration.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm init -y
+npm pkg get name version scripts
+npm install
+npm ls --depth=0</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Dependency types</p>
+        <h2>Declare packages according to who needs them and when</h2>
+        <p><code>dependencies</code> are required when the project runs. <code>devDependencies</code> support development, testing, or building. A peer dependency says that the consuming project must provide a compatible package, which allows plugins to share one host library instead of installing private copies.</p>
+        <p>Optional dependencies may fail to install without failing the whole installation. Platform-specific packages can also be skipped legitimately. Read the package documentation before moving a dependency between sections merely to silence a warning.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm install express
+npm install --save-dev vitest
+npm pkg get dependencies devDependencies peerDependencies</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Version ranges</p>
+        <h2>Semantic versions describe compatibility expectations, not guarantees</h2>
+        <p>A semantic version has major, minor, and patch numbers. A caret range such as <code>^2.3.1</code> normally permits later minor and patch releases before version 3. A tilde range such as <code>~2.3.1</code> normally permits later patch releases before 2.4. Exact versions permit only one published version.</p>
+        <p>The lockfile chooses exact versions inside those ranges. <code>npm install</code> may update the lockfile when declarations change; <code>npm update</code> deliberately searches for newer compatible versions. Review dependency and test changes rather than assuming every range-compatible release is behaviorally safe.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm outdated
+npm view package-name version
+npm view package-name versions --json</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Install workflows</p>
+        <h2>Use npm install for development and npm ci for a locked build</h2>
+        <p><code>npm install</code> reconciles <code>package.json</code>, the lockfile, and the existing installation. <code>npm ci</code> requires the manifest and lockfile to agree, removes the existing <code>node_modules</code>, and installs the locked graph without rewriting it. That behavior makes <code>npm ci</code> the stronger default for continuous integration and deployment.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Local dependency work
+npm install
+git diff -- package.json package-lock.json
+
+# CI or clean verification
+npm ci
+npm test</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Scripts</p>
+        <h2>npm scripts provide project-local commands with local binaries on PATH</h2>
+        <p>Scripts under <code>package.json</code> create a shared command interface for development, tests, builds, and maintenance. When npm runs a script, executables from <code>node_modules/.bin</code> are placed on <code>PATH</code>, so the project uses its pinned tool version without requiring a global installation.</p>
+        <p>Arguments after <code>--</code> are forwarded to the underlying script. Lifecycle names such as <code>pretest</code> and <code>posttest</code> run automatically around the matching script, so inspect them when a command performs unexpected extra work.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm run
+npm run build
+npm test -- --runInBand
+npm pkg get scripts</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Diagnose installs</p>
+        <h2>Read the first dependency conflict and verify the active environment</h2>
+        <p>Start with the Node.js and npm versions, registry, and project root. An ERESOLVE report describes packages that request incompatible peer ranges. ENOENT often identifies a missing path or manifest. A module-not-found error can occur at install time or runtime, so note which command produced it before clearing caches.</p>
+        <ul class="content-list">
+          <li>Do not use <code>--force</code> or <code>--legacy-peer-deps</code> before understanding which peer ranges conflict.</li>
+          <li>Check whether the repository expects a particular Node.js version through <code>engines</code>, <code>.nvmrc</code>, or tool configuration.</li>
+          <li>Compare manifest and lockfile changes after every dependency command.</li>
+          <li>Use <code>npm cache verify</code> before deleting the cache; cache corruption is less common than declaration or environment problems.</li>
+        </ul>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>node --version
+npm --version
+npm config get registry
+npm prefix
+npm doctor
+npm ls</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Security and maintenance</p>
+        <h2>Treat audit output as a dependency decision, not an automatic command</h2>
+        <p><code>npm audit</code> maps known advisories onto the installed dependency graph. Confirm whether the vulnerable code is reachable and whether an update changes major versions. Review the proposed lockfile diff and run the project test suite. Avoid <code>npm audit fix --force</code> unless the breaking upgrades have been evaluated.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm audit
+npm explain vulnerable-package
+npm audit fix --dry-run
+npm test</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/npm/eresolve-peer-deps/">npm ERESOLVE — diagnose peer dependency conflicts</a></li>
+          <li><a href="/npm/enoent-no-such-file/">npm ENOENT — identify the missing file or directory</a></li>
+          <li><a href="/npm/module-not-found/">Cannot find module — install and runtime diagnosis</a></li>
+          <li><a href="/npm/lock-file-conflict/">Resolve package-lock.json conflicts safely</a></li>
+          <li><a href="/npm/audit-fix/">npm audit fix — review security updates before applying</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">error-reference.dev</a> &mdash; developer error solutions
+    </footer>
+  </body>
+</html>
