@@ -64,6 +64,25 @@ function codeBlock(code, copyBtn = true) {
         </div>`;
 }
 
+function renderContentSections(sections = []) {
+  return sections.map(section => {
+    const heading = section.title ? `        <h2>${esc(section.title)}</h2>\n` : '';
+    const paragraphs = (section.paragraphs ?? [])
+      .map(paragraph => `        <p>${paragraph}</p>`)
+      .join('\n');
+    const items = section.items?.length
+      ? `\n        <ul class="content-list">\n${section.items.map(item => `          <li>${item}</li>`).join('\n')}\n        </ul>`
+      : '';
+    const code = section.code ? `\n${codeBlock(section.code, true)}` : '';
+
+    return `
+      <section class="section">
+        <p class="section-label">${esc(section.label)}</p>
+${heading}${paragraphs}${items}${code}
+      </section>`;
+  }).join('');
+}
+
 function renderAnalyticsScripts() {
   return `    <script>
       window.dataLayer = window.dataLayer || [];
@@ -184,6 +203,8 @@ ${items}
       </section>`;
   }
 
+  const contentSections = renderContentSections(data.sections);
+
   /* ── related section ── */
   const relatedItems = (data.related ?? [])
     .map(r => `          <li><a href="${r.href}">${r.text}</a></li>`)
@@ -232,11 +253,11 @@ ${renderNav(category)}
 
       <h1>${esc(data.title)}</h1>
 
-      <section class="quick-answer">
+${data.quickAnswer ? `      <section class="quick-answer">
         <p class="section-label">Quick Answer</p>
 ${codeBlock(data.quickAnswer, true)}
-      </section>
-${whenSection}${detailsSection}
+      </section>` : ''}
+${whenSection}${contentSections}${detailsSection}
       <section class="section">
         <p class="section-label">Related</p>
         <ul class="related-list">

@@ -67,10 +67,18 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "The remote branch name is different",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use <code>git branch -r</code> to list remote branches. A repository may use <code>master</code>, a release branch, or a feature branch instead of <code>main</code>. Push the branch you actually intend to update.\n```\ngit branch -r\ngit push -u origin your-branch\n```"
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Force push — last resort, never on shared branches",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "<code>--force-with-lease</code> is safer than <code>--force</code>: it fails if someone pushed since your last fetch.\n```\ngit push --force-with-lease origin main\n```"
+            "text": "Force push intentionally replaces remote history. Use it only when the branch is yours to rewrite and the remote-only commits are known to be unwanted. <code>--force-with-lease</code> is safer than <code>--force</code> because it fails if the remote changed since your last fetch.\n```\ngit push --force-with-lease origin main\n```"
           }
         }
       ]
@@ -148,17 +156,91 @@ hint: 'git pull ...') before pushing again.</code></pre>
         <p>Someone else pushed new commits to the remote branch since your last pull. This is the usual cause of "failed to push some refs" and the non-fast-forward error.</p>
       </section>
       <section class="section">
+        <p class="section-label">Why Git rejects the push</p>
+        <h2>The remote branch contains history you do not have locally</h2>
+        <p>A normal push is allowed only when the remote branch can move forward to your commit without losing any commits. If <code>origin/main</code> has commit B while your local <code>main</code> was created from the earlier commit A, moving the remote directly to your commit would hide B. Git rejects that update as non-fast-forward.</p>
+        <p>This message means the remote connection and authentication usually worked. It is a history-integration problem, not an SSH-key or access-token problem. Fetch the current remote state before deciding whether to rebase, merge, or intentionally replace it.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Diagnose first</p>
+        <h2>Confirm the branch and compare both histories</h2>
+        <p>Do not start with a force push. First verify the checked-out branch and its upstream, then fetch without modifying your working branch. The final command shows commits that exist only locally on the left and only remotely on the right.</p>
+        <ul class="content-list">
+          <li>Lines beginning with <code>&lt;</code> are commits reachable only from your current branch.</li>
+          <li>Lines beginning with <code>&gt;</code> are commits reachable only from <code>origin/main</code>.</li>
+          <li>If the target branch is not <code>main</code>, replace it consistently in every command.</li>
+        </ul>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+git branch -vv
+git remote -v
+git fetch origin
+git log --oneline --left-right --graph HEAD...origin/main</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Recommended fix</p>
+        <h2>Replay your local commits on the updated remote branch</h2>
+        <p>Rebase keeps the branch linear by temporarily removing your local-only commits, advancing to <code>origin/main</code>, and replaying those commits. This is appropriate for unpublished local commits. It changes their commit IDs, so avoid rebasing commits that teammates already use.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch origin
+git rebase origin/main
+git push origin main</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Conflict handling</p>
+        <h2>Resolve each conflicted commit or abort cleanly</h2>
+        <p>If rebase stops, <code>git status</code> lists the conflicted files. Edit each file, remove the conflict markers, run the relevant tests, stage the resolved files, and continue. Repeat until every local commit has been replayed. If the situation is unclear, aborting returns the branch to its pre-rebase state.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+# edit and test each conflicted file
+git add path/to/resolved-file
+git rebase --continue
+
+# Return to the state before rebase if needed
+git rebase --abort</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Merge alternative</p>
+        <h2>Use a merge when preserving published history matters</h2>
+        <p>A merge combines both histories without rewriting existing commits. It may create a merge commit, but it is often the safer choice on a shared branch or when local commits have already been published. Check the repository policy before choosing between merge and rebase.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch origin
+git merge origin/main
+git push origin main</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Verification</p>
+        <h2>Confirm local and remote now point to the expected history</h2>
+        <p>After the push, fetch once more and compare the branch tips. An empty diff and identical commit IDs confirm that the remote accepted the intended history. Also check the repository host to make sure the expected commits and checks appear on the branch.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch origin
+git rev-parse HEAD
+git rev-parse origin/main
+git diff --stat HEAD origin/main</code></pre>
+        </div>
+      </section>
+      <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h2>Alternative: pull with merge commit instead of rebase</h2>
+        <h2>The remote branch name is different</h2>
+        <p>Use <code>git branch -r</code> to list remote branches. A repository may use <code>master</code>, a release branch, or a feature branch instead of <code>main</code>. Push the branch you actually intend to update.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git pull origin main        # creates a merge commit
-git push origin main</code></pre>
+          <pre><code>git branch -r
+git push -u origin your-branch</code></pre>
         </div>
 
         <h2>Force push — last resort, never on shared branches</h2>
-        <p><code>--force-with-lease</code> is safer than <code>--force</code>: it fails if someone pushed since your last fetch.</p>
+        <p>Force push intentionally replaces remote history. Use it only when the branch is yours to rewrite and the remote-only commits are known to be unwanted. <code>--force-with-lease</code> is safer than <code>--force</code> because it fails if the remote changed since your last fetch.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
@@ -173,6 +255,7 @@ git push origin main</code></pre>
           <li><a href="/git/merge-conflict/">git merge conflict — how to resolve</a></li>
           <li><a href="/git/force-pull-overwrite-local-changes/">git force pull / overwrite local changes</a></li>
           <li><a href="/git/permission-denied-publickey/">git permission denied (publickey) — fix</a></li>
+          <li><a href="/git/git-basics/">Git basics — branches, remotes, fetch, pull, and push</a></li>
         </ul>
       </section>
 

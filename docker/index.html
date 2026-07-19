@@ -45,6 +45,11 @@
       <h1>docker</h1>
 
       <section class="section">
+        <p class="section-label">Overview</p>
+        <p>Docker packages an application and its dependencies into containers. The references below focus on diagnosing container lifecycle, networking, storage, build, and permission problems.</p>
+      </section>
+
+      <section class="section">
         <p class="section-label">21 pages</p>
         <ul class="category-page-list">
           <li>
@@ -61,11 +66,11 @@
           </li>
           <li>
             <a href="/docker/container-exits-immediately/">docker container exits immediately — how to fix</a>
-            <p>Fix a Docker container that exits immediately after docker run. Common causes: no foreground process, entrypoint crash, or missing command.</p>
+            <p>Fix a Docker container that exits immediately after docker run. Common causes include no foreground process, entrypoint crash, or a missing command.</p>
           </li>
           <li>
-            <a href="/docker/container-ip/">docker get container IP address</a>
-            <p>Get the IP address of a running Docker container using docker inspect, or find the gateway and container IPs on a network.</p>
+            <a href="/docker/container-ip/">docker get container IP address with docker inspect</a>
+            <p>Find a Docker container IP address from the host using docker inspect. Includes named networks, all container IPs, and why container names are usually better than IPs.</p>
           </li>
           <li>
             <a href="/docker/container-name-in-use/">docker container name already in use — how to fix</a>
@@ -73,7 +78,7 @@
           </li>
           <li>
             <a href="/docker/copy-files/">docker cp — copy files between container and host</a>
-            <p>Use docker cp to copy files or directories between a Docker container and the host. Works with running or stopped containers.</p>
+            <p>Use docker cp to copy files or directories between a Docker container and the host, including "docker copy file from container" cases. Works with running or stopped containers.</p>
           </li>
           <li>
             <a href="/docker/env-file/">docker pass environment variables — --env-file and -e</a>
@@ -104,8 +109,8 @@
             <p>Fix "no space left on device" in Docker by pruning unused images, containers, volumes, and build cache with docker system prune.</p>
           </li>
           <li>
-            <a href="/docker/permission-denied-docker-socket/">docker permission denied /var/run/docker.sock — how to fix</a>
-            <p>Fix "permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock" by adding your user to the docker group.</p>
+            <a href="/docker/permission-denied-docker-socket/">docker permission denied socket /var/run/docker.sock — how to fix</a>
+            <p>Fix "docker permission denied socket" and "permission denied while trying to connect to the Docker daemon socket at /var/run/docker.sock" by adding your user to the docker group.</p>
           </li>
           <li>
             <a href="/docker/port-already-in-use/">docker port already allocated — how to fix</a>

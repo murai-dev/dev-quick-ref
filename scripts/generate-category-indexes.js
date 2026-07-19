@@ -50,6 +50,14 @@ const CATEGORY_DESC = {
   npm:    'Copy-paste fixes for common npm errors and workflows.',
 };
 
+const CATEGORY_INTRO = {
+  git: `Git records project history as commits and lets teams develop in parallel with branches. Start with the <a href="/git/git-basics/">Git basics guide</a> for the working tree, staging area, HEAD, branches, and remotes, then use the references below for a specific error or workflow.`,
+  docker: 'Docker packages an application and its dependencies into containers. The references below focus on diagnosing container lifecycle, networking, storage, build, and permission problems.',
+  bash: 'Bash combines commands into repeatable shell workflows. These references cover common scripting patterns, process control, file operations, and the errors that appear around them.',
+  regex: 'Regular expressions describe text patterns for matching, validation, and replacement. Each reference includes a focused pattern and notes about the behavior that commonly causes mistakes.',
+  npm: 'npm installs and coordinates JavaScript packages and project scripts. These references cover dependency resolution, package metadata, registries, caches, and common install failures.',
+};
+
 function renderCategoryIndex(category, pages) {
   const count = pages.length;
   const desc = CATEGORY_DESC[category] ?? `${category} developer error reference.`;
@@ -103,6 +111,11 @@ ${renderNav(category)}
       <p class="breadcrumb"><a href="/">/</a> / ${category}</p>
 
       <h1>${category}</h1>
+
+      <section class="section">
+        <p class="section-label">Overview</p>
+        <p>${CATEGORY_INTRO[category] ?? esc(desc)}</p>
+      </section>
 
       <section class="section">
         <p class="section-label">${count} pages</p>

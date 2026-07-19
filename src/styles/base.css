@@ -32,11 +32,18 @@ body {
   white-space: nowrap;
 }
 
+.site-header nav {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .site-nav {
   display: flex;
   gap: 4px;
   list-style: none;
   overflow-x: auto;
+  max-width: 100%;
 }
 
 .site-nav a {
@@ -110,6 +117,15 @@ h1 {
   font-size: 15px;
   font-weight: 600;
   margin: 20px 0 8px;
+}
+
+.content-list {
+  margin: 8px 0 12px 22px;
+}
+
+.content-list li {
+  margin-bottom: 8px;
+  padding-left: 4px;
 }
 
 /* ── code block ── */
