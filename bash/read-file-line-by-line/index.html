@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash read a file line by line | error-reference.dev</title>
-    <meta name="description" content="Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly." />
+    <meta name="description" content="Read a file line by line in Bash without stripping whitespace or backslashes, including a final line that has no newline character." />
     <link rel="canonical" href="https://error-reference.dev/bash/read-file-line-by-line/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/bash/read-file-line-by-line/" />
     <meta property="og:title" content="bash read a file line by line | error-reference.dev" />
-    <meta property="og:description" content="Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly." />
+    <meta property="og:description" content="Read a file line by line in Bash without stripping whitespace or backslashes, including a final line that has no newline character." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="bash read a file line by line | error-reference.dev" />
-    <meta name="twitter:description" content="Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly." />
+    <meta name="twitter:description" content="Read a file line by line in Bash without stripping whitespace or backslashes, including a final line that has no newline character." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/bash/read-file-line-by-line/",
       "headline": "bash read a file line by line",
-      "description": "Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly.",
+      "description": "Read a file line by line in Bash without stripping whitespace or backslashes, including a final line that has no newline character.",
       "url": "https://error-reference.dev/bash/read-file-line-by-line/",
       "mainEntityOfPage": "https://error-reference.dev/bash/read-file-line-by-line/",
       "author": {
@@ -118,7 +118,7 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>while IFS= read -r line; do
+          <pre><code>while IFS= read -r line || [ -n "$line" ]; do
   echo "$line"
 done &lt; input.txt</code></pre>
         </div>

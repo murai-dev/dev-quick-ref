@@ -7,9 +7,9 @@ npm cache verify
 # Clean the cache (clears all cached data)
 npm cache clean --force
 
-# After cleaning, reinstall
-rm -rf node_modules package-lock.json
-npm install`,
+# Reinstall exactly what package-lock.json specifies
+rm -rf node_modules
+npm ci`,
   when: {
     label: 'Usage',
     pre: 'A package install fails with a checksum mismatch or corrupted files, even after retrying.',

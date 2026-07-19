@@ -61,6 +61,19 @@
           "name": "npm audit fix — resolve security vulnerabilities"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Review breaking updates before using --force",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<code>npm audit fix --force</code> may install dependencies outside the ranges declared in package.json, including major-version upgrades. Review the proposed changes and run the test suite.\n```\n# Preview the changes first\nnpm audit fix --force --dry-run\n\n# Apply only after reviewing the proposed dependency changes\nnpm audit fix --force\n```"
+          }
+        }
+      ]
     }
   ]
 }
@@ -121,11 +134,8 @@
           <pre><code># Show all vulnerabilities
 npm audit
 
-# Auto-fix compatible updates
-npm audit fix
-
-# Fix including breaking (major version) changes
-npm audit fix --force</code></pre>
+# Apply updates that stay within declared dependency ranges
+npm audit fix</code></pre>
         </div>
       </section>
 
@@ -135,6 +145,18 @@ npm audit fix --force</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
+        <h2>Review breaking updates before using --force</h2>
+        <p><code>npm audit fix --force</code> may install dependencies outside the ranges declared in package.json, including major-version upgrades. Review the proposed changes and run the test suite.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Preview the changes first
+npm audit fix --force --dry-run
+
+# Apply only after reviewing the proposed dependency changes
+npm audit fix --force</code></pre>
+        </div>
+
         <h2>Audit output explained</h2>
 
         <div class="code-block">
@@ -171,7 +193,7 @@ npm install lodash@4.17.21</code></pre>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>npm audit --json | jq '.metadata.vulnerabilities'
-# {criticals: 0, high: 2, moderate: 1, low: 0, total: 3}
+# {info: 0, low: 0, moderate: 1, high: 2, critical: 0, total: 3}
 
 # Fail CI on high+ severity
 npm audit --audit-level=high</code></pre>

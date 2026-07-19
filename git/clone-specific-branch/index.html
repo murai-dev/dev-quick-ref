@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git clone a specific branch | error-reference.dev</title>
-    <meta name="description" content="Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches." />
+    <meta name="description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
     <link rel="canonical" href="https://error-reference.dev/git/clone-specific-branch/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/git/clone-specific-branch/" />
     <meta property="og:title" content="git clone a specific branch | error-reference.dev" />
-    <meta property="og:description" content="Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches." />
+    <meta property="og:description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="git clone a specific branch | error-reference.dev" />
-    <meta name="twitter:description" content="Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches." />
+    <meta name="twitter:description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/git/clone-specific-branch/",
       "headline": "git clone a specific branch",
-      "description": "Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches.",
+      "description": "Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches.",
       "url": "https://error-reference.dev/git/clone-specific-branch/",
       "mainEntityOfPage": "https://error-reference.dev/git/clone-specific-branch/",
       "author": {
@@ -70,7 +70,15 @@
           "name": "Clone with only the latest commit (shallow + single branch)",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Fastest option for CI/CD — downloads only the tip of one branch.\n```\ngit clone --depth 1 -b feature/login https://github.com/user/repo.git\n```"
+            "text": "Fastest option for CI/CD — downloads only the tip of one branch.\n```\ngit clone --depth 1 --branch feature/login --single-branch https://github.com/user/repo.git\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Clone a specific tag",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Checking out a tag leaves the repository in detached HEAD state. Create a branch before committing changes.\n```\ngit clone --branch v2.1.0 --single-branch https://github.com/user/repo.git\ncd repo\ngit switch -c work-from-v2.1.0\n```"
           }
         }
       ]
@@ -131,7 +139,7 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git clone -b feature/login https://github.com/user/repo.git</code></pre>
+          <pre><code>git clone --branch feature/login --single-branch https://github.com/user/repo.git</code></pre>
         </div>
       </section>
 
@@ -146,7 +154,7 @@
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git clone --depth 1 -b feature/login https://github.com/user/repo.git</code></pre>
+          <pre><code>git clone --depth 1 --branch feature/login --single-branch https://github.com/user/repo.git</code></pre>
         </div>
 
         <h2>Switch to a different branch after cloning</h2>
@@ -158,10 +166,13 @@ git checkout other-branch</code></pre>
         </div>
 
         <h2>Clone a specific tag</h2>
+        <p>Checking out a tag leaves the repository in detached HEAD state. Create a branch before committing changes.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git clone -b v2.1.0 https://github.com/user/repo.git</code></pre>
+          <pre><code>git clone --branch v2.1.0 --single-branch https://github.com/user/repo.git
+cd repo
+git switch -c work-from-v2.1.0</code></pre>
         </div>
 
       </section>

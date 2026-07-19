@@ -1,6 +1,6 @@
 export default {
   title: 'docker no space left on device — how to fix',
-  description: 'Fix "no space left on device" in Docker by pruning unused images, containers, volumes, and build cache with docker system prune.',
+  description: 'Recover Docker disk space by inspecting usage and pruning unused images, stopped containers, networks, and build cache. Volumes require an explicit option.',
   quickAnswer: `# See how much Docker is using
 docker system df
 

@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git SSL certificate problem — how to fix | error-reference.dev</title>
-    <meta name="description" content="Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification." />
+    <meta name="description" content="Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle." />
     <link rel="canonical" href="https://error-reference.dev/git/ssl-certificate-error/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/git/ssl-certificate-error/" />
     <meta property="og:title" content="git SSL certificate problem — how to fix | error-reference.dev" />
-    <meta property="og:description" content="Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification." />
+    <meta property="og:description" content="Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="git SSL certificate problem — how to fix | error-reference.dev" />
-    <meta name="twitter:description" content="Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification." />
+    <meta name="twitter:description" content="Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/git/ssl-certificate-error/",
       "headline": "git SSL certificate problem — how to fix",
-      "description": "Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification.",
+      "description": "Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle.",
       "url": "https://error-reference.dev/git/ssl-certificate-error/",
       "mainEntityOfPage": "https://error-reference.dev/git/ssl-certificate-error/",
       "author": {
@@ -70,15 +70,23 @@
           "name": "Corporate proxy / self-signed cert — add the CA cert",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ask your IT team for the corporate CA certificate, then:\n```\n# Append the cert to the system bundle (Linux)\nsudo cat corp-ca.crt >> /etc/ssl/certs/ca-certificates.crt\ngit config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt\n```"
+            "text": "Ask your IT team for the corporate CA certificate, then:\n```\n# Debian/Ubuntu: install the CA into the managed trust store\nsudo cp corp-ca.crt /usr/local/share/ca-certificates/corp-ca.crt\nsudo update-ca-certificates\n\n# Point Git to the resulting system bundle when necessary\ngit config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt\n```"
           }
         },
         {
           "@type": "Question",
-          "name": "Temporarily disable SSL verification (not recommended for production)",
+          "name": "Inspect the TLS connection without disabling verification",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "<strong>Only use this as a short-term workaround.</strong> Disabling SSL verification exposes you to man-in-the-middle attacks.\n```\ngit config --global http.sslVerify false\n```"
+            "text": "Verbose output can reveal which CA file Git uses and whether a proxy is intercepting the connection.\n```\nGIT_CURL_VERBOSE=1 git ls-remote https://github.com/user/repo.git\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Remove an obsolete custom CA setting",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the configured path no longer exists, remove it so Git can return to its platform default trust store.\n```\ngit config --global --get http.sslCAInfo\ngit config --global --unset http.sslCAInfo\n```"
           }
         }
       ]
@@ -162,24 +170,29 @@ SSL certificate problem: unable to get local issuer certificate</code></pre>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># Append the cert to the system bundle (Linux)
-sudo cat corp-ca.crt &gt;&gt; /etc/ssl/certs/ca-certificates.crt
+          <pre><code># Debian/Ubuntu: install the CA into the managed trust store
+sudo cp corp-ca.crt /usr/local/share/ca-certificates/corp-ca.crt
+sudo update-ca-certificates
+
+# Point Git to the resulting system bundle when necessary
 git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt</code></pre>
         </div>
 
-        <h2>Temporarily disable SSL verification (not recommended for production)</h2>
-        <p><strong>Only use this as a short-term workaround.</strong> Disabling SSL verification exposes you to man-in-the-middle attacks.</p>
+        <h2>Inspect the TLS connection without disabling verification</h2>
+        <p>Verbose output can reveal which CA file Git uses and whether a proxy is intercepting the connection.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git config --global http.sslVerify false</code></pre>
+          <pre><code>GIT_CURL_VERBOSE=1 git ls-remote https://github.com/user/repo.git</code></pre>
         </div>
 
-        <h2>Disable verification for one specific host only</h2>
+        <h2>Remove an obsolete custom CA setting</h2>
+        <p>If the configured path no longer exists, remove it so Git can return to its platform default trust store.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git config --global http.https://gitlab.corp.internal.sslVerify false</code></pre>
+          <pre><code>git config --global --get http.sslCAInfo
+git config --global --unset http.sslCAInfo</code></pre>
         </div>
 
       </section>

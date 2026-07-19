@@ -1,7 +1,7 @@
 export default {
   title: 'bash read a file line by line',
-  description: 'Read a file line by line in bash using a while read loop. Handles lines with spaces, special characters, and trailing newlines correctly.',
-  quickAnswer: `while IFS= read -r line; do
+  description: 'Read a file line by line in Bash without stripping whitespace or backslashes, including a final line that has no newline character.',
+  quickAnswer: `while IFS= read -r line || [ -n "$line" ]; do
   echo "$line"
 done < input.txt`,
   when: {

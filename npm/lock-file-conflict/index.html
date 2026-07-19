@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>package-lock.json conflict — how to resolve | error-reference.dev</title>
-    <meta name="description" content="Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution." />
+    <meta name="description" content="Resolve a package-lock.json merge conflict while preserving reviewed dependency versions and the dependency changes from both branches." />
     <link rel="canonical" href="https://error-reference.dev/npm/lock-file-conflict/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/npm/lock-file-conflict/" />
     <meta property="og:title" content="package-lock.json conflict — how to resolve | error-reference.dev" />
-    <meta property="og:description" content="Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution." />
+    <meta property="og:description" content="Resolve a package-lock.json merge conflict while preserving reviewed dependency versions and the dependency changes from both branches." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="package-lock.json conflict — how to resolve | error-reference.dev" />
-    <meta name="twitter:description" content="Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution." />
+    <meta name="twitter:description" content="Resolve a package-lock.json merge conflict while preserving reviewed dependency versions and the dependency changes from both branches." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/npm/lock-file-conflict/",
       "headline": "package-lock.json conflict — how to resolve",
-      "description": "Fix package-lock.json merge conflicts by deleting the lock file and regenerating it, or using npm-merge-driver for automated resolution.",
+      "description": "Resolve a package-lock.json merge conflict while preserving reviewed dependency versions and the dependency changes from both branches.",
       "url": "https://error-reference.dev/npm/lock-file-conflict/",
       "mainEntityOfPage": "https://error-reference.dev/npm/lock-file-conflict/",
       "author": {
@@ -59,6 +59,19 @@
           "@type": "ListItem",
           "position": 3,
           "name": "package-lock.json conflict — how to resolve"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Regenerate only when the version changes are intentional",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Removing the lockfile may select newer transitive dependencies. Review the resulting diff and run the test suite before committing it.\n```\nrm package-lock.json\nnpm install --package-lock-only\nnpm ci\n```"
+          }
         }
       ]
     }
@@ -118,11 +131,14 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># Simplest fix — delete and regenerate
-rm package-lock.json
-npm install
+          <pre><code># First resolve and stage package.json, then choose a lockfile base
+git checkout --ours package-lock.json
 
-# This regenerates package-lock.json from package.json</code></pre>
+# Update the lockfile to match the merged package.json
+npm install --package-lock-only
+
+# Verify that a clean install succeeds
+npm ci</code></pre>
         </div>
       </section>
 
@@ -136,7 +152,7 @@ npm install
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch
 # (inside package-lock.json after git merge/rebase)</code></pre>
         </div>
-        <p>Two branches modified package-lock.json. It is auto-generated, so manual merging is error-prone. Deleting and regenerating is the safest approach.</p>
+        <p>Two branches modified package-lock.json. Resolve package.json first, then update the lockfile from one known side of the conflict. Deleting the lockfile can change unrelated transitive dependency versions.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
@@ -150,17 +166,17 @@ npx npm-merge-driver install --global
 # It automatically handles package-lock.json conflicts</code></pre>
         </div>
 
-        <h2>Keep one side of the conflict</h2>
+        <h2>Use either side of the conflict as a known base</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># Accept your version (HEAD)
 git checkout --ours package-lock.json
-npm install   # regenerate to ensure consistency
+npm install --package-lock-only
 
 # Accept the incoming version
 git checkout --theirs package-lock.json
-npm install</code></pre>
+npm install --package-lock-only</code></pre>
         </div>
 
         <h2>Add package-lock.json to .gitattributes</h2>
@@ -169,6 +185,16 @@ npm install</code></pre>
           <button class="copy-btn">Copy</button>
           <pre><code># .gitattributes — use a custom merge strategy
 package-lock.json merge=npm-merge-driver</code></pre>
+        </div>
+
+        <h2>Regenerate only when the version changes are intentional</h2>
+        <p>Removing the lockfile may select newer transitive dependencies. Review the resulting diff and run the test suite before committing it.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>rm package-lock.json
+npm install --package-lock-only
+npm ci</code></pre>
         </div>
 
       </section>

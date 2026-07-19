@@ -124,9 +124,9 @@ npm cache verify
 # Clean the cache (clears all cached data)
 npm cache clean --force
 
-# After cleaning, reinstall
-rm -rf node_modules package-lock.json
-npm install</code></pre>
+# Reinstall exactly what package-lock.json specifies
+rm -rf node_modules
+npm ci</code></pre>
         </div>
       </section>
 
