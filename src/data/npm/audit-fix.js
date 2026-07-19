@@ -4,16 +4,22 @@ export default {
   quickAnswer: `# Show all vulnerabilities
 npm audit
 
-# Auto-fix compatible updates
-npm audit fix
-
-# Fix including breaking (major version) changes
-npm audit fix --force`,
+# Apply updates that stay within declared dependency ranges
+npm audit fix`,
   when: {
     label: 'Usage',
     pre: 'npm audit reports known security vulnerabilities in your dependencies.',
   },
   details: [
+    {
+      title: 'Review breaking updates before using --force',
+      explanation: '<code>npm audit fix --force</code> may install dependencies outside the ranges declared in package.json, including major-version upgrades. Review the proposed changes and run the test suite.',
+      code: `# Preview the changes first
+npm audit fix --force --dry-run
+
+# Apply only after reviewing the proposed dependency changes
+npm audit fix --force`,
+    },
     {
       title: 'Audit output explained',
       code: `npm audit
@@ -39,7 +45,7 @@ npm install lodash@4.17.21`,
     {
       title: 'Get JSON output for CI',
       code: `npm audit --json | jq '.metadata.vulnerabilities'
-# {criticals: 0, high: 2, moderate: 1, low: 0, total: 3}
+# {info: 0, low: 0, moderate: 1, high: 2, critical: 0, total: 3}
 
 # Fail CI on high+ severity
 npm audit --audit-level=high`,

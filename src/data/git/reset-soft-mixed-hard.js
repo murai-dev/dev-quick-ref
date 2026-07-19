@@ -1,6 +1,6 @@
 export default {
   title: 'git reset --soft vs --mixed vs --hard — the difference',
-  description: 'Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them.',
+  description: 'Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes.',
   quickAnswer: `# --soft   → undo commit, keep changes STAGED
 git reset --soft HEAD~1
 
@@ -30,7 +30,7 @@ git status          # changes show as "Changes not staged for commit"`,
     },
     {
       title: '--hard: discards everything (use with care)',
-      explanation: '<strong>Cannot be undone easily.</strong> All changes from the commit and any unstaged edits are permanently deleted.',
+      explanation: '<strong>Use with care.</strong> The previous commit is often recoverable through the reflog, but uncommitted working-tree changes overwritten by the reset may not be recoverable.',
       code: `git reset --hard HEAD~1
 # If you regret this, try:
 git reflog          # find the lost commit hash

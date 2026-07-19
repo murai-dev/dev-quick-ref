@@ -72,6 +72,14 @@
             "@type": "Answer",
             "text": "If your CMD starts a service that daemonizes (e.g. nginx -g \"daemon off;\" is missing), the container exits.\n```\n# Dockerfile — keep nginx in foreground\nCMD [\"nginx\", \"-g\", \"daemon off;\"]\n\n# For a shell-based entrypoint, end with exec \"$@\" or wait\nCMD [\"/bin/sh\", \"-c\", \"start-server && wait\"]\n```"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Restart policy — auto-restart on failure",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A restart policy improves recovery from later transient failures, but it does not repair a broken entrypoint. Diagnose the first exit successfully before enabling automatic restarts.\n```\ndocker run -d --restart unless-stopped your-image\n```"
+          }
         }
       ]
     }
@@ -153,6 +161,84 @@ CONTAINER ID   IMAGE   COMMAND   CREATED   STATUS    PORTS   NAMES
         <p>The container started, executed its command, then exited because nothing kept it running in the foreground or the entrypoint failed right away.</p>
       </section>
       <section class="section">
+        <p class="section-label">Container lifecycle</p>
+        <h2>A container exists only while its main process is running</h2>
+        <p>Docker does not keep a container alive by itself. The command created from the image <code>ENTRYPOINT</code> and <code>CMD</code> becomes process ID 1 in the container. When that process exits, the container stops. A clean exit may be correct for a batch job, while a web server that exits immediately indicates a startup or foreground-process problem.</p>
+        <p><code>docker ps</code> shows only running containers. Use <code>docker ps -a</code> to find the stopped instance before creating more debug containers with different names.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Diagnostic sequence</p>
+        <h2>Read state, logs, and the configured command before changing the image</h2>
+        <p>The exit code narrows the failure class, the logs show application output, and the image configuration shows what Docker attempted to execute. Inspect the original stopped container so you do not lose its exact environment and command overrides.</p>
+        <ul class="content-list">
+          <li>Exit code <code>0</code> usually means the main command completed normally.</li>
+          <li>Exit code <code>126</code> commonly means the command exists but is not executable.</li>
+          <li>Exit code <code>127</code> commonly means the command or interpreter was not found.</li>
+          <li>Exit code <code>137</code> often means SIGKILL; check <code>OOMKilled</code> and host memory pressure.</li>
+        </ul>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker ps -a --latest
+docker inspect debug --format 'status={{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} error={{.State.Error}}'
+docker logs --timestamps debug
+docker inspect debug --format 'entrypoint={{json .Config.Entrypoint}} cmd={{json .Config.Cmd}}'</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Reproduce interactively</p>
+        <h2>Override the entrypoint and inspect the container filesystem</h2>
+        <p>Starting a shell with the image entrypoint disabled lets you check whether binaries, configuration files, interpreters, and permissions exist. This changes the startup path, so use it to inspect prerequisites and then reproduce the original command manually inside the shell.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker run --rm -it --entrypoint /bin/sh your-image
+# Inside the container:
+pwd
+env | sort
+ls -la
+command -v your-start-command
+your-start-command</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Entrypoint failures</p>
+        <h2>Check executable bits, shebangs, and Windows line endings</h2>
+        <p>Shell entrypoints frequently fail because the file lacks execute permission, names an interpreter not present in the image, or contains CRLF line endings copied from Windows. Build the permission into the image and use an interpreter that the base image actually provides. Exec-form JSON also preserves signal handling better than wrapping a server in an unnecessary shell.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Dockerfile
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh &amp;&amp; chmod 755 /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["server", "--foreground"]</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Foreground process</p>
+        <h2>Run the service in the foreground and replace wrapper shells with exec</h2>
+        <p>Traditional service scripts may fork into the background and then let the launch command exit. Containers need the service to remain in the foreground. If an entrypoint performs setup before starting the application, finish it with <code>exec "$@"</code> so the application becomes process ID 1 and receives stop signals directly.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>#!/bin/sh
+set -eu
+
+# perform setup here
+exec "$@"</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Verification</p>
+        <h2>Confirm stable running state and graceful shutdown</h2>
+        <p>After rebuilding, start a named container without an automatic restart policy. Watch its state and logs long enough to pass application startup, then stop it normally. Add a restart policy only after the underlying startup failure is fixed; otherwise it creates a rapid crash loop that hides the first useful error.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker run -d --name verify your-image
+docker ps --filter name=verify
+docker logs --follow --since 1m verify
+docker stop --time 10 verify
+docker inspect verify --format '{{.State.ExitCode}}'</code></pre>
+        </div>
+      </section>
+      <section class="section">
         <p class="section-label">Common causes</p>
         <h2>No foreground process (daemon forked to background)</h2>
         <p>If your CMD starts a service that daemonizes (e.g. nginx -g "daemon off;" is missing), the container exits.</p>
@@ -178,6 +264,7 @@ docker run -d your-image tail -f /dev/null</code></pre>
         </div>
 
         <h2>Restart policy — auto-restart on failure</h2>
+        <p>A restart policy improves recovery from later transient failures, but it does not repair a broken entrypoint. Diagnose the first exit successfully before enabling automatic restarts.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

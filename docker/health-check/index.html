@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>docker HEALTHCHECK — add container health check | error-reference.dev</title>
-    <meta name="description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically." />
+    <meta name="description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker reports whether a running container is healthy, unhealthy, or still starting." />
     <link rel="canonical" href="https://error-reference.dev/docker/health-check/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/docker/health-check/" />
     <meta property="og:title" content="docker HEALTHCHECK — add container health check | error-reference.dev" />
-    <meta property="og:description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically." />
+    <meta property="og:description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker reports whether a running container is healthy, unhealthy, or still starting." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="docker HEALTHCHECK — add container health check | error-reference.dev" />
-    <meta name="twitter:description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically." />
+    <meta name="twitter:description" content="Add a HEALTHCHECK instruction to your Dockerfile so Docker reports whether a running container is healthy, unhealthy, or still starting." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/docker/health-check/",
       "headline": "docker HEALTHCHECK — add container health check",
-      "description": "Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically.",
+      "description": "Add a HEALTHCHECK instruction to your Dockerfile so Docker reports whether a running container is healthy, unhealthy, or still starting.",
       "url": "https://error-reference.dev/docker/health-check/",
       "mainEntityOfPage": "https://error-reference.dev/docker/health-check/",
       "author": {
@@ -59,6 +59,19 @@
           "@type": "ListItem",
           "position": 3,
           "name": "docker HEALTHCHECK — add container health check"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "HEALTHCHECK options explained",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<code>interval</code> controls how often the check runs, <code>timeout</code> limits each attempt, <code>start-period</code> provides a startup grace period, and <code>retries</code> sets the number of consecutive failures before the status becomes unhealthy.\n```\nHEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \\\n  CMD curl -f http://localhost/health || exit 1\n```"
+          }
         }
       ]
     }
@@ -126,19 +139,16 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
       <section class="section">
         <p class="section-label">Usage</p>
-        <p>You want Docker (or an orchestrator like Compose/Kubernetes) to detect when a container is no longer serving traffic correctly.</p>
+        <p>You want Docker or Docker Compose to detect when a running container is no longer serving traffic correctly. Docker reports the status but does not restart an unhealthy container automatically. Kubernetes uses its own liveness and readiness probes instead.</p>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
         <h2>HEALTHCHECK options explained</h2>
+        <p><code>interval</code> controls how often the check runs, <code>timeout</code> limits each attempt, <code>start-period</code> provides a startup grace period, and <code>retries</code> sets the number of consecutive failures before the status becomes unhealthy.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>HEALTHCHECK \
-  --interval=30s   \ # how often to check (default 30s)
-  --timeout=5s     \ # time limit per check (default 30s)
-  --start-period=10s \ # grace period after start (default 0s)
-  --retries=3      \ # failures before "unhealthy" (default 3)
+          <pre><code>HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD curl -f http://localhost/health || exit 1</code></pre>
         </div>
 

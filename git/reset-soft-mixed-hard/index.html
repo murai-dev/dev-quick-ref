@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git reset --soft vs --mixed vs --hard — the difference | error-reference.dev</title>
-    <meta name="description" content="Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them." />
+    <meta name="description" content="Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes." />
     <link rel="canonical" href="https://error-reference.dev/git/reset-soft-mixed-hard/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/git/reset-soft-mixed-hard/" />
     <meta property="og:title" content="git reset --soft vs --mixed vs --hard — the difference | error-reference.dev" />
-    <meta property="og:description" content="Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them." />
+    <meta property="og:description" content="Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="git reset --soft vs --mixed vs --hard — the difference | error-reference.dev" />
-    <meta name="twitter:description" content="Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them." />
+    <meta name="twitter:description" content="Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/git/reset-soft-mixed-hard/",
       "headline": "git reset --soft vs --mixed vs --hard — the difference",
-      "description": "Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them.",
+      "description": "Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes.",
       "url": "https://error-reference.dev/git/reset-soft-mixed-hard/",
       "mainEntityOfPage": "https://error-reference.dev/git/reset-soft-mixed-hard/",
       "author": {
@@ -86,7 +86,7 @@
           "name": "--hard: discards everything (use with care)",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "<strong>Cannot be undone easily.</strong> All changes from the commit and any unstaged edits are permanently deleted.\n```\ngit reset --hard HEAD~1\n# If you regret this, try:\ngit reflog          # find the lost commit hash\ngit checkout -b recovery abc1234\n```"
+            "text": "<strong>Use with care.</strong> The previous commit is often recoverable through the reflog, but uncommitted working-tree changes overwritten by the reset may not be recoverable.\n```\ngit reset --hard HEAD~1\n# If you regret this, try:\ngit reflog          # find the lost commit hash\ngit checkout -b recovery abc1234\n```"
           }
         }
       ]
@@ -184,7 +184,7 @@ git status          # changes show as "Changes not staged for commit"</code></pr
         </div>
 
         <h2>--hard: discards everything (use with care)</h2>
-        <p><strong>Cannot be undone easily.</strong> All changes from the commit and any unstaged edits are permanently deleted.</p>
+        <p><strong>Use with care.</strong> The previous commit is often recoverable through the reflog, but uncommitted working-tree changes overwritten by the reset may not be recoverable.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>

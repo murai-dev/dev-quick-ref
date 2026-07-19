@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <title>Git basics: commits, branches, remotes, and recovery | error-reference.dev</title>
+    <meta name="description" content="Understand the Git working tree, staging area, commits, branches, HEAD, and remotes. Includes a practical daily workflow and safe recovery commands." />
+    <link rel="canonical" href="https://error-reference.dev/git/git-basics/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="error-reference.dev" />
+    <meta property="og:url" content="https://error-reference.dev/git/git-basics/" />
+    <meta property="og:title" content="Git basics: commits, branches, remotes, and recovery | error-reference.dev" />
+    <meta property="og:description" content="Understand the Git working tree, staging area, commits, branches, HEAD, and remotes. Includes a practical daily workflow and safe recovery commands." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Git basics: commits, branches, remotes, and recovery | error-reference.dev" />
+    <meta name="twitter:description" content="Understand the Git working tree, staging area, commits, branches, HEAD, and remotes. Includes a practical daily workflow and safe recovery commands." />
+    <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
+    <script type="module" src="../../src/entrypoints/page.ts"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://error-reference.dev/git/git-basics/",
+      "headline": "Git basics — commits, branches, remotes, and safe recovery",
+      "description": "Understand the Git working tree, staging area, commits, branches, HEAD, and remotes. Includes a practical daily workflow and safe recovery commands.",
+      "url": "https://error-reference.dev/git/git-basics/",
+      "mainEntityOfPage": "https://error-reference.dev/git/git-basics/",
+      "author": {
+        "@type": "Organization",
+        "name": "error-reference.dev",
+        "url": "https://error-reference.dev"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "error-reference.dev",
+        "url": "https://error-reference.dev"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://error-reference.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "git",
+          "item": "https://error-reference.dev/git/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Git basics — commits, branches, remotes, and safe recovery"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-C7WNG19TNC');
+
+      const loadAnalytics = () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-C7WNG19TNC';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
+
+        const beaconScript = document.createElement('script');
+        beaconScript.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        beaconScript.defer = true;
+        beaconScript.dataset.cfBeacon = '{"token":"c552daa8ebee40379e994c6b8b6dd1f5"}';
+        document.body.appendChild(beaconScript);
+      };
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else {
+        window.addEventListener('load', loadAnalytics, { once: true });
+      }
+    </script>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <a href="/" class="site-logo">error-reference.dev</a>
+      <nav>
+        <ul class="site-nav">
+          <li><a href="/git/" class="active">git</a></li>
+          <li><a href="/docker/">docker</a></li>
+          <li><a href="/bash/">bash</a></li>
+          <li><a href="/regex/">regex</a></li>
+          <li><a href="/npm/">npm</a></li>
+          <li class="nav-about"><a href="/about/">about</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+      <p class="breadcrumb"><a href="/git/">git</a> / git-basics</p>
+
+      <h1>Git basics — commits, branches, remotes, and safe recovery</h1>
+
+
+
+      <section class="section">
+        <p class="section-label">What Git does</p>
+        <h2>Git records snapshots of a project</h2>
+        <p>Git is a distributed version control system. It records named snapshots of a project so you can compare changes, return to an earlier state, and combine work from different branches. A Git repository contains the project files you can see plus a hidden <code>.git</code> directory that stores commits, branch references, configuration, and recovery history.</p>
+        <p>Git and GitHub are not the same thing. Git is the version control software that runs on your computer. GitHub, GitLab, and Bitbucket host Git repositories and add collaboration features such as pull requests, issue tracking, and access control. You can use Git without any hosting service, and the same Git commands work with different hosts.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Core model</p>
+        <h2>Working tree, staging area, and repository</h2>
+        <p>Most everyday Git operations move changes through three places. The <strong>working tree</strong> is the files currently checked out on disk. The <strong>staging area</strong>, also called the index, is the exact set of changes prepared for the next commit. The <strong>repository</strong> is the permanent commit history stored under <code>.git</code>.</p>
+        <p>This separation is useful because you can edit several files but commit only the related changes. Run <code>git status</code> before and after each operation: it tells you which branch is checked out, which files are staged, and which changes are still only in the working tree.</p>
+        <ul class="content-list">
+          <li><code>git diff</code> shows unstaged changes in the working tree.</li>
+          <li><code>git diff --staged</code> shows what the next commit will contain.</li>
+          <li><code>git add path</code> copies the selected change into the staging area.</li>
+          <li><code>git commit</code> records the staged snapshot and points the current branch at it.</li>
+        </ul>
+      </section>
+      <section class="section">
+        <p class="section-label">Daily workflow</p>
+        <h2>A small, inspectable commit cycle</h2>
+        <p>A reliable workflow is to inspect, stage, inspect again, then commit. Avoid starting with <code>git add .</code> when the working tree contains unrelated edits: stage paths intentionally so each commit describes one change. The final <code>git status</code> confirms whether anything was left behind.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+git diff
+git add src/app.js tests/app.test.js
+git diff --staged
+git commit -m "Handle empty API responses"
+git status</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Branches and HEAD</p>
+        <h2>Branches are movable names for commits</h2>
+        <p>A commit has an identifier and points to its parent commit. A branch such as <code>main</code> is a movable name that normally points to the newest commit in one line of development. <code>HEAD</code> identifies what is currently checked out. In normal work, HEAD points to a branch; when it points directly to a commit, Git reports a <em>detached HEAD</em>.</p>
+        <p>Creating a branch does not copy the whole project. Git creates another lightweight reference to a commit. New commits move only the checked-out branch. Switching branches updates the working tree to match the selected commit, so commit or stash work that would be overwritten before switching.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git switch -c fix/api-timeout
+# edit, test, stage, and commit
+git switch main
+git merge fix/api-timeout</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Remotes</p>
+        <h2>fetch, pull, and push move information between repositories</h2>
+        <p>A remote is a saved name and URL for another Git repository. The conventional name <code>origin</code> has no special network behavior; it is simply the default name created by <code>git clone</code>. Remote-tracking names such as <code>origin/main</code> record the last remote state your local repository has fetched.</p>
+        <p><code>git fetch</code> downloads commits and updates remote-tracking names without changing your working branch. <code>git pull</code> fetches and then integrates the upstream branch by merge or rebase. <code>git push</code> asks the remote to move one of its branch names to a commit you have locally. A non-fast-forward rejection protects remote commits that your local branch has not integrated.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git remote -v
+git fetch origin
+git log --oneline --decorate --graph --all -n 15
+git pull --rebase origin main
+git push origin main</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Safe recovery</p>
+        <h2>Inspect before rewriting or deleting</h2>
+        <p>Git retains more recovery information than the visible branch list suggests. Before using <code>reset --hard</code>, <code>clean</code>, or force push, create a temporary branch or stash if the current work may matter. Prefer <code>git restore</code> for a file, <code>git revert</code> for a shared commit, and <code>--force-with-lease</code> instead of plain <code>--force</code> when rewriting a branch is genuinely required.</p>
+        <p>The reflog records recent movements of local references and HEAD. It can often recover a commit after an accidental reset, rebase, or branch deletion. Reflog is local to one repository and is eventually expired, so create a branch at the recovered commit as soon as you find it.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+git branch backup-before-recovery
+git reflog --date=local
+git switch -c recovered-work &lt;commit-id&gt;</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Troubleshooting order</p>
+        <h2>Identify the layer before applying a fix</h2>
+        <p>Start with the exact error text and <code>git status</code>. Authentication errors occur before repository history can be exchanged; fix the remote URL, account, or SSH key first. Non-fast-forward errors mean authentication succeeded but histories differ. Merge conflicts mean Git downloaded both histories but could not combine particular lines automatically.</p>
+        <ul class="content-list">
+          <li>Cannot read from remote or publickey error: inspect <code>git remote -v</code> and test host authentication.</li>
+          <li>Push rejected as non-fast-forward: fetch, compare the histories, then rebase or merge.</li>
+          <li>Conflict during merge or rebase: resolve the marked files, stage them, and continue or abort.</li>
+          <li>Commit or branch appears lost: stop rewriting history and inspect <code>git reflog</code>.</li>
+        </ul>
+      </section>
+      <section class="section">
+        <p class="section-label">Related</p>
+        <ul class="related-list">
+          <li><a href="/git/push-rejected/">git push rejected (non-fast-forward) — diagnose and fix</a></li>
+          <li><a href="/git/permission-denied-publickey/">GitHub permission denied (publickey) — diagnose SSH</a></li>
+          <li><a href="/git/merge-conflict/">git merge conflict — resolve safely</a></li>
+          <li><a href="/git/detached-head/">git detached HEAD — save the current commit</a></li>
+          <li><a href="/git/recover-deleted-branch/">recover a deleted branch with reflog</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <a href="/">error-reference.dev</a> &mdash; developer error solutions
+    </footer>
+  </body>
+</html>

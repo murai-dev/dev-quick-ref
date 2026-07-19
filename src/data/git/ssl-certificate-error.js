@@ -1,6 +1,6 @@
 export default {
   title: 'git SSL certificate problem — how to fix',
-  description: 'Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification.',
+  description: 'Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle.',
   quickAnswer: `# Point git to the correct CA certificate bundle
 git config --global http.sslCAInfo /path/to/ca-bundle.crt
 
@@ -15,18 +15,23 @@ SSL certificate problem: unable to get local issuer certificate`,
     {
       title: 'Corporate proxy / self-signed cert — add the CA cert',
       explanation: 'Ask your IT team for the corporate CA certificate, then:',
-      code: `# Append the cert to the system bundle (Linux)
-sudo cat corp-ca.crt >> /etc/ssl/certs/ca-certificates.crt
+      code: `# Debian/Ubuntu: install the CA into the managed trust store
+sudo cp corp-ca.crt /usr/local/share/ca-certificates/corp-ca.crt
+sudo update-ca-certificates
+
+# Point Git to the resulting system bundle when necessary
 git config --global http.sslCAInfo /etc/ssl/certs/ca-certificates.crt`,
     },
     {
-      title: 'Temporarily disable SSL verification (not recommended for production)',
-      explanation: '<strong>Only use this as a short-term workaround.</strong> Disabling SSL verification exposes you to man-in-the-middle attacks.',
-      code: `git config --global http.sslVerify false`,
+      title: 'Inspect the TLS connection without disabling verification',
+      explanation: 'Verbose output can reveal which CA file Git uses and whether a proxy is intercepting the connection.',
+      code: `GIT_CURL_VERBOSE=1 git ls-remote https://github.com/user/repo.git`,
     },
     {
-      title: 'Disable verification for one specific host only',
-      code: `git config --global http.https://gitlab.corp.internal.sslVerify false`,
+      title: 'Remove an obsolete custom CA setting',
+      explanation: 'If the configured path no longer exists, remove it so Git can return to its platform default trust store.',
+      code: `git config --global --get http.sslCAInfo
+git config --global --unset http.sslCAInfo`,
     },
   ],
   related: [

@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash set -e — exit script on error | error-reference.dev</title>
-    <meta name="description" content="Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail." />
+    <meta name="description" content="Use set -e, set -u, and pipefail to stop many Bash scripts after unhandled errors, while accounting for contexts where errexit is ignored." />
     <link rel="canonical" href="https://error-reference.dev/bash/set-e-exit-on-error/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/bash/set-e-exit-on-error/" />
     <meta property="og:title" content="bash set -e — exit script on error | error-reference.dev" />
-    <meta property="og:description" content="Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail." />
+    <meta property="og:description" content="Use set -e, set -u, and pipefail to stop many Bash scripts after unhandled errors, while accounting for contexts where errexit is ignored." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="bash set -e — exit script on error | error-reference.dev" />
-    <meta name="twitter:description" content="Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail." />
+    <meta name="twitter:description" content="Use set -e, set -u, and pipefail to stop many Bash scripts after unhandled errors, while accounting for contexts where errexit is ignored." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/bash/set-e-exit-on-error/",
       "headline": "bash set -e — exit script on error",
-      "description": "Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail.",
+      "description": "Use set -e, set -u, and pipefail to stop many Bash scripts after unhandled errors, while accounting for contexts where errexit is ignored.",
       "url": "https://error-reference.dev/bash/set-e-exit-on-error/",
       "mainEntityOfPage": "https://error-reference.dev/bash/set-e-exit-on-error/",
       "author": {
@@ -134,9 +134,9 @@
           <pre><code>#!/usr/bin/env bash
 set -euo pipefail
 
-# -e  exit on any non-zero exit code
+# -e  exit on an unhandled non-zero status, with shell syntax exceptions
 # -u  treat unset variables as errors
-# -o pipefail  pipelines fail on the first error, not just the last</code></pre>
+# -o pipefail  use the rightmost non-zero status from a failed pipeline</code></pre>
         </div>
       </section>
 

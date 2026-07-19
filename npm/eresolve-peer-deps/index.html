@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm peer dependency conflict / ERESOLVE — how to fix | error-reference.dev</title>
-    <meta name="description" content="Fix npm peer dependency conflict and &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; by using --legacy-peer-deps, overrides, or resolving the conflicting version manually." />
+    <meta name="description" content="Resolve npm ERESOLVE errors by identifying incompatible peer dependency ranges and installing versions that support each other." />
     <link rel="canonical" href="https://error-reference.dev/npm/eresolve-peer-deps/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/npm/eresolve-peer-deps/" />
     <meta property="og:title" content="npm peer dependency conflict / ERESOLVE — how to fix | error-reference.dev" />
-    <meta property="og:description" content="Fix npm peer dependency conflict and &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; by using --legacy-peer-deps, overrides, or resolving the conflicting version manually." />
+    <meta property="og:description" content="Resolve npm ERESOLVE errors by identifying incompatible peer dependency ranges and installing versions that support each other." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="npm peer dependency conflict / ERESOLVE — how to fix | error-reference.dev" />
-    <meta name="twitter:description" content="Fix npm peer dependency conflict and &quot;npm ERR! ERESOLVE unable to resolve dependency tree&quot; by using --legacy-peer-deps, overrides, or resolving the conflicting version manually." />
+    <meta name="twitter:description" content="Resolve npm ERESOLVE errors by identifying incompatible peer dependency ranges and installing versions that support each other." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/npm/eresolve-peer-deps/",
       "headline": "npm peer dependency conflict / ERESOLVE — how to fix",
-      "description": "Fix npm peer dependency conflict and \"npm ERR! ERESOLVE unable to resolve dependency tree\" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.",
+      "description": "Resolve npm ERESOLVE errors by identifying incompatible peer dependency ranges and installing versions that support each other.",
       "url": "https://error-reference.dev/npm/eresolve-peer-deps/",
       "mainEntityOfPage": "https://error-reference.dev/npm/eresolve-peer-deps/",
       "author": {
@@ -59,6 +59,27 @@
           "@type": "ListItem",
           "position": 3,
           "name": "npm peer dependency conflict / ERESOLVE — how to fix"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Find the incompatible version requirement",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Read both the package version npm found and the peer dependency range it could not satisfy. Then choose package versions whose ranges overlap.\n```\nnpm explain some-library\nnpm info some-library versions --json\nnpm info some-library@3.0.0 peerDependencies\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bypass the check only as a temporary fallback",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "These flags do not make incompatible packages compatible. Run the project tests before keeping an installation created with either option.\n```\n# --legacy-peer-deps: ignores peer dep conflicts (npm 6 behavior)\n# --force: allows npm to install despite conflicting protections\nnpm install --legacy-peer-deps\nnpm install --force\n```"
+          }
         }
       ]
     }
@@ -118,14 +139,15 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># Quick fix — use legacy peer deps resolution
-npm install --legacy-peer-deps
+          <pre><code># Show why the conflicting package is installed
+npm explain some-library
 
-# Or force install (riskier — may have broken packages)
-npm install --force
+# Check the peer dependency range required by that package
+npm info some-library@latest peerDependencies
 
-# Inspect what is conflicting
-npm install 2&gt;&amp;1 | head -30</code></pre>
+# Upgrade or select compatible versions, then install again
+npm install some-library@latest
+npm install</code></pre>
         </div>
       </section>
 
@@ -147,38 +169,36 @@ npm ERR! peer react@"^17.0.0" from some-library@2.1.0</code></pre>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h2>Use overrides to force a version (npm 8.3+)</h2>
+        <h2>Find the incompatible version requirement</h2>
+        <p>Read both the package version npm found and the peer dependency range it could not satisfy. Then choose package versions whose ranges overlap.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>// package.json
-{
-  "overrides": {
-    "some-library": {
-      "react": "^18.0.0"
-    }
-  }
-}</code></pre>
+          <pre><code>npm explain some-library
+npm info some-library versions --json
+npm info some-library@3.0.0 peerDependencies</code></pre>
         </div>
 
-        <h2>Upgrade the conflicting package first</h2>
+        <h2>Install compatible package versions</h2>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># Check if a newer version supports your peer dep version
 npm info some-library peerDependencies
 
-# Install specific version
+# Install a version with a compatible peer dependency range
 npm install some-library@3.0.0</code></pre>
         </div>
 
-        <h2>Difference between --legacy-peer-deps and --force</h2>
+        <h2>Bypass the check only as a temporary fallback</h2>
+        <p>These flags do not make incompatible packages compatible. Run the project tests before keeping an installation created with either option.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># --legacy-peer-deps: ignores peer dep conflicts (npm 6 behavior)
-# --force: installs even with version mismatches (can break things)
-# Prefer --legacy-peer-deps as it is less destructive</code></pre>
+# --force: allows npm to install despite conflicting protections
+npm install --legacy-peer-deps
+npm install --force</code></pre>
         </div>
 
       </section>

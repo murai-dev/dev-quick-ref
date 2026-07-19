@@ -50,6 +50,14 @@ const CATEGORY_DESC = {
   npm:    'Copy-paste fixes for common npm errors and workflows.',
 };
 
+const CATEGORY_INTRO = {
+  git: `Git records project history as commits and lets teams develop in parallel with branches. Start with the <a href="/git/git-basics/">Git basics guide</a> for the working tree, staging area, HEAD, branches, and remotes, then use the references below for a specific error or workflow.`,
+  docker: `Docker packages an application and its dependencies into containers. Start with the <a href="/docker/docker-basics/">Docker basics guide</a> for images, lifecycle, ports, networks, volumes, and debugging, then use the references below for a specific failure.`,
+  bash: `Bash combines commands into repeatable shell workflows. Start with the <a href="/bash/bash-basics/">Bash basics guide</a> for command status, quoting, expansion, pipes, and safe scripts, then use the references below for a focused pattern or error.`,
+  regex: `Regular expressions describe text patterns for matching, extraction, validation, and replacement. Start with the <a href="/regex/regex-basics/">Regex basics guide</a> for engine differences, groups, quantifiers, boundaries, and testing, then use the focused references below.`,
+  npm: `npm coordinates JavaScript packages and project scripts. Start with the <a href="/npm/npm-basics/">npm basics guide</a> for manifests, lockfiles, dependency types, scripts, and reproducible installs, then use the references below for a specific failure.`,
+};
+
 function renderCategoryIndex(category, pages) {
   const count = pages.length;
   const desc = CATEGORY_DESC[category] ?? `${category} developer error reference.`;
@@ -103,6 +111,11 @@ ${renderNav(category)}
       <p class="breadcrumb"><a href="/">/</a> / ${category}</p>
 
       <h1>${category}</h1>
+
+      <section class="section">
+        <p class="section-label">Overview</p>
+        <p>${CATEGORY_INTRO[category] ?? esc(desc)}</p>
+      </section>
 
       <section class="section">
         <p class="section-label">${count} pages</p>

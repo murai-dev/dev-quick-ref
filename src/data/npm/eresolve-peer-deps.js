@@ -1,14 +1,15 @@
 export default {
   title: 'npm peer dependency conflict / ERESOLVE — how to fix',
-  description: 'Fix npm peer dependency conflict and "npm ERR! ERESOLVE unable to resolve dependency tree" by using --legacy-peer-deps, overrides, or resolving the conflicting version manually.',
-  quickAnswer: `# Quick fix — use legacy peer deps resolution
-npm install --legacy-peer-deps
+  description: 'Resolve npm ERESOLVE errors by identifying incompatible peer dependency ranges and installing versions that support each other.',
+  quickAnswer: `# Show why the conflicting package is installed
+npm explain some-library
 
-# Or force install (riskier — may have broken packages)
-npm install --force
+# Check the peer dependency range required by that package
+npm info some-library@latest peerDependencies
 
-# Inspect what is conflicting
-npm install 2>&1 | head -30`,
+# Upgrade or select compatible versions, then install again
+npm install some-library@latest
+npm install`,
   when: {
     error: `npm ERR! code ERESOLVE
 npm ERR! ERESOLVE unable to resolve dependency tree
@@ -24,29 +25,27 @@ npm ERR! peer react@"^17.0.0" from some-library@2.1.0`,
   },
   details: [
     {
-      title: 'Use overrides to force a version (npm 8.3+)',
-      code: `// package.json
-{
-  "overrides": {
-    "some-library": {
-      "react": "^18.0.0"
-    }
-  }
-}`,
+      title: 'Find the incompatible version requirement',
+      explanation: 'Read both the package version npm found and the peer dependency range it could not satisfy. Then choose package versions whose ranges overlap.',
+      code: `npm explain some-library
+npm info some-library versions --json
+npm info some-library@3.0.0 peerDependencies`,
     },
     {
-      title: 'Upgrade the conflicting package first',
+      title: 'Install compatible package versions',
       code: `# Check if a newer version supports your peer dep version
 npm info some-library peerDependencies
 
-# Install specific version
+# Install a version with a compatible peer dependency range
 npm install some-library@3.0.0`,
     },
     {
-      title: 'Difference between --legacy-peer-deps and --force',
+      title: 'Bypass the check only as a temporary fallback',
+      explanation: 'These flags do not make incompatible packages compatible. Run the project tests before keeping an installation created with either option.',
       code: `# --legacy-peer-deps: ignores peer dep conflicts (npm 6 behavior)
-# --force: installs even with version mismatches (can break things)
-# Prefer --legacy-peer-deps as it is less destructive`,
+# --force: allows npm to install despite conflicting protections
+npm install --legacy-peer-deps
+npm install --force`,
     },
   ],
   related: [

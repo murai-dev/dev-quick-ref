@@ -4,7 +4,7 @@ export default {
   quickAnswer: `// JavaScript — use /m flag
 const text = "first line\\nsecond line\\nthird line";
 
-text.match(/^\\w+/m)    // ["first"]  — only first line without /m
+text.match(/^\\w+/m)    // ["first"]  — match() returns the first match without /g
 text.match(/^\\w+/gm)   // ["first", "second", "third"]  — all lines
 
 # Python
@@ -36,7 +36,7 @@ re.findall(r'^pattern', text, re.MULTILINE | re.IGNORECASE)`,
     {
       title: 'Match end of each line with $',
       code: `// Find lines ending with a semicolon
-code.match(/^.*;\$/gm)`,
+code.match(/^.*;$/gm)`,
     },
   ],
   related: [

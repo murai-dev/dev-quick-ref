@@ -1,12 +1,12 @@
 export default {
   title: 'bash set -e — exit script on error',
-  description: 'Use set -e (errexit) to make a bash script exit immediately when any command fails. Covers caveats, set -u, and set -o pipefail.',
+  description: 'Use set -e, set -u, and pipefail to stop many Bash scripts after unhandled errors, while accounting for contexts where errexit is ignored.',
   quickAnswer: `#!/usr/bin/env bash
 set -euo pipefail
 
-# -e  exit on any non-zero exit code
+# -e  exit on an unhandled non-zero status, with shell syntax exceptions
 # -u  treat unset variables as errors
-# -o pipefail  pipelines fail on the first error, not just the last`,
+# -o pipefail  use the rightmost non-zero status from a failed pipeline`,
   when: {
     label: 'Usage',
     pre: 'Without <code>set -e</code>, bash scripts continue running after errors, which can cause silent data corruption or partial deploys.',

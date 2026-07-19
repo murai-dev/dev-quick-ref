@@ -1,21 +1,18 @@
 export default {
   title: 'docker HEALTHCHECK — add container health check',
-  description: 'Add a HEALTHCHECK instruction to your Dockerfile so Docker monitors container health and restarts unhealthy containers automatically.',
+  description: 'Add a HEALTHCHECK instruction to your Dockerfile so Docker reports whether a running container is healthy, unhealthy, or still starting.',
   quickAnswer: `# Dockerfile
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \\
   CMD curl -f http://localhost:3000/health || exit 1`,
   when: {
     label: 'Usage',
-    pre: 'You want Docker (or an orchestrator like Compose/Kubernetes) to detect when a container is no longer serving traffic correctly.',
+    pre: 'You want Docker or Docker Compose to detect when a running container is no longer serving traffic correctly. Docker reports the status but does not restart an unhealthy container automatically. Kubernetes uses its own liveness and readiness probes instead.',
   },
   details: [
     {
       title: 'HEALTHCHECK options explained',
-      code: `HEALTHCHECK \\
-  --interval=30s   \\ # how often to check (default 30s)
-  --timeout=5s     \\ # time limit per check (default 30s)
-  --start-period=10s \\ # grace period after start (default 0s)
-  --retries=3      \\ # failures before "unhealthy" (default 3)
+      explanation: '<code>interval</code> controls how often the check runs, <code>timeout</code> limits each attempt, <code>start-period</code> provides a startup grace period, and <code>retries</code> sets the number of consecutive failures before the status becomes unhealthy.',
+      code: `HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \\
   CMD curl -f http://localhost/health || exit 1`,
     },
     {

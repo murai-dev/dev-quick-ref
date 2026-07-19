@@ -134,7 +134,7 @@
           <pre><code>// JavaScript — use /m flag
 const text = "first line\nsecond line\nthird line";
 
-text.match(/^\w+/m)    // ["first"]  — only first line without /m
+text.match(/^\w+/m)    // ["first"]  — match() returns the first match without /g
 text.match(/^\w+/gm)   // ["first", "second", "third"]  — all lines
 
 # Python
