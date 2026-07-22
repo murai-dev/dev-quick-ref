@@ -39,7 +39,9 @@ function renderNav(activeCategory) {
       `          <li><a href="/${cat}/"${cat === activeCategory ? ' class="active"' : ''}>${cat}</a></li>`,
     )
     .join('\n') +
-    '\n          <li class="nav-about"><a href="/about/">about</a></li>';
+    '\n          <li class="nav-about"><a href="/about/">about</a></li>' +
+    '\n          <li><a href="/privacy/">privacy</a></li>' +
+    '\n          <li><a href="/contact/">contact</a></li>';
 }
 
 const CATEGORY_DESC = {
@@ -128,6 +130,11 @@ ${items}
 
     <footer class="site-footer">
       <a href="/">error-reference.dev</a> &mdash; developer error solutions
+      <span class="footer-links">
+        <a href="/about/">about</a>
+        <a href="/privacy/">privacy</a>
+        <a href="/contact/">contact</a>
+      </span>
     </footer>
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>

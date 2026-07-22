@@ -214,6 +214,14 @@ code:not(pre code) {
 .site-footer a { color: var(--fg-muted); text-decoration: underline; text-underline-offset: 2px; }
 .site-footer a:hover { color: var(--fg); }
 
+.footer-links {
+  display: inline-flex;
+  gap: 12px;
+  margin-left: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 /* ── responsive ── */
 @media (max-width: 600px) {
   .site-header { gap: 16px; }

@@ -34,6 +34,8 @@
           <li><a href="/regex/">regex</a></li>
           <li><a href="/npm/">npm</a></li>
           <li class="nav-about"><a href="/about/">about</a></li>
+          <li><a href="/privacy/">privacy</a></li>
+          <li><a href="/contact/">contact</a></li>
         </ul>
       </nav>
     </header>
@@ -66,7 +68,7 @@
           </li>
           <li>
             <a href="/git/clone-specific-branch/">git clone a specific branch</a>
-            <p>Clone a specific branch from a git repository using git clone -b branch-name. Avoids downloading all branches.</p>
+            <p>Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches.</p>
           </li>
           <li>
             <a href="/git/delete-remote-branch/">git delete remote branch — push delete</a>
@@ -138,7 +140,7 @@
           </li>
           <li>
             <a href="/git/reset-soft-mixed-hard/">git reset --soft vs --mixed vs --hard — the difference</a>
-            <p>Understand the difference between git reset --soft, --mixed (default), and --hard. Which one keeps your changes and which one discards them.</p>
+            <p>Compare git reset --soft, --mixed, and --hard to see how each mode affects HEAD, the staging area, and working-tree changes.</p>
           </li>
           <li>
             <a href="/git/revert-merge-commit/">git revert merge commit — how to undo a merge safely</a>
@@ -158,7 +160,7 @@
           </li>
           <li>
             <a href="/git/ssl-certificate-error/">git SSL certificate problem — how to fix</a>
-            <p>Fix git SSL certificate problem: unable to get local issuer certificate by configuring the correct CA bundle or temporarily disabling SSL verification.</p>
+            <p>Fix git SSL certificate errors by installing the required certificate authority and configuring Git to use the correct CA bundle.</p>
           </li>
           <li>
             <a href="/git/stash-drop/">git stash drop — remove a specific stash</a>
@@ -191,6 +193,11 @@
 
     <footer class="site-footer">
       <a href="/">error-reference.dev</a> &mdash; developer error solutions
+      <span class="footer-links">
+        <a href="/about/">about</a>
+        <a href="/privacy/">privacy</a>
+        <a href="/contact/">contact</a>
+      </span>
     </footer>
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c552daa8ebee40379e994c6b8b6dd1f5"}'></script>

@@ -37,6 +37,8 @@ urls.push({ loc: `${BASE_URL}/`, priority: '1.0', changefreq: 'daily', lastmod: 
 
 // About
 urls.push({ loc: `${BASE_URL}/about/`, priority: '0.5', changefreq: 'monthly', lastmod: TODAY });
+urls.push({ loc: `${BASE_URL}/privacy/`, priority: '0.5', changefreq: 'monthly', lastmod: TODAY });
+urls.push({ loc: `${BASE_URL}/contact/`, priority: '0.5', changefreq: 'monthly', lastmod: TODAY });
 
 // Category index pages + individual pages
 for (const cat of ALL_CATEGORIES) {

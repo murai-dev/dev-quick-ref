@@ -54,7 +54,9 @@ function renderNav(activeCategory) {
       `          <li><a href="/${cat}/"${cat === activeCategory ? ' class="active"' : ''}>${cat}</a></li>`,
     )
     .join('\n') +
-    '\n          <li class="nav-about"><a href="/about/">about</a></li>';
+    '\n          <li class="nav-about"><a href="/about/">about</a></li>' +
+    '\n          <li><a href="/privacy/">privacy</a></li>' +
+    '\n          <li><a href="/contact/">contact</a></li>';
 }
 
 function codeBlock(code, copyBtn = true) {
@@ -269,6 +271,11 @@ ${relatedItems}
 
     <footer class="site-footer">
       <a href="/">${SITE_HOST}</a> &mdash; developer error solutions
+      <span class="footer-links">
+        <a href="/about/">about</a>
+        <a href="/privacy/">privacy</a>
+        <a href="/contact/">contact</a>
+      </span>
     </footer>
   </body>
 </html>
