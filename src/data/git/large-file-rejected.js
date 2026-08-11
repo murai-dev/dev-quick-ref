@@ -30,6 +30,22 @@ git add path/to/large-file.zip
 git commit -m "track zip with LFS"
 git push origin main`,
     },
+    {
+      title: 'Check whether the file is still in the latest commit',
+      explanation: 'Removing a file from the working tree is not enough if it remains in the commit being pushed. Inspect the staged diff and commit history before trying the push again.',
+      code: `git status
+git diff --cached --stat
+git log --stat --oneline -5 -- path/to/large-file.zip
+
+# Remove it from the index but keep the local file
+git rm --cached path/to/large-file.zip`,
+    },
+    {
+      title: 'Use force-with-lease only after rewriting history',
+      explanation: 'If the large file exists in older commits, the remote still sees it until history is rewritten. Coordinate with other contributors before replacing shared history.',
+      code: `git filter-repo --path path/to/large-file.zip --invert-paths
+git push --force-with-lease origin <branch>`,
+    },
   ],
   related: [
     { href: '/git/untrack-file/', text: 'git stop tracking a committed file' },

@@ -72,6 +72,22 @@
             "@type": "Answer",
             "text": "If a commit is no longer relevant (e.g., already applied upstream), you can skip it.\n```\ngit rebase --skip\n```"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Save conflict work before abandoning the rebase",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Abort restores the branch to the state before the rebase. If you edited conflict markers and may need those edits later, save a patch or copy the files first.\n```\ngit diff > rebase-conflict.patch\ngit status\ngit rebase --abort\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Use --quit only when you want to keep the current files",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<code>git rebase --quit</code> stops the rebase bookkeeping without applying the normal abort reset. Use it only when you understand that the current index and worktree will remain as they are.\n```\ngit status\ngit rebase --quit\n# Inspect the files, then decide whether to commit, stash, or reset\n```"
+          }
         }
       ]
     }
@@ -171,6 +187,26 @@ git rebase --continue</code></pre>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>ls .git/rebase-merge 2&gt;/dev/null &amp;&amp; echo "rebase in progress" || echo "no rebase"</code></pre>
+        </div>
+
+        <h2>Save conflict work before abandoning the rebase</h2>
+        <p>Abort restores the branch to the state before the rebase. If you edited conflict markers and may need those edits later, save a patch or copy the files first.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git diff &gt; rebase-conflict.patch
+git status
+git rebase --abort</code></pre>
+        </div>
+
+        <h2>Use --quit only when you want to keep the current files</h2>
+        <p><code>git rebase --quit</code> stops the rebase bookkeeping without applying the normal abort reset. Use it only when you understand that the current index and worktree will remain as they are.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+git rebase --quit
+# Inspect the files, then decide whether to commit, stash, or reset</code></pre>
         </div>
 
       </section>

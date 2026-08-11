@@ -38,6 +38,24 @@ COPY src/ /app/src/
 # NOT this — path must be relative to build context, not your machine
 # COPY /home/user/project/src/ /app/src/   ← WRONG`,
     },
+    {
+      title: 'Confirm the file is inside the build context',
+      explanation: 'The final path in a <code>COPY</code> instruction is resolved from the build context, not from the directory containing the Dockerfile. Check both paths before changing the Dockerfile.',
+      code: `pwd
+find . -maxdepth 3 -type f -name 'package.json' -o -name 'src'
+
+# Dockerfile in ./app, context is the parent directory
+docker build -f app/Dockerfile -t my-image ..`,
+    },
+    {
+      title: 'Check .dockerignore and file name casing',
+      explanation: 'A file can exist on the host but still be excluded by <code>.dockerignore</code>. Linux containers also treat <code>App</code> and <code>app</code> as different paths.',
+      code: `sed -n '1,200p' .dockerignore
+ls -la path/to/source
+
+# Keep COPY paths relative to the context
+COPY package.json /app/package.json`,
+    },
   ],
   related: [
     { href: '/docker/image-not-found/', text: 'docker image not found' },

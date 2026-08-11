@@ -72,6 +72,22 @@
             "@type": "Answer",
             "text": "Pass a parent directory as the context and specify the Dockerfile location with <code>-f</code>:\n```\n# Build context is parent dir; Dockerfile is in ./app/\ndocker build -f app/Dockerfile -t my-image ..\n```"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Confirm the file is inside the build context",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The final path in a <code>COPY</code> instruction is resolved from the build context, not from the directory containing the Dockerfile. Check both paths before changing the Dockerfile.\n```\npwd\nfind . -maxdepth 3 -type f -name 'package.json' -o -name 'src'\n\n# Dockerfile in ./app, context is the parent directory\ndocker build -f app/Dockerfile -t my-image ..\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Check .dockerignore and file name casing",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A file can exist on the host but still be excluded by <code>.dockerignore</code>. Linux containers also treat <code>App</code> and <code>app</code> as different paths.\n```\nsed -n '1,200p' .dockerignore\nls -la path/to/source\n\n# Keep COPY paths relative to the context\nCOPY package.json /app/package.json\n```"
+          }
         }
       ]
     }
@@ -184,6 +200,30 @@ COPY src/ /app/src/
 
 # NOT this — path must be relative to build context, not your machine
 # COPY /home/user/project/src/ /app/src/   ← WRONG</code></pre>
+        </div>
+
+        <h2>Confirm the file is inside the build context</h2>
+        <p>The final path in a <code>COPY</code> instruction is resolved from the build context, not from the directory containing the Dockerfile. Check both paths before changing the Dockerfile.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>pwd
+find . -maxdepth 3 -type f -name 'package.json' -o -name 'src'
+
+# Dockerfile in ./app, context is the parent directory
+docker build -f app/Dockerfile -t my-image ..</code></pre>
+        </div>
+
+        <h2>Check .dockerignore and file name casing</h2>
+        <p>A file can exist on the host but still be excluded by <code>.dockerignore</code>. Linux containers also treat <code>App</code> and <code>app</code> as different paths.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>sed -n '1,200p' .dockerignore
+ls -la path/to/source
+
+# Keep COPY paths relative to the context
+COPY package.json /app/package.json</code></pre>
         </div>
 
       </section>

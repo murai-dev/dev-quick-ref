@@ -1,6 +1,6 @@
 export default {
   title: 'eslint version conflict with TypeScript — how to fix',
-  description: 'Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages.',
+  description: 'Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages. Check the installed versions and config format before changing dependencies.',
   quickAnswer: `# ESLint 9 (flat config) — use latest @typescript-eslint
 npm install --save-dev eslint@^9 @typescript-eslint/parser@^8 @typescript-eslint/eslint-plugin@^8
 
@@ -34,6 +34,24 @@ export default tseslint.config(
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended"]
 }`,
+    },
+    {
+      title: 'Find which package is requesting the conflicting version',
+      explanation: 'The package named in the peer dependency error is not always the package you installed directly. Inspect the dependency tree before pinning a version.',
+      code: `npm ls eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm explain eslint
+node --version
+npm --version`,
+    },
+    {
+      title: 'Align the config format with the ESLint major version',
+      explanation: 'ESLint 9 projects normally use <code>eslint.config.js</code>, while older projects may still use <code>.eslintrc</code>. Do not upgrade only ESLint while leaving the parser and plugin on an incompatible major version.',
+      code: `# Check peer requirements before installing
+npm view @typescript-eslint/parser peerDependencies
+npm view @typescript-eslint/eslint-plugin peerDependencies
+
+# Reinstall a matching set after choosing ESLint 8 or 9
+npm install --save-dev eslint@<major> @typescript-eslint/parser@<major> @typescript-eslint/eslint-plugin@<major>`,
     },
   ],
   related: [
