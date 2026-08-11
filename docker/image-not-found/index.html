@@ -61,6 +61,27 @@
           "name": "docker image not found / repository does not exist — how to fix"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Separate an image-name error from a container-name error",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An image is the artifact used to create a container. Check the image list and the stopped-container list separately so that a missing container is not mistaken for a missing image.\n```\n# Images available to pull or run\ndocker image ls\n\n# Containers that already exist, including stopped ones\ndocker ps -a\n\n# Inspect the exact image configured for a container\ndocker inspect <container> --format '{{.Config.Image}}'\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Verify the registry, repository, tag, and architecture",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Private images may require a login, and a valid repository can still fail when the requested tag or platform is unavailable. Copy the full name from the registry rather than guessing it.\n```\ndocker login ghcr.io\ndocker pull ghcr.io/owner/repository:<tag>\n\n# Request a specific platform only when the image publishes it\ndocker pull --platform linux/amd64 ghcr.io/owner/repository:<tag>\n```"
+          }
+        }
+      ]
     }
   ]
 }
@@ -179,6 +200,33 @@ docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest</code></pre
           <pre><code>docker images
 # or filter by name
 docker images nginx</code></pre>
+        </div>
+
+        <h2>Separate an image-name error from a container-name error</h2>
+        <p>An image is the artifact used to create a container. Check the image list and the stopped-container list separately so that a missing container is not mistaken for a missing image.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Images available to pull or run
+docker image ls
+
+# Containers that already exist, including stopped ones
+docker ps -a
+
+# Inspect the exact image configured for a container
+docker inspect &lt;container&gt; --format '{{.Config.Image}}'</code></pre>
+        </div>
+
+        <h2>Verify the registry, repository, tag, and architecture</h2>
+        <p>Private images may require a login, and a valid repository can still fail when the requested tag or platform is unavailable. Copy the full name from the registry rather than guessing it.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>docker login ghcr.io
+docker pull ghcr.io/owner/repository:&lt;tag&gt;
+
+# Request a specific platform only when the image publishes it
+docker pull --platform linux/amd64 ghcr.io/owner/repository:&lt;tag&gt;</code></pre>
         </div>
 
       </section>

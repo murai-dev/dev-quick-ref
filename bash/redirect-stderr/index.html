@@ -61,6 +61,27 @@
           "name": "bash redirect stderr to stdout — 2>&1 and &>"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Pipe both output streams into another command",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A pipe normally forwards stdout only. Put <code>2&gt;&amp;1</code> on the command before the pipe when stderr should be processed too.\n```\n# Send stdout and stderr to grep\ncommand 2>&1 | grep -i \"error\"\n\n# Keep the pipeline status meaningful when an earlier command fails\nset -o pipefail\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Keep stdout and stderr in separate files",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use separate file descriptors when a log consumer needs normal output and errors independently.\n```\ncommand > output.log 2> error.log\n\n# Append instead of replacing existing logs\ncommand >> output.log 2>> error.log\n```"
+          }
+        }
+      ]
     }
   ]
 }
@@ -173,6 +194,29 @@ command 1&gt;/dev/null</code></pre>
           <button class="copy-btn">Copy</button>
           <pre><code>output=$(command 2&gt;&amp;1)
 echo "Got: $output"</code></pre>
+        </div>
+
+        <h2>Pipe both output streams into another command</h2>
+        <p>A pipe normally forwards stdout only. Put <code>2&gt;&amp;1</code> on the command before the pipe when stderr should be processed too.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Send stdout and stderr to grep
+command 2&gt;&amp;1 | grep -i "error"
+
+# Keep the pipeline status meaningful when an earlier command fails
+set -o pipefail</code></pre>
+        </div>
+
+        <h2>Keep stdout and stderr in separate files</h2>
+        <p>Use separate file descriptors when a log consumer needs normal output and errors independently.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>command &gt; output.log 2&gt; error.log
+
+# Append instead of replacing existing logs
+command &gt;&gt; output.log 2&gt;&gt; error.log</code></pre>
         </div>
 
       </section>

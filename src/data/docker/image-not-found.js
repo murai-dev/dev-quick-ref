@@ -47,6 +47,27 @@ docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest`,
 # or filter by name
 docker images nginx`,
     },
+    {
+      title: 'Separate an image-name error from a container-name error',
+      explanation: 'An image is the artifact used to create a container. Check the image list and the stopped-container list separately so that a missing container is not mistaken for a missing image.',
+      code: `# Images available to pull or run
+docker image ls
+
+# Containers that already exist, including stopped ones
+docker ps -a
+
+# Inspect the exact image configured for a container
+docker inspect <container> --format '{{.Config.Image}}'`,
+    },
+    {
+      title: 'Verify the registry, repository, tag, and architecture',
+      explanation: 'Private images may require a login, and a valid repository can still fail when the requested tag or platform is unavailable. Copy the full name from the registry rather than guessing it.',
+      code: `docker login ghcr.io
+docker pull ghcr.io/owner/repository:<tag>
+
+# Request a specific platform only when the image publishes it
+docker pull --platform linux/amd64 ghcr.io/owner/repository:<tag>`,
+    },
   ],
   related: [
     { href: '/docker/build-failed-no-such-file/', text: 'docker build COPY — no such file or directory' },

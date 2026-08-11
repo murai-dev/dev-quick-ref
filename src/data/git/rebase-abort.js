@@ -25,6 +25,20 @@ git rebase --continue`,
       title: 'Check whether a rebase is in progress',
       code: `ls .git/rebase-merge 2>/dev/null && echo "rebase in progress" || echo "no rebase"`,
     },
+    {
+      title: 'Save conflict work before abandoning the rebase',
+      explanation: 'Abort restores the branch to the state before the rebase. If you edited conflict markers and may need those edits later, save a patch or copy the files first.',
+      code: `git diff > rebase-conflict.patch
+git status
+git rebase --abort`,
+    },
+    {
+      title: 'Use --quit only when you want to keep the current files',
+      explanation: '<code>git rebase --quit</code> stops the rebase bookkeeping without applying the normal abort reset. Use it only when you understand that the current index and worktree will remain as they are.',
+      code: `git status
+git rebase --quit
+# Inspect the files, then decide whether to commit, stash, or reset`,
+    },
   ],
   related: [
     { href: '/git/merge-conflict/', text: 'git merge conflict — how to resolve' },

@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>eslint version conflict with TypeScript — how to fix | error-reference.dev</title>
-    <meta name="description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages." />
+    <meta name="description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages. Check the installed versions and config format before changing dependencies." />
     <link rel="canonical" href="https://error-reference.dev/npm/eslint-version-conflict/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/npm/eslint-version-conflict/" />
     <meta property="og:title" content="eslint version conflict with TypeScript — how to fix | error-reference.dev" />
-    <meta property="og:description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages." />
+    <meta property="og:description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages. Check the installed versions and config format before changing dependencies." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="eslint version conflict with TypeScript — how to fix | error-reference.dev" />
-    <meta name="twitter:description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages." />
+    <meta name="twitter:description" content="Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages. Check the installed versions and config format before changing dependencies." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/npm/eslint-version-conflict/",
       "headline": "eslint version conflict with TypeScript — how to fix",
-      "description": "Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages.",
+      "description": "Fix ESLint and typescript-eslint version conflicts, including peer dependency issues between eslint@8/9 and @typescript-eslint packages. Check the installed versions and config format before changing dependencies.",
       "url": "https://error-reference.dev/npm/eslint-version-conflict/",
       "mainEntityOfPage": "https://error-reference.dev/npm/eslint-version-conflict/",
       "author": {
@@ -59,6 +59,27 @@
           "@type": "ListItem",
           "position": 3,
           "name": "eslint version conflict with TypeScript — how to fix"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Find which package is requesting the conflicting version",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The package named in the peer dependency error is not always the package you installed directly. Inspect the dependency tree before pinning a version.\n```\nnpm ls eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin\nnpm explain eslint\nnode --version\nnpm --version\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Align the config format with the ESLint major version",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ESLint 9 projects normally use <code>eslint.config.js</code>, while older projects may still use <code>.eslintrc</code>. Do not upgrade only ESLint while leaving the parser and plugin on an incompatible major version.\n```\n# Check peer requirements before installing\nnpm view @typescript-eslint/parser peerDependencies\nnpm view @typescript-eslint/eslint-plugin peerDependencies\n\n# Reinstall a matching set after choosing ESLint 8 or 9\nnpm install --save-dev eslint@<major> @typescript-eslint/parser@<major> @typescript-eslint/eslint-plugin@<major>\n```"
+          }
         }
       ]
     }
@@ -168,6 +189,30 @@ export default tseslint.config(
   "plugins": ["@typescript-eslint"],
   "extends": ["plugin:@typescript-eslint/recommended"]
 }</code></pre>
+        </div>
+
+        <h2>Find which package is requesting the conflicting version</h2>
+        <p>The package named in the peer dependency error is not always the package you installed directly. Inspect the dependency tree before pinning a version.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm ls eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+npm explain eslint
+node --version
+npm --version</code></pre>
+        </div>
+
+        <h2>Align the config format with the ESLint major version</h2>
+        <p>ESLint 9 projects normally use <code>eslint.config.js</code>, while older projects may still use <code>.eslintrc</code>. Do not upgrade only ESLint while leaving the parser and plugin on an incompatible major version.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Check peer requirements before installing
+npm view @typescript-eslint/parser peerDependencies
+npm view @typescript-eslint/eslint-plugin peerDependencies
+
+# Reinstall a matching set after choosing ESLint 8 or 9
+npm install --save-dev eslint@&lt;major&gt; @typescript-eslint/parser@&lt;major&gt; @typescript-eslint/eslint-plugin@&lt;major&gt;</code></pre>
         </div>
 
       </section>

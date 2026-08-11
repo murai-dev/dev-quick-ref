@@ -72,6 +72,22 @@
             "@type": "Answer",
             "text": "Use <code>git filter-repo</code> to remove it from the full history.\n```\n# Install: pip install git-filter-repo\ngit filter-repo --path path/to/large-file.zip --invert-paths\ngit push --force-with-lease origin main\n```"
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Check whether the file is still in the latest commit",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Removing a file from the working tree is not enough if it remains in the commit being pushed. Inspect the staged diff and commit history before trying the push again.\n```\ngit status\ngit diff --cached --stat\ngit log --stat --oneline -5 -- path/to/large-file.zip\n\n# Remove it from the index but keep the local file\ngit rm --cached path/to/large-file.zip\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Use force-with-lease only after rewriting history",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the large file exists in older commits, the remote still sees it until history is rewritten. Coordinate with other contributors before replacing shared history.\n```\ngit filter-repo --path path/to/large-file.zip --invert-paths\ngit push --force-with-lease origin <branch>\n```"
+          }
         }
       ]
     }
@@ -173,6 +189,28 @@ git add .gitattributes
 git add path/to/large-file.zip
 git commit -m "track zip with LFS"
 git push origin main</code></pre>
+        </div>
+
+        <h2>Check whether the file is still in the latest commit</h2>
+        <p>Removing a file from the working tree is not enough if it remains in the commit being pushed. Inspect the staged diff and commit history before trying the push again.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git status
+git diff --cached --stat
+git log --stat --oneline -5 -- path/to/large-file.zip
+
+# Remove it from the index but keep the local file
+git rm --cached path/to/large-file.zip</code></pre>
+        </div>
+
+        <h2>Use force-with-lease only after rewriting history</h2>
+        <p>If the large file exists in older commits, the remote still sees it until history is rewritten. Coordinate with other contributors before replacing shared history.</p>
+
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git filter-repo --path path/to/large-file.zip --invert-paths
+git push --force-with-lease origin &lt;branch&gt;</code></pre>
         </div>
 
       </section>

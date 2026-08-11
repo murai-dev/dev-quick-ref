@@ -40,6 +40,23 @@ command 1>/dev/null`,
       code: `output=$(command 2>&1)
 echo "Got: $output"`,
     },
+    {
+      title: 'Pipe both output streams into another command',
+      explanation: 'A pipe normally forwards stdout only. Put <code>2&gt;&amp;1</code> on the command before the pipe when stderr should be processed too.',
+      code: `# Send stdout and stderr to grep
+command 2>&1 | grep -i "error"
+
+# Keep the pipeline status meaningful when an earlier command fails
+set -o pipefail`,
+    },
+    {
+      title: 'Keep stdout and stderr in separate files',
+      explanation: 'Use separate file descriptors when a log consumer needs normal output and errors independently.',
+      code: `command > output.log 2> error.log
+
+# Append instead of replacing existing logs
+command >> output.log 2>> error.log`,
+    },
   ],
   related: [
     { href: '/bash/pipe-fail/', text: 'bash set -o pipefail' },
