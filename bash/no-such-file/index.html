@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>bash: no such file or directory — how to fix | error-reference.dev</title>
-    <meta name="description" content="Fix &quot;bash: no such file or directory&quot; caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter." />
+    <meta name="description" content="Fix &quot;bash: no such file or directory&quot; by separating a missing path from a broken shebang, CRLF line endings, or an incompatible binary." />
     <link rel="canonical" href="https://error-reference.dev/bash/no-such-file/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/bash/no-such-file/" />
     <meta property="og:title" content="bash: no such file or directory — how to fix | error-reference.dev" />
-    <meta property="og:description" content="Fix &quot;bash: no such file or directory&quot; caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter." />
+    <meta property="og:description" content="Fix &quot;bash: no such file or directory&quot; by separating a missing path from a broken shebang, CRLF line endings, or an incompatible binary." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="bash: no such file or directory — how to fix | error-reference.dev" />
-    <meta name="twitter:description" content="Fix &quot;bash: no such file or directory&quot; caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter." />
+    <meta name="twitter:description" content="Fix &quot;bash: no such file or directory&quot; by separating a missing path from a broken shebang, CRLF line endings, or an incompatible binary." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/bash/no-such-file/",
       "headline": "bash: no such file or directory — how to fix",
-      "description": "Fix \"bash: no such file or directory\" caused by wrong path, missing file, Windows line endings (CRLF), or a missing interpreter.",
+      "description": "Fix \"bash: no such file or directory\" by separating a missing path from a broken shebang, CRLF line endings, or an incompatible binary.",
       "url": "https://error-reference.dev/bash/no-such-file/",
       "mainEntityOfPage": "https://error-reference.dev/bash/no-such-file/",
       "author": {
@@ -65,6 +65,22 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "File really does not exist",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Resolve relative paths from the current working directory. A script path that worked in an IDE or parent shell may fail when a task runner starts in a different directory.\n```\n# Show exact path and check for typos\npwd\nls -la\n# Check hidden files and similar names\nfind . -maxdepth 2 -name 'script.sh' -print\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Shebang points to wrong interpreter",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The interpreter named after #! must exist and be executable. /usr/bin/env bash is usually more portable than hard-coding /bin/bash, but it still requires bash to be available on PATH.\n```\n# Check what interpreter is being used\nhead -1 script.sh\n# #!/usr/bin/env bash\n# #!/bin/bash\n\n# Find where bash actually is\ncommand -v bash\n```"
+          }
+        },
         {
           "@type": "Question",
           "name": "Wrong architecture binary",
@@ -133,15 +149,15 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># Verify the file exists and check the exact path
-ls -la script.sh
+          <pre><code># Check the path, first line, and file type
+target=./script.sh
+pwd
+ls -la "$target"
+head -n 1 "$target"
+file "$target"
 
-# Check for Windows line endings (CRLF) in the shebang line
-file script.sh
-# If it says "CRLF line terminators", convert:
-sed -i 's///' script.sh
-# or
-dos2unix script.sh</code></pre>
+# If the shebang contains CRLF, remove the carriage return
+perl -pi -e 's/$//' "$target"</code></pre>
         </div>
       </section>
 
@@ -152,33 +168,91 @@ dos2unix script.sh</code></pre>
 # or simply
 bash: ./script.sh: No such file or directory</code></pre>
         </div>
-        <p>The <code>^M</code> (carriage return) means the file was created on Windows. The shebang interpreter path is <code>/bin/bash</code> which does not exist.</p>
+        <p>The message does not identify one single cause. The target path may be wrong, the first line may name an unavailable interpreter, or the file may contain a carriage return in its shebang. Check the exact file before changing permissions.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Diagnosis</p>
+        <h2>Classify the missing path error</h2>
+        <p>If <code>ls</code> cannot find the target, fix the path or filename first. If the file exists but running <code>./script.sh</code> fails, inspect its first line. The kernel uses the shebang to choose the interpreter, so a wrong path there produces the same "No such file or directory" wording.</p>
+        <p>The <code>^M</code> marker means that a Windows carriage return became part of the interpreter path. That is different from a script that simply lacks execute permission, which normally produces "Permission denied".</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>target=./script.sh
+pwd
+ls -la "$target"
+head -n 1 "$target"
+file "$target"</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Shebang</p>
+        <h2>Use an interpreter that exists on the machine</h2>
+        <p>Prefer <code>#!/usr/bin/env bash</code> when the script should use the first <code>bash</code> on <code>PATH</code>. If the script requires a specific interpreter location, verify that location with <code>command -v</code> before running it.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>head -n 1 script.sh
+command -v bash
+command -v env
+
+# Run through bash while diagnosing the shebang
+bash script.sh</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Line endings</p>
+        <h2>Convert CRLF without changing the script logic</h2>
+        <p>When <code>file script.sh</code> reports CRLF line terminators, convert the file and inspect the first line again. Configure the editor or repository to preserve LF line endings so the problem does not return.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># One file
+perl -pi -e 's/$//' script.sh
+
+# Or use dos2unix when it is installed
+dos2unix script.sh
+
+head -n 1 script.sh
+file script.sh</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Binary files</p>
+        <h2>Check architecture and dynamic loader for binaries</h2>
+        <p>A compiled binary can also report "No such file or directory" when its interpreter or dynamic loader is unavailable. In that case, checking the file type is more useful than changing the shell script permissions.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>file ./my-binary
+ldd ./my-binary 2&gt;&amp;1 | head
+
+# On macOS
+otool -L ./my-binary</code></pre>
+        </div>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
         <h2>File really does not exist</h2>
+        <p>Resolve relative paths from the current working directory. A script path that worked in an IDE or parent shell may fail when a task runner starts in a different directory.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># Show exact path and check for typos
 pwd
 ls -la
-# Check hidden files
-ls -la | grep script</code></pre>
+# Check hidden files and similar names
+find . -maxdepth 2 -name 'script.sh' -print</code></pre>
         </div>
 
         <h2>Shebang points to wrong interpreter</h2>
+        <p>The interpreter named after #! must exist and be executable. /usr/bin/env bash is usually more portable than hard-coding /bin/bash, but it still requires bash to be available on PATH.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code># Check what interpreter is being used
 head -1 script.sh
-# #!/usr/bin/env bash   ← correct, portable
-# #!/bin/bash           ← works on most Linux systems
+# #!/usr/bin/env bash
+# #!/bin/bash
 
 # Find where bash actually is
-which bash
-# /usr/bin/bash   (not /bin/bash on some systems)</code></pre>
+command -v bash</code></pre>
         </div>
 
         <h2>Wrong architecture binary</h2>

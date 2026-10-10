@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>npm node-gyp build failed — how to fix | error-reference.dev</title>
-    <meta name="description" content="Fix &quot;node-gyp build failed&quot; by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows." />
+    <meta name="description" content="Fix npm node-gyp build failures by identifying the first failing tool, installing Python and the platform compiler, and matching node-gyp with the Node.js version." />
     <link rel="canonical" href="https://error-reference.dev/npm/node-gyp-failed/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/npm/node-gyp-failed/" />
     <meta property="og:title" content="npm node-gyp build failed — how to fix | error-reference.dev" />
-    <meta property="og:description" content="Fix &quot;node-gyp build failed&quot; by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows." />
+    <meta property="og:description" content="Fix npm node-gyp build failures by identifying the first failing tool, installing Python and the platform compiler, and matching node-gyp with the Node.js version." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="npm node-gyp build failed — how to fix | error-reference.dev" />
-    <meta name="twitter:description" content="Fix &quot;node-gyp build failed&quot; by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows." />
+    <meta name="twitter:description" content="Fix npm node-gyp build failures by identifying the first failing tool, installing Python and the platform compiler, and matching node-gyp with the Node.js version." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/npm/node-gyp-failed/",
       "headline": "npm node-gyp build failed — how to fix",
-      "description": "Fix \"node-gyp build failed\" by installing Python, build tools (make, gcc), and the correct Node.js headers. Covers macOS, Linux, and Windows.",
+      "description": "Fix npm node-gyp build failures by identifying the first failing tool, installing Python and the platform compiler, and matching node-gyp with the Node.js version.",
       "url": "https://error-reference.dev/npm/node-gyp-failed/",
       "mainEntityOfPage": "https://error-reference.dev/npm/node-gyp-failed/",
       "author": {
@@ -67,10 +67,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Use a pre-built binary if available",
+          "name": "Tell node-gyp which Python to use",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Some packages offer pre-built binaries via <code>node-pre-gyp</code> that skip compilation.\n```\nnpm install --ignore-scripts   # skip build step (may break native addons)\n\n# Or try the @next or community fork that dropped native deps\n# e.g. bcryptjs instead of bcrypt (pure JS)\n```"
+            "text": "When several Python versions are installed, pass the executable explicitly to node-gyp. The npm_config_python environment variable is documented for npm-invoked builds, but direct --python is the least ambiguous option and avoids npm version-specific configuration behavior.\n```\n# Direct node-gyp invocation\nnode-gyp configure --python /path/to/python\nnode-gyp build\n\n# npm invokes node-gyp\nexport npm_config_python=/path/to/python\nnpm install\n\n# PowerShell\n$Env:npm_config_python=\"C:\\Path\\python.exe\"\nnpm install\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A pre-built binary is unavailable",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many native packages try a pre-built binary first and compile from source when the binary does not match your operating system, CPU, or Node.js version. Upgrade the package to a release that supports your environment, or choose a compatible Node.js version.\n```\nnpm outdated <native-package-name>\nnpm view <native-package-name> versions --json\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Use --ignore-scripts only as a diagnostic",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Skipping lifecycle scripts can confirm that the failure occurs during native compilation, but it leaves the addon unbuilt and may make the application unusable. It is not a production fix.\n```\nnpm install --ignore-scripts\n\n# Re-enable scripts after fixing the toolchain\nnpm rebuild\n```"
           }
         }
       ]
@@ -133,16 +149,21 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code># macOS — install Xcode Command Line Tools
+          <pre><code># Identify the tool that failed before changing dependencies
+node --version
+npm --version
+python3 --version
+make --version
+c++ --version
+
+# macOS
 xcode-select --install
 
-# Ubuntu/Debian — install build tools
-sudo apt install -y build-essential python3
+# Ubuntu/Debian
+sudo apt install -y python3 make g++
 
-# Windows — install Windows Build Tools
-npm install -g windows-build-tools
-# or in PowerShell (admin):
-npm install --global --production windows-build-tools</code></pre>
+# Windows: install Python and Visual Studio
+# with the "Desktop development with C++" workload</code></pre>
         </div>
       </section>
 
@@ -154,46 +175,119 @@ gyp ERR! stack Error: `make` failed with exit code: 2
 gyp ERR! System    Darwin 23.0.0
 gyp ERR! command   "node" "/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js" "build" "--fallback-to-build"</code></pre>
         </div>
-        <p>node-gyp compiles native Node.js addons. It requires Python (2.7 or 3.x), <code>make</code>, and a C++ compiler.</p>
+        <p>node-gyp compiles native Node.js addons. A failure can occur while locating Python, generating build files, compiling C/C++ code, or downloading headers. The final <code>npm ERR! code 1</code> is only the result; the first <code>gyp ERR!</code> message identifies the repair.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Diagnosis</p>
+        <h2>Find the first failing tool</h2>
+        <p>Read upward from the final npm error. Messages about <code>find Python</code> indicate a Python discovery problem, <code>find VS</code> indicates a Windows Visual Studio toolchain problem, and a compiler error indicates a failure in the native source itself or the installed SDK.</p>
+        <p>Run the checks for the current platform before reinstalling the package. A native dependency can fall back to compilation when no compatible pre-built binary exists, so the same package may work on one machine and fail on another.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>node --version
+npm --version
+python3 --version
+make --version
+cc --version
+
+# Windows PowerShell
+py --version
+where.exe cl</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Platform setup</p>
+        <h2>Install the compiler toolchain for your platform</h2>
+        <p>On macOS, install Xcode Command Line Tools. On Unix-like systems, install a supported Python version, <code>make</code>, and a C/C++ compiler such as GCC or Clang.</p>
+        <p>On Windows, install Python and Visual Studio or Build Tools with the <code>Desktop development with C++</code> workload. The old <code>windows-build-tools</code> npm package is not the current node-gyp setup path.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># macOS
+xcode-select --install
+
+# Ubuntu/Debian
+sudo apt update
+sudo apt install -y python3 make g++
+
+# Windows PowerShell: list installed Python interpreters
+py --list-paths</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Compatibility</p>
+        <h2>Match Python, node-gyp, and Node.js versions</h2>
+        <p>Python 3.12 and newer requires node-gyp 10 or newer. If the package brings an older node-gyp through npm, upgrade the package or use a supported Python version instead of changing Python blindly.</p>
+        <p>Check the native package and its node-gyp dependency before choosing a Node.js version. Native addons may need a release that supports the ABI of the installed Node.js version.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>npm ls node-gyp
+npm ls &lt;native-package-name&gt;
+node --version
+
+# Show the package version that npm resolved
+npm explain &lt;native-package-name&gt;</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Retry</p>
+        <h2>Reinstall only after the toolchain is ready</h2>
+        <p>Once Python, the compiler, and the Node.js version are compatible, reinstall the dependencies. Keep <code>package-lock.json</code> when the project has one so that the retry uses the same dependency graph.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>rm -rf node_modules
+
+# Use the lockfile when it is committed
+npm ci
+
+# Otherwise resolve dependencies again
+npm install</code></pre>
+        </div>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
-        <h2>Specify Python version</h2>
+        <h2>Tell node-gyp which Python to use</h2>
+        <p>When several Python versions are installed, pass the executable explicitly to node-gyp. The npm_config_python environment variable is documented for npm-invoked builds, but direct --python is the least ambiguous option and avoids npm version-specific configuration behavior.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>npm install --python=/usr/bin/python3
+          <pre><code># Direct node-gyp invocation
+node-gyp configure --python /path/to/python
+node-gyp build
 
-# Or set globally
-npm config set python python3</code></pre>
+# npm invokes node-gyp
+export npm_config_python=/path/to/python
+npm install
+
+# PowerShell
+$Env:npm_config_python="C:\Path\python.exe"
+npm install</code></pre>
         </div>
 
-        <h2>Use a pre-built binary if available</h2>
-        <p>Some packages offer pre-built binaries via <code>node-pre-gyp</code> that skip compilation.</p>
+        <h2>A pre-built binary is unavailable</h2>
+        <p>Many native packages try a pre-built binary first and compile from source when the binary does not match your operating system, CPU, or Node.js version. Upgrade the package to a release that supports your environment, or choose a compatible Node.js version.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>npm install --ignore-scripts   # skip build step (may break native addons)
-
-# Or try the @next or community fork that dropped native deps
-# e.g. bcryptjs instead of bcrypt (pure JS)</code></pre>
+          <pre><code>npm outdated &lt;native-package-name&gt;
+npm view &lt;native-package-name&gt; versions --json</code></pre>
         </div>
 
-        <h2>Verify environment</h2>
+        <h2>Use --ignore-scripts only as a diagnostic</h2>
+        <p>Skipping lifecycle scripts can confirm that the failure occurs during native compilation, but it leaves the addon unbuilt and may make the application unusable. It is not a production fix.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>node -e "require('node-gyp').find()" 2&gt;&amp;1 || true
-python3 --version
-which make
-which gcc</code></pre>
+          <pre><code>npm install --ignore-scripts
+
+# Re-enable scripts after fixing the toolchain
+npm rebuild</code></pre>
         </div>
 
       </section>
       <section class="section">
         <p class="section-label">Related</p>
         <ul class="related-list">
-          <li><a href="/npm/enoent-no-such-file/">npm ENOENT error</a></li>
+          <li><a href="/npm/enoent-no-such-file/">npm ENOENT — identify the missing path</a></li>
           <li><a href="/npm/npm-cache-clean/">npm cache clean</a></li>
           <li><a href="/npm/module-not-found/">npm Cannot find module</a></li>
         </ul>

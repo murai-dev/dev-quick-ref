@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <title>git clone a specific branch | error-reference.dev</title>
-    <meta name="description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
+    <meta name="description" content="Clone one Git branch with git clone --branch, verify the remote branch name, and fix invalid reference or missing master branch errors." />
     <link rel="canonical" href="https://error-reference.dev/git/clone-specific-branch/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="error-reference.dev" />
     <meta property="og:url" content="https://error-reference.dev/git/clone-specific-branch/" />
     <meta property="og:title" content="git clone a specific branch | error-reference.dev" />
-    <meta property="og:description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
+    <meta property="og:description" content="Clone one Git branch with git clone --branch, verify the remote branch name, and fix invalid reference or missing master branch errors." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="git clone a specific branch | error-reference.dev" />
-    <meta name="twitter:description" content="Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches." />
+    <meta name="twitter:description" content="Clone one Git branch with git clone --branch, verify the remote branch name, and fix invalid reference or missing master branch errors." />
     <meta name="google-site-verification" content="enxC6My621Y-D7FP7s1Iyb3QHPBgvCvtkHjFOZtuAYg" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7634587507484193" crossorigin="anonymous"></script>
     <script type="module" src="../../src/entrypoints/page.ts"></script>
@@ -26,7 +26,7 @@
       "@type": "TechArticle",
       "@id": "https://error-reference.dev/git/clone-specific-branch/",
       "headline": "git clone a specific branch",
-      "description": "Clone and check out one branch with git clone --branch. Add --single-branch when you do not need the other remote branches.",
+      "description": "Clone one Git branch with git clone --branch, verify the remote branch name, and fix invalid reference or missing master branch errors.",
       "url": "https://error-reference.dev/git/clone-specific-branch/",
       "mainEntityOfPage": "https://error-reference.dev/git/clone-specific-branch/",
       "author": {
@@ -71,6 +71,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Fastest option for CI/CD — downloads only the tip of one branch.\n```\ngit clone --depth 1 --branch feature/login --single-branch https://github.com/user/repo.git\n```"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Switch to a different branch after cloning",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fetch the remote branch first, then create a local branch that tracks it. If the fetch reports that the branch does not exist, verify the exact remote name with git branch --remote.\n```\ngit fetch origin other-branch\ngit switch --track -c other-branch origin/other-branch\n```"
           }
         },
         {
@@ -141,13 +149,75 @@
         <p class="section-label">Quick Answer</p>
         <div class="code-block">
           <button class="copy-btn">Copy</button>
-          <pre><code>git clone --branch feature/login --single-branch https://github.com/user/repo.git</code></pre>
+          <pre><code># Check the branch name before cloning
+git ls-remote --heads https://github.com/user/repo.git
+
+# Clone one existing branch
+git clone --branch feature/login --single-branch https://github.com/user/repo.git</code></pre>
         </div>
       </section>
 
       <section class="section">
         <p class="section-label">When to use this</p>
+        <div class="code-block error-block">
+          <pre><code>fatal: Remote branch master not found in upstream origin
+fatal: invalid reference: master
+fatal: reference is not a tree: origin/master</code></pre>
+        </div>
         <p>You only need one branch of a large repository, or you want to clone a non-default branch directly.</p>
+      </section>
+      <section class="section">
+        <p class="section-label">Branch names</p>
+        <h2>Check the remote ref instead of guessing main or master</h2>
+        <p>The default branch is not always named <code>main</code> or <code>master</code>. An invalid reference error means that Git cannot resolve the name you supplied to a branch, tag, or commit in the current repository.</p>
+        <p>List the remote heads before choosing the branch. This also catches spelling and case differences in names such as <code>feature/Login</code> and <code>feature/login</code>.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code># Before cloning
+git ls-remote --heads https://github.com/user/repo.git
+
+# After a remote already exists
+git remote -v
+git fetch origin
+git branch --remote</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Clone</p>
+        <h2>Clone an existing branch and verify the checkout</h2>
+        <p>Pass the exact branch name to <code>--branch</code>. Add <code>--single-branch</code> when the repository does not need other remote branches, such as a focused CI checkout.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git clone --branch feature/login --single-branch https://github.com/user/repo.git
+cd repo
+git branch --show-current
+git log -1 --oneline</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">Existing clone</p>
+        <h2>Create a local branch from a remote branch</h2>
+        <p>If the repository is already cloned, fetch the remote ref and create a local tracking branch. Do not run <code>git switch master</code> until <code>origin/master</code> appears in the remote branch list.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git fetch origin
+git branch --remote
+
+git switch --track -c feature/login origin/feature/login</code></pre>
+        </div>
+      </section>
+      <section class="section">
+        <p class="section-label">History</p>
+        <h2>Fetch more history when the object is missing</h2>
+        <p>A valid branch name can still point to an object that a shallow clone does not have locally. If the failure involves an older commit, fetch more history or convert the clone before retrying.</p>
+        <div class="code-block">
+          <button class="copy-btn">Copy</button>
+          <pre><code>git rev-parse --is-shallow-repository
+git fetch --deepen=100 origin
+
+# If the full history is required
+git fetch --unshallow origin</code></pre>
+        </div>
       </section>
       <section class="section">
         <p class="section-label">Other causes &amp; fixes</p>
@@ -160,11 +230,12 @@
         </div>
 
         <h2>Switch to a different branch after cloning</h2>
+        <p>Fetch the remote branch first, then create a local branch that tracks it. If the fetch reports that the branch does not exist, verify the exact remote name with git branch --remote.</p>
 
         <div class="code-block">
           <button class="copy-btn">Copy</button>
           <pre><code>git fetch origin other-branch
-git checkout other-branch</code></pre>
+git switch --track -c other-branch origin/other-branch</code></pre>
         </div>
 
         <h2>Clone a specific tag</h2>
